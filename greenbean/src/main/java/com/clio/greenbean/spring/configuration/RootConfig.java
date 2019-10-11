@@ -11,7 +11,8 @@ import org.springframework.context.annotation.FilterType;
 @ComponentScan(basePackages = "com.clio",
     includeFilters = {
         @ComponentScan.Filter(type = FilterType.ASPECTJ,pattern = "com.clio..service..*"),
-        @ComponentScan.Filter(type = FilterType.ASPECTJ,pattern = "com.clio..component..*")
+        @ComponentScan.Filter(type = FilterType.ASPECTJ,pattern = "com.clio..component..*"),
+        @ComponentScan.Filter(type = FilterType.ASPECTJ,pattern = "com.clio..repository..*")
     }
 )
 public class RootConfig {

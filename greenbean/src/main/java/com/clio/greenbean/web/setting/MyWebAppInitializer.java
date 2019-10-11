@@ -1,5 +1,6 @@
 package com.clio.greenbean.web.setting;
 
+import com.clio.greenbean.spring.configuration.DispatcherServletConfig;
 import com.clio.greenbean.spring.configuration.RootConfig;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
@@ -15,11 +16,11 @@ public class MyWebAppInitializer extends AbstractAnnotationConfigDispatcherServl
     
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class[0];
+        return new Class<?>[]{DispatcherServletConfig.class};
     }
     
     @Override
     protected String[] getServletMappings() {
-        return new String[0];
+        return new String[]{"/"};
     }
 }
