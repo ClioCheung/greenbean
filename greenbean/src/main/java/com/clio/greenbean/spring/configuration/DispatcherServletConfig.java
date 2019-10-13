@@ -5,8 +5,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -20,7 +20,7 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 /**
  * created by 吾乃逆世之神也 on 2019/10/11
  */
-@Controller
+@Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = "com.clio",
     includeFilters={
@@ -44,7 +44,7 @@ public class DispatcherServletConfig implements WebMvcConfigurer,ApplicationCont
         templateResolver.setSuffix(".html");
         templateResolver.setTemplateMode(TemplateMode.HTML);
         templateResolver.setCharacterEncoding("UTF-8");
-        templateResolver.setCacheable(true);
+        templateResolver.setCacheable(false);
         return templateResolver;
     }
     
