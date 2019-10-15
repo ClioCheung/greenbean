@@ -1,6 +1,7 @@
 package com.clio.greenbean.spring.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -9,9 +10,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class SignController {
     
-    @RequestMapping({"/signIn","/"})
+    @RequestMapping({"/signIn"})
     public String signIn(){
         return "signIn";
     }
     
+    // Login form with error
+    @RequestMapping("/signInError")
+    public String loginError(Model model) {
+        model.addAttribute("signInError", true);
+        return "signIn";
+    }
 }

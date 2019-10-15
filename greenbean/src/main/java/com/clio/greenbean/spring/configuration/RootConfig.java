@@ -24,6 +24,9 @@ public class RootConfig {
     @Bean
     public DataSource dataSource(){
         BasicDataSource dataSource = new BasicDataSource();
+//      com.mysql.cj.jdbc.Driver 是 mysql-connector-java 6中的 及以上
+//        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+//      com.mysql.cj.jdbc.Driver  mysql-connector-java 5中的
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
         dataSource.setUrl("jdbc:mysql://localhost:3306/greenbean");
         dataSource.setUsername("root");
