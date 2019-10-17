@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class SignController {
     
-    @RequestMapping({"/signIn"})
+    @RequestMapping("/signIn")
     public String signIn(){
         return "signIn";
     }

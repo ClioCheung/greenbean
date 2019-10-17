@@ -3,16 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>SignIn</title>
+    <link rel="stylesheet" href="../common/bootstrap-4.3.1/css/bootstrap.min.css" th:href="@{/static/common/bootstrap-4.3.1/css/bootstrap.min.css}">
 </head>
 <body>
 <h1>SignIn page</h1>
 <p th:if="${signInError}" class="error">Wrong user or password</p>
 <form th:action="@{/signIn}" method="post">
     <label for="username">Username</label>:
-    <input type="text" id="username" name="username" autofocus="autofocus" /> <br />
+    <input type="text" id="username" name="username" autofocus="autofocus" /> <br/>
     <label for="password">Password</label>:
     <input type="password" id="password" name="password" /> <br />
     <input type="submit" value="Sign in" />
 </form>
+<script src="../common/jquery-3.3.1/jquery-3.3.1.slim.min.js" th:src="@{/static/common/jquery-3.3.1/jquery-3.3.1.slim.min.js}"></script>
+<script src="../common/popper-1.14.7/popper.min.js" th:src="@{/static/common/popper-1.14.7/popper.min.js}"></script>
+<script src="../common/bootstrap-4.3.1/js/bootstrap.min.js" th:src="@{/static/common/bootstrap-4.3.1/js/bootstrap.min.js}"></script>
 </body>
 </html>
