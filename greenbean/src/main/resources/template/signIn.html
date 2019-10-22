@@ -18,14 +18,14 @@
         </div>
     </header>
 
-    <div class="navTab">
+    <div class="navDiv">
         <ul class="nav nav-tabs greenbean-nav-tabs">
             <a id="signInTab" class="nav-link active greenbean-nav-link" href="javaScript:void(0);">Sign In</a>
             <a id="signUpTab" class="nav-link greenbean-nav-link" href="javaScript:void(0);">Sign Up</a>
         </ul>
     </div>
     <!-- XXX 重构两个form-->
-    <form class="form-sign" id="signInForm">
+    <form class="form-sign" id="signInForm" th:action="@{/signIn}" method="post">
         <label for="userNameSignIn" class="sr-only">UserName</label>
         <input type="text" id="userNameSignIn" name="username" class="form-control" placeholder="UsernameSignIn" required autofocus>
         <label for="passwordSignIn" class="sr-only">Password</label>
@@ -39,7 +39,7 @@
         <p class="mt-5 mb-3 text-muted">&copy; Clio 2019</p>
     </form>
 
-    <form class="form-sign hideForm" id="signUpForm">
+    <form class="form-sign hideForm" id="signUpForm" th:action="@{/signUp}" method="get">
         <label for="userNameSignUp" class="sr-only">UserName</label>
         <input type="text" id="userNameSignUp" name="username" class="form-control" placeholder="UsernameSignUp" required autofocus>
         <label for="passwordSignUp" class="sr-only">Password</label>

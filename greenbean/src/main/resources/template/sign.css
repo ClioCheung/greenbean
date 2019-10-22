@@ -45,7 +45,7 @@ body {
 .greenbean-nav-link.active {
     border-bottom: 0px !important;
 }
-.navTab {
+.navDiv {
     width: 100%;
     max-width: 330px;
     padding: 15px;

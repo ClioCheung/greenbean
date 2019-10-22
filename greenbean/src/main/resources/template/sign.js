@@ -1,7 +1,7 @@
 (function(){
     $(document).ready(function () {
         var activeClassName = "active";
-        var hideFormName = "hideForm";
+        var hideFormClassName = "hideForm";
         var signInTab = $("#signInTab");
         var signUpTab = $("#signUpTab");
         var signInForm = $("#signInForm");
@@ -21,7 +21,7 @@
 
         var handlerDataObject = {
             activeClassName: activeClassName,
-            hideFormName: hideFormName,
+            hideFormClassName: hideFormClassName,
             signObjectArray: signObjectArray
         }
 
@@ -32,11 +32,11 @@
                 if(signObjectArray[i].tab.is(tabDomObject)){
                     if(!tabDomObject.hasClass(handlerDataObject.activeClassName)) {
                         tabDomObject.addClass(handlerDataObject.activeClassName);
-                        signObjectArray[i].form.removeClass(handlerDataObject.hideFormName);
+                        signObjectArray[i].form.removeClass(handlerDataObject.hideFormClassName);
                     }
                 }else {
                     signObjectArray[i].tab.removeClass(handlerDataObject.activeClassName);
-                    signObjectArray[i].form.addClass(handlerDataObject.hideFormName);
+                    signObjectArray[i].form.addClass(handlerDataObject.hideFormClassName);
                 }
             }
         }
