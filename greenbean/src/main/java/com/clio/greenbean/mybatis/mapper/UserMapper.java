@@ -1,6 +1,7 @@
 package com.clio.greenbean.mybatis.mapper;
 
 import com.clio.greenbean.domain.User;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 /**
@@ -8,5 +9,5 @@ import org.apache.ibatis.annotations.Select;
  */
 public interface UserMapper {
     @Select("select * from t_user where id = #{id}")
-    User getUserById(Integer id);
+    User getUserById(@Param("id") Integer id);
 }

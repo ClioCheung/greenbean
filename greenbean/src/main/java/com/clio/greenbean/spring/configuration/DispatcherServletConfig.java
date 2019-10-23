@@ -31,7 +31,7 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 )
 public class DispatcherServletConfig implements WebMvcConfigurer,ApplicationContextAware {
    
-    public ApplicationContext applicationContext;
+    private ApplicationContext applicationContext;
     /**
      * 声明模板解析器bean
      *ITemplateResolver is a interface

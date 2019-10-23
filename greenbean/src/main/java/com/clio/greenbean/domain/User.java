@@ -24,6 +24,7 @@ public class User {
         return username;
     }
     
+    @SuppressWarnings("unused")
     public void setUsername(String username) {
         this.username = username;
     }
@@ -44,6 +45,7 @@ public class User {
         this.enable = enable;
     }
     
+    @SuppressWarnings("unused")
     public List<String> getAuthority() {
         return authority;
     }
