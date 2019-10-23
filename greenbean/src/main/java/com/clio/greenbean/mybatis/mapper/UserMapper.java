@@ -1,0 +1,12 @@
+package com.clio.greenbean.mybatis.mapper;
+
+import com.clio.greenbean.domain.User;
+import org.apache.ibatis.annotations.Select;
+
+/**
+ * created by 吾乃逆世之神也 on 2019/10/23
+ */
+public interface UserMapper {
+    @Select("select * from t_user where id = #{id}")
+    User getUserById(Integer id);
+}

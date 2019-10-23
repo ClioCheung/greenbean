@@ -1,6 +1,8 @@
 package com.clio.greenbean.spring.controller;
 
 import com.clio.greenbean.domain.User;
+import com.clio.greenbean.mybatis.mapper.UserMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,11 +18,18 @@ import java.util.List;
 @Controller
 public class SignController {
     
+    private UserMapper userMapper;
+    
+    @Autowired
+    public SignController(UserMapper userMapper){
+        this.userMapper = userMapper;
+    }
+    
     @RequestMapping(value = "/signIn",method = RequestMethod.GET)
     public String signIn(){
         return "signIn";
     }
-    
+
     // Login form with error
     @RequestMapping("/signInError")
     public String loginError(Model model) {
@@ -40,6 +49,11 @@ public class SignController {
         String userAuthority = "user";
         authority.add(userAuthority);
         user.setAuthority(authority);
+       
+        // test
+        User a = userMapper.getUserById(1);
+        System.out.println(a.getUsername());
+        
         return "signUpSuccess";
         
     }
