@@ -9,7 +9,7 @@ public class User {
     private Integer id;
     private String username;
     private String password;
-    private boolean enable;
+    private boolean enabled;
     private List<String> authority;
     
     public Integer getId() {
@@ -37,12 +37,12 @@ public class User {
         this.password = password;
     }
     
-    public boolean isEnable() {
-        return enable;
+    public boolean isEnabled() {
+        return enabled;
     }
     
-    public void setEnable(boolean enable) {
-        this.enable = enable;
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
     
     @SuppressWarnings("unused")

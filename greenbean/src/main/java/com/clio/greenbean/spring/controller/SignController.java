@@ -44,16 +44,13 @@ public class SignController {
         String userPassword = user.getPassword();
         String bcryptPassword = bCryptPasswordEncoder.encode(userPassword);
         user.setPassword(bcryptPassword);
-        user.setEnable(true);
+        user.setEnabled(true);
         List<String> authority = new ArrayList<>();
         String userAuthority = "user";
         authority.add(userAuthority);
         user.setAuthority(authority);
-       
-        // test
-        User a = userMapper.getUserById(1);
-        System.out.println(a.getUsername());
         
+        userMapper.insertUser(user);
         return "signUpSuccess";
         
     }
