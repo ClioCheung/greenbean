@@ -2,6 +2,7 @@ package com.clio.greenbean.spring.controller;
 
 import com.clio.greenbean.domain.User;
 import com.clio.greenbean.mybatis.mapper.UserMapper;
+import com.clio.greenbean.spring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -17,12 +18,11 @@ import java.util.List;
  */
 @Controller
 public class SignController {
-    
-    private UserMapper userMapper;
+    private UserService userService;
     
     @Autowired
-    public SignController(UserMapper userMapper){
-        this.userMapper = userMapper;
+    public SignController(UserService userService){
+        this.userService = userService;
     }
     
     @RequestMapping(value = "/signIn",method = RequestMethod.GET)
@@ -41,7 +41,7 @@ public class SignController {
     public String signUp(User user){
         // XXX 这里的 BCryptPasswordEncoder是否可以使用单例
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        String userPassword = user.getPassword();
+        String userPassword = user.getPassword().trim();
         String bcryptPassword = bCryptPasswordEncoder.encode(userPassword);
         user.setPassword(bcryptPassword);
         user.setEnabled(true);
@@ -49,8 +49,11 @@ public class SignController {
         String userAuthority = "user";
         authority.add(userAuthority);
         user.setAuthority(authority);
+        userService.insertUser(user);
         
-        userMapper.insertUser(user);
+//      比较原生密码与使用BCryptPassword加密后的密码是否matches
+        boolean f = bCryptPasswordEncoder.matches(userPassword,user.getPassword());
+        System.out.println(f);
         return "signUpSuccess";
         
     }
