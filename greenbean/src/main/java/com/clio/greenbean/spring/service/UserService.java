@@ -11,13 +11,14 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 public class UserService {
+    
     private UserMapper userMapper;
+    
     @Autowired
     public UserService(UserMapper userMapper){
         this.userMapper = userMapper;
     }
-    
-    // FIXME 事务无法生效
+
     @Transactional
     public void insertUser(User user){
         userMapper.insertUserBasicInfo(user);
