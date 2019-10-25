@@ -22,7 +22,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String QUERY_USER_SQL = "select username,password,enabled from t_user where username = ?";
     private static final String QUERY_AUTHORITIES_SQL = "select username,authority from t_authority inner join t_user on t_authority.user_id = t_user.id where username = ?";
     
-//    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
+    // @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     private DataSource dataSource;
     
     @Autowired
@@ -32,13 +32,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        // FIXME 刷新登录后的signIn页面，登录post请求返回403
         http.authorizeRequests()
             .antMatchers("/static/common/**","/static/template/**","/signUp","/about").permitAll()
             .anyRequest().authenticated()
             .and().formLogin().loginPage("/signIn").permitAll()
             .successForwardUrl("/home")
             .failureUrl("/signInError")
-            .and().logout().logoutSuccessUrl("/signIn")
+            .and().logout().logoutUrl("/signOut").logoutSuccessUrl("/signIn")
+            .and().rememberMe().key("greenbean").tokenValiditySeconds(120)
         ;
     }
     
