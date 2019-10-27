@@ -17,7 +17,7 @@
             form: signUpForm
         }
 
-        var signObjectArray = new Array(signInObject,signUpObject);
+        var signObjectArray = [signInObject,signUpObject];
 
         var handlerDataObject = {
             activeClassName: activeClassName,
@@ -44,6 +44,27 @@
         for (var i = 0; i < signObjectArray.length ; i++) {
             signObjectArray[i].tab.click(handlerDataObject,tabOnClickHandler);
         }
+
+        signUpForm.submit(function () {
+            debugger;
+            var validator = signUpForm.validate({
+                rules : {
+                    username : {
+                        required : true
+                    },
+                    password : {
+                        required : true
+                    },
+                    confirmPassword : {
+                        required : true,
+                        equalTo : "#passwordSignUp"
+                    }
+                }
+            });
+            var result = validator.valid();
+            // validator.destroy();
+            return result;
+        });
 
     });
 })();

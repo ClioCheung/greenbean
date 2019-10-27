@@ -28,22 +28,20 @@ body {
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
 }
-.form-sign input[type="password"] {
+.form-sign input#confirmPasswordSignUp {
     margin-bottom: 10px;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
 }
 
 .greenbean-nav-tabs {
     margin-bottom: 10px;
-    border-bottom: 0px;
+    border-bottom: 0;
 }
 .greenbean-nav-link {
     padding: .8rem 4.5rem;
     border-bottom: 1px solid #dee2e6 !important;
 }
 .greenbean-nav-link.active {
-    border-bottom: 0px !important;
+    border-bottom: 0 !important;
 }
 .navDiv {
     width: 100%;
