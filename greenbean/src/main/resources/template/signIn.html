@@ -25,6 +25,7 @@
         </ul>
     </div>
     <!-- XXX 重构两个form-->
+    <!-- sign In form -->
     <form class="form-sign" id="signInForm" th:action="@{/signIn}" method="post">
         <label for="userNameSignIn" class="sr-only">UserName</label>
         <input type="text" id="userNameSignIn" name="username" class="form-control" placeholder="Username" required autofocus>
@@ -39,6 +40,7 @@
         <p class="mt-5 mb-3 text-muted">&copy; Clio 2019</p>
     </form>
 
+<!-- sign Up form -->
     <form class="form-sign hideForm" id="signUpForm" th:action="@{/signUp}" method="post" novalidate>
         <label for="userNameSignUp" class="sr-only">UserName</label>
         <input type="text" id="userNameSignUp" name="username" class="form-control" placeholder="Username" autofocus>

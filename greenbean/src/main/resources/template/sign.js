@@ -59,10 +59,12 @@
                         required : true,
                         equalTo : "#passwordSignUp"
                     }
-                }
+                },
+                validClass : "is-valid",
+                errorClass : "is-invalid"
             });
-            var result = validator.valid();
-            // validator.destroy();
+            var result = signUpForm.valid();
+            console.log(result);
             return result;
         });
 
