@@ -42,13 +42,18 @@
 
 <!-- sign Up form -->
     <form class="form-sign hideForm" id="signUpForm" th:action="@{/signUp}" method="post" novalidate>
-        <label for="userNameSignUp" class="sr-only">UserName</label>
-        <input type="text" id="userNameSignUp" name="username" class="form-control" placeholder="Username" autofocus>
-        <label for="passwordSignUp" class="sr-only">Password</label>
-        <input type="password" id="passwordSignUp" name="password" class="form-control" placeholder="Password">
-        <label for="confirmPasswordSignUp" class="sr-only">ConfirmPassword</label>
-        <input type="password" id="confirmPasswordSignUp" name="confirmPassword" class="form-control" placeholder="Password again">
-
+        <div class="formInput">
+            <label for="userNameSignUp" class="sr-only">UserName</label>
+            <input type="text" id="userNameSignUp" name="username" class="form-control" placeholder="Username" autofocus>
+        </div>
+        <div class="formInput">
+            <label for="passwordSignUp" class="sr-only">Password</label>
+            <input type="password" id="passwordSignUp" name="password" class="form-control" placeholder="Password">
+        </div>
+        <div class="formInput">
+            <label for="confirmPasswordSignUp" class="sr-only">ConfirmPassword</label>
+            <input type="password" id="confirmPasswordSignUp" name="confirmPassword" class="form-control" placeholder="Password again">
+        </div>
         <button id="signUpSubmitButton" class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
         <p class="mt-5 mb-3 text-muted">&copy; Clio 2019</p>
     </form>
