@@ -1,12 +1,14 @@
 package com.clio.greenbean.spring.controller;
 
 import com.clio.greenbean.domain.User;
-import com.clio.greenbean.mybatis.mapper.UserMapper;
+import com.clio.greenbean.dto.UserDTO;
 import com.clio.greenbean.spring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -39,25 +41,30 @@ public class SignController {
     }
     
     @RequestMapping(value = "/signUp",method = RequestMethod.POST)
-    public String signUp(User user){
+    public String signUp(@Validated UserDTO userDTO, BindingResult bindingResult){
         // XXX 这里的 BCryptPasswordEncoder是否可以使用单例
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        String userPassword = user.getPassword().trim();
+        String userPassword = userDTO.getPassword().trim();
         String bcryptPassword = bCryptPasswordEncoder.encode(userPassword);
-        user.setPassword(bcryptPassword);
-        user.setEnabled(true);
-        List<String> authority = new ArrayList<>();
-        String userAuthority = "user";
-        authority.add(userAuthority);
-        user.setAuthority(authority);
-        userService.insertUser(user);
         
-//      比较原生密码与使用BCryptPassword加密后的密码是否matches
-        boolean f = bCryptPasswordEncoder.matches(userPassword,user.getPassword());
-        System.out.println(f);
-        return "signUpSuccess";
-        
+        String viewResult = null;
+        if (!bindingResult.hasErrors()){
+            User user = new User();
+            user.setUsername(userDTO.getUsername());
+            user.setPassword(bcryptPassword);
+            user.setEnabled(true);
+            List<String> authority = new ArrayList<>();
+            String userAuthority = "user";
+            authority.add(userAuthority);
+            user.setAuthority(authority);
+            userService.insertUser(user);
+            viewResult = "signUpSuccess";
+        } else {
+            viewResult = "signUpFail";
+        }
+        return viewResult;
     }
+    
     @RequestMapping(value = "signUp/validateUsername",method = RequestMethod.GET)
     @ResponseBody
     public String validateUsername(String username){

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>signUpFail</title>
+</head>
+<body>
+    <h1>Sorry...  This is signUpFail Page.</h1>
+    <a id="signOutLink" href="javascript:void(0)">Sign Out</a>
+    <form id="signOutForm" style="display:none" method="post" th:action="@{/signOut}"></form>
+
+    <script src="../common/jquery-3.3.1/jquery-3.3.1.slim.min.js" th:src="@{/static/common/jquery-3.3.1/jquery-3.3.1.slim.min.js}"></script>
+    <script src="home.js" th:src="@{/static/template/home.js}"></script>
+</body>
+</html>
