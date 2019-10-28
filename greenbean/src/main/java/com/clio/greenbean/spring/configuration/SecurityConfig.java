@@ -33,6 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // FIXME 刷新登录后的signIn页面，登录post请求返回403
+        // XXX 需要重构loginPage的url，改为sign
         http.authorizeRequests()
             .antMatchers("/static/common/**","/static/template/**","/signUp","/signUp/*","/about").permitAll()
             .anyRequest().authenticated()
