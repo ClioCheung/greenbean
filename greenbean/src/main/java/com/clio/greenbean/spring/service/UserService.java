@@ -24,4 +24,9 @@ public class UserService {
         userMapper.insertUserBasicInfo(user);
         userMapper.insertUserAuthority(user.getId(),user.getAuthority());
     }
+    
+    public boolean validateUsername(String username) {
+        Integer result = userMapper.getUserByUsername(username);
+        return result == null;
+    }
 }

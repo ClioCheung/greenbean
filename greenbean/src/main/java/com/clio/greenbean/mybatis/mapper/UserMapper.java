@@ -14,8 +14,10 @@ import java.util.List;
 public interface UserMapper {
     
     @Select("select * from t_user where id = #{id}")
-    User getUserById(@Param("id") Integer id);
+    User getUserQById(@Param("id") Integer id);
     
+    @Select("select * from t_user where username = #{username}")
+    Integer getUserByUsername(@Param("username") String username);
     
     @Insert("insert into t_user (username,password,enabled)" +
             " values(#{user.username},#{user.password},#{user.enabled})")
@@ -32,4 +34,6 @@ public interface UserMapper {
             "</script>"
     })
     void insertUserAuthority(@Param("user_id") Integer userId, @Param("authority") List<String> authority);
+    
+   
 }

@@ -76,14 +76,14 @@
         userNameSignUp.blur(function (event) {
            $.ajax({
                 url: "signUp/validateUsername",
-                method: "post",
+                method: "GET",
                 data: {
                     username: $(event.target).val()
                 },
-                done: function done(data, textStatus, jqXHR) {
+                done: function (data, textStatus, jqXHR) {
                     console.log("done");
                 },
-                fail: function fail(jqXHR, textStatus, errorThrown) {
+                fail: function (jqXHR, textStatus, errorThrown) {
                     console.log("fail");
                 }
            })

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,5 +57,11 @@ public class SignController {
         System.out.println(f);
         return "signUpSuccess";
         
+    }
+    @RequestMapping(value = "signUp/validateUsername",method = RequestMethod.GET)
+    @ResponseBody
+    public String validateUsername(String username){
+        boolean result = userService.validateUsername(username);
+        return String.valueOf(result);
     }
 }
