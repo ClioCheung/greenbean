@@ -8,12 +8,11 @@ import java.lang.annotation.*;
  * created by 吾乃逆世之神也 on 2019/10/28
  */
 @Documented
-@Constraint(validatedBy = {UserDTOPasswordValidator.class})
-@Target(ElementType.TYPE)
+@Constraint(validatedBy = {UserDTOUsernameValidator.class})
+@Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface UserDTOPasswordEqualsConstrain {
-    
-    String message() default "This password does not equal to confirmPassword";
+public @interface UserDTOUsernameNotExistConstrain {
+    String message() default "This username exists.";
     
     Class<?>[] groups() default {};
     

@@ -1,6 +1,7 @@
 package com.clio.greenbean.dto;
 
 import com.clio.greenbean.spring.validation.UserDTOPasswordEqualsConstrain;
+import com.clio.greenbean.spring.validation.UserDTOUsernameNotExistConstrain;
 
 import javax.validation.constraints.NotBlank;
 
@@ -11,6 +12,7 @@ import javax.validation.constraints.NotBlank;
 public class UserDTO {
     
     @NotBlank
+    @UserDTOUsernameNotExistConstrain
     private String username;
     @NotBlank
     private String password;

@@ -45,41 +45,41 @@
             signObjectArray[i].tab.click(handlerDataObject, tabOnClickHandler);
         }
 
-        // signUpForm.validate({
-        //     rules: {
-        //         username: {
-        //             required: true,
-        //             remote: {
-        //                 url: "signUp/validateUsername",
-        //                 type: "GET",
-        //                 data: {
-        //                     username: function(){
-        //                         return $("#userNameSignUp").val();
-        //                     }
-        //                 }
-        //             }
-        //         },
-        //         password: {
-        //             required: true
-        //         },
-        //         confirmPassword: {
-        //             required: true,
-        //             equalTo: "#passwordSignUp"
-        //         }
-        //     },
-        //     messages: {
-        //         username: {
-        //             required: "Please fill in your username.",
-        //             remote: "This username already exists."
-        //         }
-        //     },
-        //     validClass: "is-valid",
-        //     errorClass: "is-invalid",
-        //     errorElement: "div",
-        //     showErrors: function () {
-        //         this.defaultShowErrors();
-        //         $("div.is-invalid").addClass("invalid-feedback");
-        //     },
-        // });
+        signUpForm.validate({
+            rules: {
+                username: {
+                    required: true,
+                    remote: {
+                        url: "signUp/validateUsername",
+                        type: "GET",
+                        data: {
+                            username: function(){
+                                return $("#userNameSignUp").val();
+                            }
+                        }
+                    }
+                },
+                password: {
+                    required: true
+                },
+                confirmPassword: {
+                    required: true,
+                    equalTo: "#passwordSignUp"
+                }
+            },
+            messages: {
+                username: {
+                    required: "Please fill in your username.",
+                    remote: "This username already exists."
+                }
+            },
+            validClass: "is-valid",
+            errorClass: "is-invalid",
+            errorElement: "div",
+            showErrors: function () {
+                this.defaultShowErrors();
+                $("div.is-invalid").addClass("invalid-feedback");
+            },
+        });
     });
 })();

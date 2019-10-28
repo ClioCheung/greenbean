@@ -8,10 +8,7 @@ import javax.validation.ConstraintValidatorContext;
 /**
  * created by 吾乃逆世之神也 on 2019/10/28
  */
-public class UserDTOValidator implements ConstraintValidator<UserDTOPasswordEqualsConstrain, UserDTO> {
-    @Override
-    public void initialize(UserDTOPasswordEqualsConstrain constraintAnnotation) {
-    }
+public class UserDTOPasswordValidator implements ConstraintValidator<UserDTOPasswordEqualsConstrain, UserDTO> {
     
     @Override
     public boolean isValid(UserDTO userDTO, ConstraintValidatorContext constraintValidatorContext) {
