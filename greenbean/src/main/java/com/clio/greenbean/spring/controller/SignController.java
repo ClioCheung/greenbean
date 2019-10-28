@@ -43,12 +43,11 @@ public class SignController {
     @RequestMapping(value = "/signUp",method = RequestMethod.POST)
     public String signUp(@Validated UserDTO userDTO, BindingResult bindingResult){
         // XXX 这里的 BCryptPasswordEncoder是否可以使用单例
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        String userPassword = userDTO.getPassword().trim();
-        String bcryptPassword = bCryptPasswordEncoder.encode(userPassword);
-        
         String viewResult = null;
         if (!bindingResult.hasErrors()){
+            BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+            String userPassword = userDTO.getPassword().trim();
+            String bcryptPassword = bCryptPasswordEncoder.encode(userPassword);
             User user = new User();
             user.setUsername(userDTO.getUsername());
             user.setPassword(bcryptPassword);
