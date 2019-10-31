@@ -34,8 +34,8 @@ public class RootConfig {
         // com.mysql.cj.jdbc.Driver 是 mysql-connector-java 6中的 及以上
         //   dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         // com.mysql.cj.jdbc.Driver  mysql-connector-java 5中的
-        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/greenbean?serverTimezone=UTC");
+        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/greenbean?serverTimezone=GMT%2B8");
         dataSource.setUsername("root");
         dataSource.setPassword("root");
         return dataSource;
