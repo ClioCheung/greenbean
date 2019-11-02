@@ -16,7 +16,7 @@ class UserServiceTest {
     private static UserMapper mockUserMapper;
     
     @BeforeAll
-    public static void setUp(){
+    static void setUp(){
         mockUserMapper = Mockito.mock(UserMapper.class);
         userService = new UserService(mockUserMapper);
     }
@@ -33,9 +33,7 @@ class UserServiceTest {
     
     @Test
     void TestInsertUserWithNull(){
-        Assertions.assertThrows(IllegalArgumentException.class,() -> {
-            userService.insertUser(null);
-        });
+        Assertions.assertThrows(IllegalArgumentException.class,() -> userService.insertUser(null));
         Mockito.verify(mockUserMapper,Mockito.never()).insertUserBasicInfo(Mockito.any());
         Mockito.verify(mockUserMapper,Mockito.never()).insertUserAuthority(Mockito.any(),Mockito.any());
     }
