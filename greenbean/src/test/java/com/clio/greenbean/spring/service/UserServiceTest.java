@@ -3,6 +3,7 @@ package com.clio.greenbean.spring.service;
 import com.clio.greenbean.domain.User;
 import com.clio.greenbean.mybatis.mapper.UserMapper;
 import org.junit.jupiter.api.Test;
+import org.mockito.InOrder;
 import org.mockito.Mockito;
 
 /**
@@ -28,8 +29,10 @@ public class UserServiceTest {
         userMapperField.set(userService,mockUserMapper);*/
         
         userService.insertUser(mockUser);
-        Mockito.verify(mockUserMapper).insertUserBasicInfo(mockUser);
-        Mockito.verify(mockUserMapper).insertUserAuthority(mockUser.getId(),mockUser.getAuthority());
+//      验证调用顺序
+        InOrder inOrder = Mockito.inOrder(mockUserMapper);
+        inOrder.verify(mockUserMapper).insertUserBasicInfo(mockUser);
+        inOrder.verify(mockUserMapper).insertUserAuthority(mockUser.getId(),mockUser.getAuthority());
     }
     
 }
