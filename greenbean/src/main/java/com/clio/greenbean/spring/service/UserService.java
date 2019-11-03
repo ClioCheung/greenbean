@@ -21,7 +21,7 @@ public class UserService {
 
     @Transactional
     public void insertUser(User user){
-        if(user != null) {
+        if(user != null){
             userMapper.insertUserBasicInfo(user);
             userMapper.insertUserAuthority(user.getId(),user.getAuthority());
         } else {
