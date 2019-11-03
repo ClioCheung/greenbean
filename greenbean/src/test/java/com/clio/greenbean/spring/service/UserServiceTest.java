@@ -2,7 +2,6 @@ package com.clio.greenbean.spring.service;
 
 import com.clio.greenbean.domain.User;
 import com.clio.greenbean.mybatis.mapper.UserMapper;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.InOrder;
@@ -30,12 +29,4 @@ class UserServiceTest {
         inOrder.verify(mockUserMapper).insertUserBasicInfo(mockUser);
         inOrder.verify(mockUserMapper).insertUserAuthority(mockUser.getId(),mockUser.getAuthority());
     }
-    
-    @Test
-    void TestInsertUserWithNull(){
-        Assertions.assertThrows(IllegalArgumentException.class,() -> userService.insertUser(null));
-        Mockito.verify(mockUserMapper,Mockito.never()).insertUserBasicInfo(Mockito.any());
-        Mockito.verify(mockUserMapper,Mockito.never()).insertUserAuthority(Mockito.any(),Mockito.any());
-    }
-    
 }
