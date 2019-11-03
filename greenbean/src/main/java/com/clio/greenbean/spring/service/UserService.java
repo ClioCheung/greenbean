@@ -21,13 +21,8 @@ public class UserService {
 
     @Transactional
     public void insertUser(User user){
-        if(user != null){
-            userMapper.insertUserBasicInfo(user);
-            userMapper.insertUserAuthority(user.getId(),user.getAuthority());
-        } else {
-            throw new IllegalArgumentException("The argument named 'user' should not be null!");
-        }
-       
+        userMapper.insertUserBasicInfo(user);
+        userMapper.insertUserAuthority(user.getId(),user.getAuthority());
     }
     
     public boolean validateUsername(String username) {
