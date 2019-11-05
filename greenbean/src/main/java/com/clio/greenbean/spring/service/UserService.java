@@ -22,7 +22,7 @@ public class UserService {
 
     @Transactional
     public void insertUser(User user) throws UsernameDuplicatedException {
-        if (validateUsernameDuplicated(user.getUsername())) {
+        if (this.validateUsernameDuplicated(user.getUsername())) {
             userMapper.insertUserBasicInfo(user);
             userMapper.insertUserAuthority(user.getId(),user.getAuthority());
         } else{
@@ -31,7 +31,7 @@ public class UserService {
     }
     
     public boolean validateUsernameDuplicated(String username) {
-        Integer result = userMapper.getUserByUsername(username);
+        User result = userMapper.getUserByUsername(username);
         return result == null;
     }
 }

@@ -9,7 +9,8 @@ import javax.validation.constraints.NotBlank;
  */
 @UserDTOPasswordEqualsConstrain
 public class UserDTO {
-    
+    // TODO 验证username的长度
+    // TODO 验证user password的格式
     @NotBlank
     private String username;
     @NotBlank
