@@ -14,7 +14,6 @@ public class UserDTOPasswordValidator implements ConstraintValidator<UserDTOPass
     public boolean isValid(UserDTO userDTO, ConstraintValidatorContext constraintValidatorContext) {
         String password = userDTO.getPassword();
         String confirmPassword = userDTO.getConfirmPassword();
-        boolean validateResult = password.equals(confirmPassword);
-        return validateResult;
+        return password.equals(confirmPassword);
     }
 }

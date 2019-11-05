@@ -39,6 +39,7 @@ public class UserDTO {
         return confirmPassword;
     }
     
+    @SuppressWarnings("unused")
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
     }

@@ -13,9 +13,11 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface UserDTOPasswordEqualsConstrain {
     
+    @SuppressWarnings("unused")
     String message() default "This password does not equal to confirmPassword";
     
     Class<?>[] groups() default {};
     
+    @SuppressWarnings("unused")
     Class<? extends Payload>[] payload() default {};
 }

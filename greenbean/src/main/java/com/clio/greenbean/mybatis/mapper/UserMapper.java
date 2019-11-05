@@ -13,6 +13,7 @@ import java.util.List;
  */
 public interface UserMapper {
     
+    @SuppressWarnings("unused")
     @Select("select * from t_user where id = #{id}")
     User getUserQById(@Param("id") Integer id);
     

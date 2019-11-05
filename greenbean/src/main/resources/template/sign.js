@@ -1,34 +1,34 @@
 (function () {
-    $(document).ready(function () {
-        var activeClassName = "active";
-        var hideFormClassName = "hideForm";
-        var signInTab = $("#signInTab");
-        var signUpTab = $("#signUpTab");
-        var signInForm = $("#signInForm");
-        var signUpForm = $("#signUpForm");
+    $(function () {
+        const activeClassName = "active";
+        const hideFormClassName = "hideForm";
+        const signInTab = $("#signInTab");
+        const signUpTab = $("#signUpTab");
+        const signInForm = $("#signInForm");
+        const signUpForm = $("#signUpForm");
 
-        var signInObject = {
+        const signInObject = {
             tab: signInTab,
             form: signInForm
-        }
+        };
 
-        var signUpObject = {
+        const signUpObject = {
             tab: signUpTab,
             form: signUpForm
-        }
+        };
 
-        var signObjectArray = [signInObject, signUpObject];
+        const signObjectArray = [signInObject, signUpObject];
 
-        var handlerDataObject = {
+        let handlerDataObject = {
             activeClassName: activeClassName,
             hideFormClassName: hideFormClassName,
             signObjectArray: signObjectArray
-        }
+        };
 
-        var tabOnClickHandler = function (event) {
+        const tabOnClickHandler = function (event) {
             handlerDataObject = event.data;
-            var tabDomObject = $(event.target);
-            for (var i = 0; i < signObjectArray.length; i++) {
+            const tabDomObject = $(event.target);
+            for (let i = 0; i < signObjectArray.length; i++) {
                 if (signObjectArray[i].tab.is(tabDomObject)) {
                     if (!tabDomObject.hasClass(handlerDataObject.activeClassName)) {
                         tabDomObject.addClass(handlerDataObject.activeClassName);
@@ -39,10 +39,10 @@
                     signObjectArray[i].form.addClass(handlerDataObject.hideFormClassName);
                 }
             }
-        }
+        };
 
-        for (var i = 0; i < signObjectArray.length; i++) {
-            signObjectArray[i].tab.click(handlerDataObject, tabOnClickHandler);
+        for (let i = 0; i < signObjectArray.length; i++) {
+            signObjectArray[i].tab.on("click",handlerDataObject, tabOnClickHandler);
         }
 
         signUpForm.validate({

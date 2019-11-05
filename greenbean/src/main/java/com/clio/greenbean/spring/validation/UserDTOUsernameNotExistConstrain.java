@@ -12,9 +12,11 @@ import java.lang.annotation.*;
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface UserDTOUsernameNotExistConstrain {
+    @SuppressWarnings("unused")
     String message() default "This username exists.";
     
     Class<?>[] groups() default {};
     
+    @SuppressWarnings("unused")
     Class<? extends Payload>[] payload() default {};
 }
