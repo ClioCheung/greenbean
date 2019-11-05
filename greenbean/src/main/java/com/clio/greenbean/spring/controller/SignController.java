@@ -2,17 +2,21 @@ package com.clio.greenbean.spring.controller;
 
 import com.clio.greenbean.domain.User;
 import com.clio.greenbean.dto.UserDTO;
+import com.clio.greenbean.exception.UsernameDuplicatedException;
 import com.clio.greenbean.spring.service.UserService;
+import com.sun.deploy.net.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +45,7 @@ public class SignController {
     }
     
     @RequestMapping(value = "/signUp",method = RequestMethod.POST)
-    public String signUp(@Validated UserDTO userDTO, BindingResult bindingResult){
+    public String signUp(@Validated UserDTO userDTO, BindingResult bindingResult,HttpServletResponse response){
         // XXX 这里的 BCryptPasswordEncoder是否可以使用单例
         String viewResult = null;
         if (!bindingResult.hasErrors()){
@@ -59,6 +63,7 @@ public class SignController {
             userService.insertUser(user);
             viewResult = "signUpSuccess";
         } else {
+            response.setStatus(403);
             viewResult = "signUpFail";
         }
         return viewResult;
@@ -67,7 +72,13 @@ public class SignController {
     @RequestMapping(value = "signUp/validateUsername",method = RequestMethod.GET)
     @ResponseBody
     public String validateUsername(String username){
-        boolean result = userService.validateUsername(username);
+        boolean result = userService.validateUsernameDuplicated(username);
         return String.valueOf(result);
+    }
+    
+    @ExceptionHandler(UsernameDuplicatedException.class)
+    public String handleUsernameDuplicatedException(HttpServletResponse response){
+        response.setStatus(403);
+        return "signUpFail";
     }
 }

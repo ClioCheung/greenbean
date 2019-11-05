@@ -1,6 +1,7 @@
 package com.clio.greenbean.spring.service;
 
 import com.clio.greenbean.domain.User;
+import com.clio.greenbean.exception.UsernameDuplicatedException;
 import com.clio.greenbean.mybatis.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,12 +21,16 @@ public class UserService {
     }
 
     @Transactional
-    public void insertUser(User user){
-        userMapper.insertUserBasicInfo(user);
-        userMapper.insertUserAuthority(user.getId(),user.getAuthority());
+    public void insertUser(User user) throws UsernameDuplicatedException {
+        if (validateUsernameDuplicated(user.getUsername())) {
+            userMapper.insertUserBasicInfo(user);
+            userMapper.insertUserAuthority(user.getId(),user.getAuthority());
+        } else{
+            throw new UsernameDuplicatedException("Username: [" + user.getUsername() + "] has existed in database.");
+        }
     }
     
-    public boolean validateUsername(String username) {
+    public boolean validateUsernameDuplicated(String username) {
         Integer result = userMapper.getUserByUsername(username);
         return result == null;
     }
