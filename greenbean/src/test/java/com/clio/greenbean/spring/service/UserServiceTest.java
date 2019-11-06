@@ -1,6 +1,7 @@
 package com.clio.greenbean.spring.service;
 
 import com.clio.greenbean.domain.User;
+import com.clio.greenbean.exception.UsernameDuplicatedException;
 import com.clio.greenbean.mybatis.mapper.UserMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -45,17 +46,25 @@ class UserServiceTest {
     }
     
     @Test
+    void testInsertUserWithDuplicatedUsername() {
+        Mockito.when(mockUserMapper.getUserByUsername("a")).thenReturn(Mockito.mock(User.class));
+        User mockUser =  Mockito.mock(User.class);
+        Mockito.when(mockUser.getUsername()).thenReturn("a");
+        Assertions.assertThrows(UsernameDuplicatedException.class, ()-> userService.insertUser(mockUser));
+    }
+    
+    @Test
     void testValidateUsernameDuplicatedExist(){
         Mockito.when(mockUserMapper.getUserByUsername("a")).thenReturn(Mockito.mock(User.class));
         boolean validateUserA = userService.validateUsernameDuplicated("a");
-        Assertions.assertEquals(false, validateUserA);
+        Assertions.assertFalse(validateUserA);
     }
     
     @Test
     void testValidateUsernameDuplicatedNotExist(){
         Mockito.when(mockUserMapper.getUserByUsername("b")).thenReturn(null);
         boolean validateUserB = userService. validateUsernameDuplicated("b");
-        Assertions.assertEquals(true, validateUserB);
+        Assertions.assertTrue(validateUserB);
     }
     
 }
