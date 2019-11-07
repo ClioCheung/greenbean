@@ -49,17 +49,7 @@ public class SignController {
         // XXX 这里的 BCryptPasswordEncoder是否可以使用单例
         String viewResult = null;
         if (!bindingResult.hasErrors()){
-            BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-            String userPassword = userDTO.getPassword().trim();
-            String bcryptPassword = bCryptPasswordEncoder.encode(userPassword);
-            User user = new User();
-            user.setUsername(userDTO.getUsername());
-            user.setPassword(bcryptPassword);
-            user.setEnabled(true);
-            List<String> authority = new ArrayList<>();
-            String userAuthority = "user";
-            authority.add(userAuthority);
-            user.setAuthority(authority);
+            User user = generateUser(userDTO);
             userService.insertUser(user);
             viewResult = "signUpSuccess";
         } else {
@@ -68,6 +58,27 @@ public class SignController {
         }
         return viewResult;
     }
+    
+    private String encode(String password){
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        String bcryptPassword = bCryptPasswordEncoder.encode(password);
+        return bcryptPassword;
+    }
+    
+    private User generateUser(UserDTO userDTO){
+        User user = new User();
+        String userPassword = userDTO.getPassword().trim();
+        String bcryptPassword = this.encode(userPassword);
+        user.setUsername(userDTO.getUsername());
+        user.setPassword(bcryptPassword);
+        user.setEnabled(true);
+        List<String> authority = new ArrayList<>();
+        String userAuthority = "user";
+        authority.add(userAuthority);
+        user.setAuthority(authority);
+        return user;
+    }
+    
     
     @RequestMapping(value = "signUp/validateUsername",method = RequestMethod.GET)
     @ResponseBody

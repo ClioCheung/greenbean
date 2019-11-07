@@ -28,6 +28,7 @@ class UserServiceTest {
         userService = new UserService(mockUserMapper);
     }
     
+    @SuppressWarnings("unchecked")
     @Test
     void testInsertUser(){
         int mockUserId = 666;
