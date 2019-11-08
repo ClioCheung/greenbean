@@ -10,6 +10,7 @@ import org.mockito.InOrder;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,6 +19,9 @@ import java.util.List;
 class UserServiceTest {
     private static String existedUsername = "exist";
     private static String notExistedUsername = "notExist";
+    private static String defaultPassword = "password";
+    private static Integer existId = 100;
+    private static Integer userIdGeneratedByDatabase = 666;
     
     private static UserService userService;
     private static UserMapper mockUserMapper;
@@ -31,44 +35,35 @@ class UserServiceTest {
     @SuppressWarnings("unchecked")
     @Test
     void testInsertUser(){
-        int mockUserId = 666;
-//        使用spy
-//        userService = Mockito.spy(userService);
-//        Mockito.doReturn(true).when(userService).validateUsernameDuplicated(notExistedUsername);
-//       不使用spy
         Mockito.when(mockUserMapper.getUserByUsername(notExistedUsername)).thenReturn(null);
-        // 返回模仿的用户ID ： mockUserId
+        
+        User user =  this.generatedUser(false);
         Mockito.doAnswer((InvocationOnMock invocation)->{
-            User mockUser = invocation.getArgument(0);
-            Mockito.when(mockUser.getId()).thenReturn(mockUserId);
+            User userArgument = invocation.getArgument(0);
+            userArgument.setId(userIdGeneratedByDatabase);
             return null;
-        }).when(mockUserMapper).insertUserBasicInfo(Mockito.any(User.class));
+        }).when(mockUserMapper).insertUserBasicInfo(user);
         
-        User mockUser = Mockito.mock(User.class);
-        Mockito.when(mockUser.getUsername()).thenReturn(notExistedUsername);
-        // 返回模仿的权限 ： mockAuthority
-        List<String> mockAuthority = Mockito.mock(List.class);
-        Mockito.when(mockAuthority.get(0)).thenReturn("USER");
-        Mockito.when(mockUser.getAuthority()).thenReturn(mockAuthority);
-        
-        userService.insertUser(mockUser);
+        userService.insertUser(user);
         // 验证调用顺序
         InOrder inOrder = Mockito.inOrder(mockUserMapper);
-        inOrder.verify(mockUserMapper).insertUserBasicInfo(mockUser);
-        inOrder.verify(mockUserMapper).insertUserAuthority(mockUserId,mockAuthority);
+        inOrder.verify(mockUserMapper).insertUserBasicInfo(user);
+        inOrder.verify(mockUserMapper).insertUserAuthority(userIdGeneratedByDatabase,user.getAuthority());
     }
     
     @Test
     void testInsertUserWithDuplicatedUsername() {
-        Mockito.when(mockUserMapper.getUserByUsername(existedUsername)).thenReturn(Mockito.mock(User.class));
-        User mockUser =  Mockito.mock(User.class);
-        Mockito.when(mockUser.getUsername()).thenReturn(existedUsername);
-        Assertions.assertThrows(UsernameDuplicatedException.class, ()-> userService.insertUser(mockUser));
+        User existUser =  this.generatedUser(true);
+        Mockito.when(mockUserMapper.getUserByUsername(existedUsername)).thenReturn(existUser);
+        User user = new User();
+        user.setUsername(existedUsername);
+        Assertions.assertThrows(UsernameDuplicatedException.class, ()-> userService.insertUser(user));
     }
     
     @Test
     void testValidateUsernameDuplicatedExist(){
-        Mockito.when(mockUserMapper.getUserByUsername(existedUsername)).thenReturn(Mockito.mock(User.class));
+        User existUser =  this.generatedUser(true);
+        Mockito.when(mockUserMapper.getUserByUsername(existedUsername)).thenReturn(existUser);
         boolean validateUserA = userService.validateUsernameDuplicated(existedUsername);
         Assertions.assertFalse(validateUserA);
     }
@@ -80,4 +75,19 @@ class UserServiceTest {
         Assertions.assertTrue(validateUserB);
     }
     
+    private User generatedUser(boolean exist){
+        User user = new User();
+        if(exist){
+            user.setId(existId);
+            user.setUsername(existedUsername);
+        } else {
+            user.setUsername(notExistedUsername);
+        }
+        user.setPassword(defaultPassword);
+        user.setEnabled(true);
+        List<String> authority = new ArrayList<>();
+        authority.add("USER");
+        user.setAuthority(authority);
+        return user;
+    }
 }
