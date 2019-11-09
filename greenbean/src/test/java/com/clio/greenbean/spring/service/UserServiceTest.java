@@ -25,7 +25,7 @@ class UserServiceTest {
     private static UserMapper mockUserMapper;
     
     @BeforeAll
-    static void setUp(){
+    static void setup(){
         mockUserMapper = Mockito.mock(UserMapper.class);
         userService = new UserService(mockUserMapper);
     }
