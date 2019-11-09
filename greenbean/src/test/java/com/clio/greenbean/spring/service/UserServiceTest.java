@@ -19,8 +19,6 @@ import java.util.List;
 class UserServiceTest {
     private static String existedUsername = "exist";
     private static String notExistedUsername = "notExist";
-    private static String defaultPassword = "password";
-    private static Integer existId = 100;
     private static Integer userIdGeneratedByDatabase = 666;
     
     private static UserService userService;
@@ -32,7 +30,6 @@ class UserServiceTest {
         userService = new UserService(mockUserMapper);
     }
     
-    @SuppressWarnings("unchecked")
     @Test
     void testInsertUser(){
         Mockito.when(mockUserMapper.getUserByUsername(notExistedUsername)).thenReturn(null);
@@ -76,6 +73,8 @@ class UserServiceTest {
     }
     
     private User generatedUser(boolean exist){
+        String defaultPassword = "password";
+        Integer existId = 100;
         User user = new User();
         if(exist){
             user.setId(existId);
