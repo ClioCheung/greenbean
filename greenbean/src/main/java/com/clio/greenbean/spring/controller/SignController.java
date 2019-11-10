@@ -39,13 +39,14 @@ public class SignController {
     // Login form with error
     @RequestMapping("/signInError")
     public String loginError(Model model) {
+        // TODO 加上注册错误的提示内容
+        // TODO 整理一下注册失败的页面处理
         model.addAttribute("signInError", true);
         return "signIn";
     }
     
     @RequestMapping(value = "/signUp",method = RequestMethod.POST)
     public String signUp(@Validated UserDTO userDTO, BindingResult bindingResult,HttpServletResponse response){
-        // XXX 这里的 BCryptPasswordEncoder是否可以使用单例
         String viewResult = null;
         if (!bindingResult.hasErrors()){
             User user = generateUser(userDTO);

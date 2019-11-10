@@ -18,6 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class SignControllerTest {
     
     private MockMvc mockMvc;
+    private UserService mockUserService;
     
     @SuppressWarnings("unused")
     @BeforeEach
@@ -26,7 +27,7 @@ class SignControllerTest {
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
         viewResolver.setPrefix("classpath:/template/");
         viewResolver.setSuffix(".html");
-        UserService mockUserService = Mockito.mock(UserService.class);
+        mockUserService = Mockito.mock(UserService.class);
         this.mockMvc = MockMvcBuilders.standaloneSetup(new SignController(mockUserService)).setViewResolvers(viewResolver).build();
     }
     
@@ -43,4 +44,29 @@ class SignControllerTest {
         .andExpect(status().isOk())
         .andExpect(view().name("signIn"));
     }
+    
+ /*   *//**
+     * Argument(s) are different!
+     * @throws Exception
+     *//*
+    @Test
+    void TestSignUp() throws Exception {
+        String username = "oo";
+        String password = "oo";
+        String confirmPassword = "oo";
+        mockMvc.perform(post("/signUp")
+                        .param("username", username)
+                        .param("password", password)
+                        .param("confirmPassword", confirmPassword))
+        .andExpect(view().name("signUpSuccess"));
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(password);
+        user.setEnabled(true);
+        List<String> authorities  = new ArrayList<>();
+        String authority = "USER";
+        authorities.add(authority);
+        user.setAuthority(authorities);
+        Mockito.verify(mockUserService).insertUser(user);
+    }*/
 }
