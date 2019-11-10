@@ -4,9 +4,8 @@ import com.clio.greenbean.domain.User;
 import com.clio.greenbean.dto.UserDTO;
 import com.clio.greenbean.exception.UsernameDuplicatedException;
 import com.clio.greenbean.spring.service.UserService;
-import com.sun.deploy.net.HttpResponse;
+import com.clio.greenbean.util.EncryptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -59,16 +58,10 @@ public class SignController {
         return viewResult;
     }
     
-    private String encode(String password){
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        String bcryptPassword = bCryptPasswordEncoder.encode(password);
-        return bcryptPassword;
-    }
-    
     private User generateUser(UserDTO userDTO){
         User user = new User();
         String userPassword = userDTO.getPassword().trim();
-        String bcryptPassword = this.encode(userPassword);
+        String bcryptPassword = EncryptionUtils.encode(userPassword);
         user.setUsername(userDTO.getUsername());
         user.setPassword(bcryptPassword);
         user.setEnabled(true);

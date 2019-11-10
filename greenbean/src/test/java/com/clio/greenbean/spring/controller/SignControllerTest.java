@@ -19,6 +19,7 @@ class SignControllerTest {
     
     private MockMvc mockMvc;
     
+    @SuppressWarnings("unused")
     @BeforeEach
     private void setup(){
         //配置视图解析器
