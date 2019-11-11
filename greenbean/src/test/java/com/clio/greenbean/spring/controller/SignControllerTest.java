@@ -9,6 +9,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
@@ -16,6 +17,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * created by 吾乃逆世之神也 on 2019/11/9
  */
 class SignControllerTest {
+    private static String existedUsername = "exist";
+    private static String notExistedUsername = "notExist";
     
     private MockMvc mockMvc;
     private UserService mockUserService;
@@ -44,29 +47,15 @@ class SignControllerTest {
         .andExpect(status().isOk())
         .andExpect(view().name("signIn"));
     }
-    
- /*   *//**
-     * Argument(s) are different!
-     * @throws Exception
-     *//*
+  
     @Test
     void TestSignUp() throws Exception {
-        String username = "oo";
-        String password = "oo";
-        String confirmPassword = "oo";
+        String defaultPassword = "password";
         mockMvc.perform(post("/signUp")
-                        .param("username", username)
-                        .param("password", password)
-                        .param("confirmPassword", confirmPassword))
+                        .param("username", existedUsername)
+                        .param("password", defaultPassword)
+                        .param("confirmPassword", defaultPassword))
         .andExpect(view().name("signUpSuccess"));
-        User user = new User();
-        user.setUsername(username);
-        user.setPassword(password);
-        user.setEnabled(true);
-        List<String> authorities  = new ArrayList<>();
-        String authority = "USER";
-        authorities.add(authority);
-        user.setAuthority(authorities);
-        Mockito.verify(mockUserService).insertUser(user);
-    }*/
+        Mockito.verify(mockUserService).insertUser(Mockito.argThat(user -> user.getUsername().equals(existedUsername)));
+    }
 }
