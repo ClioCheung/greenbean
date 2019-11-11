@@ -1,5 +1,6 @@
 package com.clio.greenbean.spring.controller;
 
+import com.clio.greenbean.exception.UsernameDuplicatedException;
 import com.clio.greenbean.spring.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,6 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class SignControllerTest {
     private static String existedUsername = "exist";
     private static String notExistedUsername = "notExist";
+    private static  String defaultPassword = "password";
     
     private MockMvc mockMvc;
     private UserService mockUserService;
@@ -50,12 +52,22 @@ class SignControllerTest {
   
     @Test
     void TestSignUp() throws Exception {
-        String defaultPassword = "password";
+        mockMvc.perform(post("/signUp")
+                        .param("username", notExistedUsername)
+                        .param("password", defaultPassword)
+                        .param("confirmPassword", defaultPassword))
+        .andExpect(view().name("signUpSuccess"));
+        Mockito.verify(mockUserService).insertUser(Mockito.argThat(user -> user.getUsername().equals(notExistedUsername)));
+    }
+    
+    @Test
+    void TestSignUpWithValidatedUsername() throws Exception {
+        Mockito.doThrow(UsernameDuplicatedException.class).when(mockUserService)
+            .insertUser(Mockito.argThat(user -> user.getUsername().equals(existedUsername)));
         mockMvc.perform(post("/signUp")
                         .param("username", existedUsername)
                         .param("password", defaultPassword)
                         .param("confirmPassword", defaultPassword))
-        .andExpect(view().name("signUpSuccess"));
-        Mockito.verify(mockUserService).insertUser(Mockito.argThat(user -> user.getUsername().equals(existedUsername)));
+        .andExpect(view().name("signUpFail"));
     }
 }

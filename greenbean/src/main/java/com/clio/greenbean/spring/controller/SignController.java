@@ -76,7 +76,7 @@ public class SignController {
     
     @RequestMapping(value = "signUp/validateUsername",method = RequestMethod.GET)
     @ResponseBody
-    public String validateUsername(String username){
+    public String signUpWithValidatedUsername(String username){
         boolean result = userService.validateUsernameDuplicated(username);
         return String.valueOf(result);
     }
