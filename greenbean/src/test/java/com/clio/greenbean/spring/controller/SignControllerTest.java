@@ -11,8 +11,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
  * created by 吾乃逆世之神也 on 2019/11/9
@@ -69,5 +68,27 @@ class SignControllerTest {
                         .param("password", defaultPassword)
                         .param("confirmPassword", defaultPassword))
         .andExpect(view().name("signUpFail"));
+    }
+    
+    @Test
+    void testSignUpValidatedUsername() throws Exception {
+        Mockito.when(mockUserService.validateUsernameDuplicated(notExistedUsername)).thenReturn(true);
+        mockMvc.perform(get("/signUp/validateUsername")
+                        .param("username", notExistedUsername))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType("text/plain"))
+            .andExpect(content().encoding("utf-8"))
+            .andExpect(content().string("true"));
+    }
+    
+    @Test
+    void testSignUpValidatedUsernameWithDuplicatedUsername() throws Exception {
+        Mockito.when(mockUserService.validateUsernameDuplicated(existedUsername)).thenReturn(false);
+        mockMvc.perform(get("/signUp/validateUsername")
+                        .param("username", existedUsername))
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("text/plain"))
+        .andExpect(content().encoding("utf-8"))
+        .andExpect(content().string("false"));
     }
 }

@@ -56,7 +56,8 @@
                             username: function(){
                                 return $("#userNameSignUp").val();
                             }
-                        }
+                        },
+                        dataType: "text"
                     }
                 },
                 password: {

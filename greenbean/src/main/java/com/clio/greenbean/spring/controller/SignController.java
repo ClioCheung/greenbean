@@ -6,6 +6,7 @@ import com.clio.greenbean.exception.UsernameDuplicatedException;
 import com.clio.greenbean.spring.service.UserService;
 import com.clio.greenbean.util.EncryptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -74,10 +75,13 @@ public class SignController {
     }
     
     
-    @RequestMapping(value = "signUp/validateUsername",method = RequestMethod.GET)
+    @RequestMapping(value = "/signUp/validateUsername", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
     @ResponseBody
-    public String signUpWithValidatedUsername(String username){
+    // TODO 使用spring alidation 验证username
+    public String signUpValidatedUsername(String username, HttpServletResponse httpServletResponse){
         boolean result = userService.validateUsernameDuplicated(username);
+        httpServletResponse.setCharacterEncoding("utf-8");
+        httpServletResponse.setContentType(MediaType.TEXT_PLAIN_VALUE);
         return String.valueOf(result);
     }
     
