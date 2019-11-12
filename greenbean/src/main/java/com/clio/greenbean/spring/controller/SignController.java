@@ -40,8 +40,7 @@ public class SignController {
     // Login form with error
     @RequestMapping("/signInError")
     public String loginError(Model model) {
-        // TODO 加上注册错误的提示内容
-        // TODO 整理一下注册失败的页面处理
+        // TODO 加上登录错误的提示内容
         model.addAttribute("signInError", true);
         return "signIn";
     }
@@ -77,7 +76,7 @@ public class SignController {
     
     @RequestMapping(value = "/signUp/validateUsername", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
     @ResponseBody
-    // TODO 使用spring alidation 验证username
+    // TODO 使用spring validation 验证username
     public String signUpValidatedUsername(String username, HttpServletResponse httpServletResponse){
         boolean result = userService.validateUsernameDuplicated(username);
         httpServletResponse.setCharacterEncoding("utf-8");
