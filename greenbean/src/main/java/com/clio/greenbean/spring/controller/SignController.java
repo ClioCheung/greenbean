@@ -32,7 +32,7 @@ public class SignController {
         this.userService = userService;
     }
     
-    @RequestMapping(value = "/signIn",method = RequestMethod.GET)
+    @RequestMapping(value = "/signIn")
     public String signIn(){
         return "signIn";
     }

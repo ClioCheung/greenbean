@@ -5,10 +5,8 @@ import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.FilterType;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.*;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -18,6 +16,7 @@ import javax.sql.DataSource;
  * created by 吾乃逆世之神也 on 2019/10/11
  */
 @Configuration
+@PropertySource("classpath:properties/database.properties")
 @EnableTransactionManagement
 @ComponentScan(basePackages = "com.clio",
     includeFilters = {
@@ -27,17 +26,29 @@ import javax.sql.DataSource;
     }
 )
 public class RootConfig {
-
+    
+    @Value("${db.driverClassName}")
+    private String driverClassName;
+    
+    @Value("${db.url}")
+    private String url;
+    
+    @Value("${db.username}")
+    private String username;
+    
+    @Value("${db.password}")
+    private String password;
+    
     @Bean
     public DataSource dataSource(){
         BasicDataSource dataSource = new BasicDataSource();
         // com.mysql.cj.jdbc.Driver 是 mysql-connector-java 6中的 及以上
         //   dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         // com.mysql.cj.jdbc.Driver  mysql-connector-java 5中的
-        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/greenbean?serverTimezone=GMT%2B8");
-        dataSource.setUsername("root");
-        dataSource.setPassword("root");
+        dataSource.setDriverClassName(driverClassName);
+        dataSource.setUrl(url);
+        dataSource.setUsername(username);
+        dataSource.setPassword(password);
         return dataSource;
     }
     
