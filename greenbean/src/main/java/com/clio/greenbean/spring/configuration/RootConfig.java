@@ -11,6 +11,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
+import java.util.Map;
 
 /**
  * created by 吾乃逆世之神也 on 2019/10/11
@@ -27,28 +28,16 @@ import javax.sql.DataSource;
 )
 public class RootConfig {
     
-    @Value("${db.driverClassName}")
-    private String driverClassName;
-    
-    @Value("${db.url}")
-    private String url;
-    
-    @Value("${db.username}")
-    private String username;
-    
-    @Value("${db.password}")
-    private String password;
+    @Value("#{${greenbean.db}}")
+    private Map<String, String> databaseProperties;
     
     @Bean
     public DataSource dataSource(){
         BasicDataSource dataSource = new BasicDataSource();
-        // com.mysql.cj.jdbc.Driver 是 mysql-connector-java 6中的 及以上
-        //   dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        // com.mysql.cj.jdbc.Driver  mysql-connector-java 5中的
-        dataSource.setDriverClassName(driverClassName);
-        dataSource.setUrl(url);
-        dataSource.setUsername(username);
-        dataSource.setPassword(password);
+        dataSource.setDriverClassName(databaseProperties.get("driverClassName"));
+        dataSource.setUrl(databaseProperties.get("url"));
+        dataSource.setUsername(databaseProperties.get("username"));
+        dataSource.setPassword(databaseProperties.get("password"));
         return dataSource;
     }
     
