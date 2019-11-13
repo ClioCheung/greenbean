@@ -25,7 +25,6 @@ public class User {
         return username;
     }
     
-    @SuppressWarnings("unused")
     public void setUsername(String username) {
         this.username = username;
     }
