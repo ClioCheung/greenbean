@@ -5,6 +5,8 @@ import com.clio.greenbean.dto.UserDTO;
 import com.clio.greenbean.exception.UsernameDuplicatedException;
 import com.clio.greenbean.spring.service.UserService;
 import com.clio.greenbean.util.EncryptionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -34,6 +36,12 @@ public class SignController {
     
     @RequestMapping(value = "/signIn")
     public String signIn(){
+        // test
+        Logger logger = LoggerFactory.getLogger(SignController.class);
+        logger.trace("-------------------------trace--------------------------------------------");
+        logger.debug("_________________________debug____________________________________________");
+        logger.warn("__________________________warn_____________________________________________");
+        logger.error("_________________________error____________________________________________");
         return "signIn";
     }
 
