@@ -189,4 +189,16 @@
       </plugin>
     </plugins>
   </build>
+
+<!--  file:.m2-> settings.xml: <server>(id\username\password)  -->
+  <repositories>
+      <repository>
+          <id>nexus</id>
+          <name>nexus</name>
+          <url>http://localhost:8081/repository/maven-public/</url>
+          <releases><enabled>true</enabled></releases>
+          <snapshots><enabled>true</enabled></snapshots>
+      </repository>
+  </repositories>
+
 </project>
