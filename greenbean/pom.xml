@@ -7,7 +7,7 @@
 
   <groupId>com.clio.greenbean</groupId>
   <artifactId>greenbean</artifactId>
-  <version>0.1-SNAPSHOT</version>
+  <version>0.0.1-SNAPSHOT</version>
 
   <packaging>war</packaging>
 
@@ -190,15 +190,17 @@
     </plugins>
   </build>
 
-<!--  file:.m2-> settings.xml: <server>(id\username\password)  -->
-  <repositories>
-      <repository>
-          <id>nexus</id>
-          <name>nexus</name>
-          <url>http://localhost:8081/repository/maven-public/</url>
-          <releases><enabled>true</enabled></releases>
-          <snapshots><enabled>true</enabled></snapshots>
-      </repository>
-  </repositories>
+  <distributionManagement>
+    <repository>
+      <id>nexus-maven-releases</id>
+      <name>nexus-maven-releases</name>
+      <url>http://localhost:8081/repository/maven-releases/</url>
+    </repository>
+    <snapshotRepository>
+      <id>nexus-maven-snapshots</id>
+      <name>nexus-maven-snapshots</name>
+      <url>http://localhost:8081/repository/maven-snapshots/</url>
+    </snapshotRepository>
+  </distributionManagement>
 
 </project>
