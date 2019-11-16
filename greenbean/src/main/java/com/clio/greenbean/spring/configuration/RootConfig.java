@@ -19,6 +19,7 @@ import java.util.Map;
 @Configuration
 @PropertySource("classpath:properties/database.properties")
 @EnableTransactionManagement
+@EnableAspectJAutoProxy
 @ComponentScan(basePackages = "com.clio",
     includeFilters = {
         @ComponentScan.Filter(type = FilterType.ASPECTJ,pattern = "com.clio..service..*"),

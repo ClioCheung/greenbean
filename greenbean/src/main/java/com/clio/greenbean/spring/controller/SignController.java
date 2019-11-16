@@ -36,17 +36,6 @@ public class SignController {
     
     @RequestMapping(value = "/signIn")
     public String signIn(){
-        // test
-        Logger logger = LoggerFactory.getLogger(SignController.class);
-        logger.trace("-------------------------trace-------------------------------------------");
-        logger.debug("_________________________debug___________________________________________");
-        logger.info("__________________________info____________________________________________");
-        logger.warn("__________________________warn____________________________________________");
-        logger.error("_________________________error___________________________________________");
-        // JVM变量
-        logger.debug(System.getProperty("user.dir"));
-        // 系统环境变量
-        logger.debug(System.getenv("JAVA_HOME"));
         return "signIn";
     }
 
