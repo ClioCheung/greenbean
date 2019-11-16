@@ -5,8 +5,7 @@ import com.clio.greenbean.dto.UserDTO;
 import com.clio.greenbean.exception.UsernameDuplicatedException;
 import com.clio.greenbean.spring.service.UserService;
 import com.clio.greenbean.util.EncryptionUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -36,7 +35,10 @@ public class SignController {
     
     @RequestMapping(value = "/signIn")
     public String signIn(){
-        return "signIn";
+        // return "signIn";
+        // test: @AfterThrowing(...)
+        throw new NullPointerException("++++++ null +++++++++ null ++++++");
+
     }
 
     // Login form with error
