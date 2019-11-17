@@ -35,9 +35,9 @@ public class SignController {
     
     @RequestMapping(value = "/signIn")
     public String signIn(){
-        // return "signIn";
+         return "signIn";
         // test: @AfterThrowing(...)
-        throw new NullPointerException("++++++ null +++++++++ null ++++++");
+        // throw new NullPointerException("++++++ null +++++++++ null ++++++");
 
     }
 
