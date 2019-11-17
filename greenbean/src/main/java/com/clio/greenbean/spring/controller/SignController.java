@@ -38,7 +38,6 @@ public class SignController {
          return "signIn";
         // test: @AfterThrowing(...)
         // throw new NullPointerException("++++++ null +++++++++ null ++++++");
-
     }
 
     // Login form with error
