@@ -11,6 +11,7 @@ import java.util.List;
 public interface UserMapper {
     
     // test version : XXX-mybatis.xml
+    // add  XXX-mybatis.xml 分支
     @SuppressWarnings("unused")
     User getUserQById(@Param("id") Integer id);
     
