@@ -1,12 +1,13 @@
 package com.clio.greenbean.domain;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
 /**
  * created by 吾乃逆世之神也 on 2019/10/23
  */
-public class User {
+public class User implements Serializable {
     private Integer id;
     private String username;
     private String password;
