@@ -48,6 +48,7 @@
         signUpForm.validate({
             // TODO 验证username、password的长度
             // FIXME 用户名重复时，提示信息是false (text -> jason)
+            // XXX 验证用户名重复
             rules: {
                 username: {
                     required: true,
