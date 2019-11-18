@@ -4,6 +4,7 @@ import com.clio.greenbean.domain.User;
 import com.clio.greenbean.exception.UsernameDuplicatedException;
 import com.clio.greenbean.mybatis.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,6 +31,7 @@ public class UserService {
         }
     }
     
+    @Cacheable("userService")
     public boolean validateUsernameDuplicated(String username) {
         User result = userMapper.getUserByUsername(username);
         return result == null;
