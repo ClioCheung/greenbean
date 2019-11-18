@@ -6,7 +6,11 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cache.ehcache.EhCacheCacheManager;
+import org.springframework.cache.ehcache.EhCacheManagerFactoryBean;
 import org.springframework.context.annotation.*;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -20,6 +24,7 @@ import java.util.Map;
 @PropertySource("classpath:properties/database.properties")
 @EnableTransactionManagement
 @EnableAspectJAutoProxy
+@EnableCaching
 @ComponentScan(basePackages = "com.clio",
     includeFilters = {
         @ComponentScan.Filter(type = FilterType.ASPECTJ,pattern = "com.clio..service..*"),
@@ -66,5 +71,18 @@ public class RootConfig {
     public UserMapper userMapper() throws Exception {
         SqlSessionTemplate sqlSessionTemplate = new SqlSessionTemplate(sqlSessionFactory());
         return sqlSessionTemplate.getMapper(UserMapper.class);
+    }
+    
+    // EhCache library setup
+    @Bean
+    public EhCacheManagerFactoryBean ehCacheManagerFactoryBean(){
+        EhCacheManagerFactoryBean ehCacheManagerFactoryBean = new EhCacheManagerFactoryBean();
+        ehCacheManagerFactoryBean.setConfigLocation(new ClassPathResource("ehcache/ehcache.xml"));
+        return ehCacheManagerFactoryBean;
+    }
+    
+    @Bean
+    public EhCacheCacheManager ehCacheCacheManager(){
+        return new EhCacheCacheManager(ehCacheManagerFactoryBean().getObject());
     }
 }
