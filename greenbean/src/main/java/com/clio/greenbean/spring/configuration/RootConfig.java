@@ -73,11 +73,11 @@ public class RootConfig {
         return sqlSessionTemplate.getMapper(UserMapper.class);
     }
     
-    // EhCache library setup
     @Bean
     public EhCacheManagerFactoryBean ehCacheManagerFactoryBean(){
         EhCacheManagerFactoryBean ehCacheManagerFactoryBean = new EhCacheManagerFactoryBean();
-        ehCacheManagerFactoryBean.setConfigLocation(new ClassPathResource("ehcache/ehcache.xml"));
+        ehCacheManagerFactoryBean.setConfigLocation(new ClassPathResource("ehcache.xml"));
+        ehCacheManagerFactoryBean.setShared(true);
         return ehCacheManagerFactoryBean;
     }
     
