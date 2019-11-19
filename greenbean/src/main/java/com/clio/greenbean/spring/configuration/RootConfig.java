@@ -12,6 +12,8 @@ import org.springframework.cache.ehcache.EhCacheManagerFactoryBean;
 import org.springframework.context.annotation.*;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
@@ -38,6 +40,7 @@ public class RootConfig {
     private Map<String, String> databaseProperties;
     
     @Bean
+    @Profile("produce")
     public DataSource dataSource(){
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName(databaseProperties.get("driverClassName"));
@@ -45,6 +48,16 @@ public class RootConfig {
         dataSource.setUsername(databaseProperties.get("username"));
         dataSource.setPassword(databaseProperties.get("password"));
         return dataSource;
+    }
+    
+    @Bean
+    @Profile("develop")
+    public DataSource embeddedDataSource(){
+        EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
+        builder.setType(EmbeddedDatabaseType.H2);
+        builder.addScript("classpath:sql/h2/greenbeanSchema.sql");
+        builder.addScript("classpath:sql/h2/greenbeanTestData.sql");
+        return builder.build();
     }
     
     @Bean
