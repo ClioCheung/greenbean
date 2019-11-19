@@ -12,6 +12,8 @@ import org.springframework.cache.ehcache.EhCacheManagerFactoryBean;
 import org.springframework.context.annotation.*;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
@@ -37,7 +39,13 @@ public class RootConfig {
     @Value("#{${greenbean.db}}")
     private Map<String, String> databaseProperties;
     
+    /**
+     * 激活此profile需要在jetty configurations中设置
+     *      VM Options: -Dspring.profiles.active=produce
+     * @return dataSource
+     */
     @Bean
+    @Profile("produce")
     public DataSource dataSource(){
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName(databaseProperties.get("driverClassName"));
@@ -48,9 +56,19 @@ public class RootConfig {
     }
     
     @Bean
-    public SqlSessionFactory sqlSessionFactory() throws Exception {
+    @Profile("develop")
+    public DataSource embeddedDataSource(){
+        EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
+        builder.setType(EmbeddedDatabaseType.H2);
+        builder.addScript("classpath:sql/h2/greenbeanSchema.sql");
+        builder.addScript("classpath:sql/h2/greenbeanTestData.sql");
+        return builder.build();
+    }
+    
+    @Bean
+    public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
         SqlSessionFactoryBean sqlSessionFactory = new SqlSessionFactoryBean();
-        sqlSessionFactory.setDataSource(dataSource());
+        sqlSessionFactory.setDataSource(dataSource);
         org.apache.ibatis.session.Configuration myBatisConfig = new org.apache.ibatis.session.Configuration();
         myBatisConfig.setLazyLoadingEnabled(true);
         myBatisConfig.setAggressiveLazyLoading(false);
@@ -61,15 +79,15 @@ public class RootConfig {
     }
     
     @Bean
-    public DataSourceTransactionManager dataSourceTransactionManager(){
+    public DataSourceTransactionManager dataSourceTransactionManager(DataSource dataSource){
         DataSourceTransactionManager dataSourceTransactionManager = new DataSourceTransactionManager();
-        dataSourceTransactionManager.setDataSource(dataSource());
+        dataSourceTransactionManager.setDataSource(dataSource);
         return dataSourceTransactionManager;
     }
     
     @Bean
-    public UserMapper userMapper() throws Exception {
-        SqlSessionTemplate sqlSessionTemplate = new SqlSessionTemplate(sqlSessionFactory());
+    public UserMapper userMapper(SqlSessionFactory sqlSessionFactory){
+        SqlSessionTemplate sqlSessionTemplate = new SqlSessionTemplate(sqlSessionFactory);
         return sqlSessionTemplate.getMapper(UserMapper.class);
     }
     
