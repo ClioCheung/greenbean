@@ -39,6 +39,11 @@ public class RootConfig {
     @Value("#{${greenbean.db}}")
     private Map<String, String> databaseProperties;
     
+    /**
+     * 激活此profile需要在jetty configurations中设置
+     *      VM Options: -Dspring.profiles.active=produce
+     * @return dataSource
+     */
     @Bean
     @Profile("produce")
     public DataSource dataSource(){
@@ -61,9 +66,9 @@ public class RootConfig {
     }
     
     @Bean
-    public SqlSessionFactory sqlSessionFactory() throws Exception {
+    public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
         SqlSessionFactoryBean sqlSessionFactory = new SqlSessionFactoryBean();
-        sqlSessionFactory.setDataSource(dataSource());
+        sqlSessionFactory.setDataSource(dataSource);
         org.apache.ibatis.session.Configuration myBatisConfig = new org.apache.ibatis.session.Configuration();
         myBatisConfig.setLazyLoadingEnabled(true);
         myBatisConfig.setAggressiveLazyLoading(false);
@@ -74,15 +79,15 @@ public class RootConfig {
     }
     
     @Bean
-    public DataSourceTransactionManager dataSourceTransactionManager(){
+    public DataSourceTransactionManager dataSourceTransactionManager(DataSource dataSource){
         DataSourceTransactionManager dataSourceTransactionManager = new DataSourceTransactionManager();
-        dataSourceTransactionManager.setDataSource(dataSource());
+        dataSourceTransactionManager.setDataSource(dataSource);
         return dataSourceTransactionManager;
     }
     
     @Bean
-    public UserMapper userMapper() throws Exception {
-        SqlSessionTemplate sqlSessionTemplate = new SqlSessionTemplate(sqlSessionFactory());
+    public UserMapper userMapper(SqlSessionFactory sqlSessionFactory){
+        SqlSessionTemplate sqlSessionTemplate = new SqlSessionTemplate(sqlSessionFactory);
         return sqlSessionTemplate.getMapper(UserMapper.class);
     }
     

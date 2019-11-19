@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS `t_authority`;
 CREATE TABLE `t_authority`
 (
     `user_id`   int(11)     NOT NULL COMMENT '用户ID，参照t_user表用户ID字段',
@@ -5,6 +6,7 @@ CREATE TABLE `t_authority`
     PRIMARY KEY (`user_id`, `authority`)
 );
 
+DROP TABLE IF EXISTS `t_user`;
 CREATE TABLE `t_user`
 (
     `id`       int(11)      NOT NULL AUTO_INCREMENT COMMENT '用户ID',
