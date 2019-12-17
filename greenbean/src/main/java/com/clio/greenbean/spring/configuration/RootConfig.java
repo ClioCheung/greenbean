@@ -55,11 +55,13 @@ public class RootConfig {
         return dataSource;
     }
     
+    // TODO 查看嵌入式数据库的数据
     @Bean
     @Profile("develop")
     public DataSource embeddedDataSource(){
         EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
         builder.setType(EmbeddedDatabaseType.H2);
+        builder.setScriptEncoding("utf-8");
         builder.addScript("classpath:sql/h2/greenbeanSchema.sql");
         builder.addScript("classpath:sql/h2/greenbeanTestData.sql");
         return builder.build();
