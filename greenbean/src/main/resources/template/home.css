@@ -1,0 +1,12 @@
+#bookDiv {
+    margin-top: 40px;
+}
+.bookRow {
+    margin-top: 20px;
+}
+.bookPlace {
+    height: 200px;
+}
+.bookPlace>img {
+    height:100%;
+}
