@@ -19,18 +19,20 @@
                 <button aria-expanded="false" aria-haspopup="true" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" id="dropdownMenuButton" type="button">
                     <span sec:authentication="name">User</span>'s account
                 </button>
-                <div aria-labelledby="dropdownMenuButton" class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
+                <div aria-labelledby="dropdownMenuButton" class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="javascript:void(0)">Home</a>
+                    <a class="dropdown-item" href="javascript:void(0)">Account Setting</a>
+                    <a class="dropdown-item" href="javascript:void(0)" id="signOutLink">Sign Out</a>
                 </div>
             </div>
         </div>
     </header>
     <h1>Congratulation! This is signIn success home.</h1>
-    <a id="signOutLink" href="javascript:void(0)">Sign Out</a>
     <form id="signOutForm" style="display:none" method="post" th:action="@{/signOut}"></form>
 
+    <script src="../common/jquery-3.4.1/jquery-3.4.1.min.js" th:src="@{/static/common/jquery-3.4.1/jquery-3.4.1.min.js}"></script>
+    <script src="../common/popper-1.14.7/popper.min.js" th:src="@{/static/common/popper-1.14.7/popper.min.js}"></script>
+    <script src="../common/bootstrap-4.3.1/js/bootstrap.min.js" th:src="@{/static/common/bootstrap-4.3.1/js/bootstrap.min.js}"></script>
     <script src="../common/jquery-3.3.1/jquery-3.3.1.slim.min.js" th:src="@{/static/common/jquery-3.3.1/jquery-3.3.1.slim.min.js}"></script>
     <script src="home.js" th:src="@{/static/template/home.js}"></script>
 </body>
