@@ -10,3 +10,7 @@
 .bookPlace>img {
     height:100%;
 }
+.bookHead {
+    height: 200px;
+    line-height: 200px;
+}
