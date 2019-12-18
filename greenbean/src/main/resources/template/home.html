@@ -1,11 +1,32 @@
 <!DOCTYPE html>
 <!-- XXX 抽取页面的公共部分-->
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
+    <link href="../common/bootstrap-4.3.1/css/bootstrap.min.css" rel="stylesheet" th:href="@{/static/common/bootstrap-4.3.1/css/bootstrap.min.css}">
 </head>
 <body>
+    <header>
+        <div class="navbar navbar-dark bg-dark shadow-sm">
+            <div class="container d-flex justify-content-between">
+                <a class="navbar-brand d-flex align-items-center" href="#">
+                    <svg class="mr-2" fill="none" focusable="false" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                    <strong>Album</strong>
+                </a>
+            </div>
+            <div class="dropdown">
+                <button aria-expanded="false" aria-haspopup="true" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" id="dropdownMenuButton" type="button">
+                    <span sec:authentication="name">User</span>'s account
+                </button>
+                <div aria-labelledby="dropdownMenuButton" class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+            </div>
+        </div>
+    </header>
     <h1>Congratulation! This is signIn success home.</h1>
     <a id="signOutLink" href="javascript:void(0)">Sign Out</a>
     <form id="signOutForm" style="display:none" method="post" th:action="@{/signOut}"></form>
