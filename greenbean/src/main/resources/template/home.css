@@ -1,0 +1,19 @@
+#bookDiv {
+    margin-top: 40px;
+}
+.bookRow {
+    margin-top: 20px;
+}
+.bookPlace {
+    height: 200px;
+}
+.bookPlace>img {
+    height:100%;
+}
+.bookHead {
+    height: 200px;
+    line-height: 200px;
+}
+.searchInput {
+    width: 20%;
+}
