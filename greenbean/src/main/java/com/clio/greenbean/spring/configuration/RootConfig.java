@@ -1,5 +1,6 @@
 package com.clio.greenbean.spring.configuration;
 
+import com.clio.greenbean.mybatis.mapper.MyBookMapper;
 import com.clio.greenbean.mybatis.mapper.UserMapper;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -76,6 +77,12 @@ public class RootConfig {
     public UserMapper userMapper(SqlSessionFactory sqlSessionFactory){
         SqlSessionTemplate sqlSessionTemplate = new SqlSessionTemplate(sqlSessionFactory);
         return sqlSessionTemplate.getMapper(UserMapper.class);
+    }
+    
+    @Bean
+    public MyBookMapper myBookMapper(SqlSessionFactory sqlSessionFactory){
+        SqlSessionTemplate sqlSessionTemplate = new SqlSessionTemplate(sqlSessionFactory);
+        return sqlSessionTemplate.getMapper(MyBookMapper.class);
     }
     
     @Bean
