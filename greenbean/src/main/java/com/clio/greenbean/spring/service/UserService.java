@@ -43,4 +43,10 @@ public class UserService {
         User result = userMapper.getUserByUsername(username);
         return result == null;
     }
+    
+    @Cacheable("userService")
+    public User getUserByUsername(String username){
+        return userMapper.getUserByUsername(username);
+    }
+    
 }
