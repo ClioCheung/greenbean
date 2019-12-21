@@ -12,7 +12,7 @@
             diskExpiryThreadIntervalSeconds="3600"
             memoryStoreEvictionPolicy="LRU"/>
 
-    <cache name="userService"
-           maxBytesLocalHeap="5000"/>
+    <cache name="greenbean"
+           maxBytesLocalHeap="50m"/>
 
 </ehcache>

@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
+import java.util.List;
 
 /**
  * created by 吾乃逆世之神也 on 2019/10/15
@@ -30,12 +31,20 @@ public class HomeController {
     public String home(Model model, Principal principal){
         String username = principal.getName();
         User user = userService.getUserByUsername(username);
-        Integer readingCount = myBookService.getMyBookCount(GreenbeanConfig.READING_BOOK_TYPE, user.getId());
-        Integer readCount = myBookService.getMyBookCount(GreenbeanConfig.READ_BOOK_TYPE, user.getId());
-        Integer wishCount = myBookService.getMyBookCount(GreenbeanConfig.WISH_BOOK_TYPE, user.getId());
+        Integer userId = user.getId();
+        Integer readingCount = myBookService.getMyBookCount(GreenbeanConfig.READING_BOOK_TYPE, userId);
+        Integer readCount = myBookService.getMyBookCount(GreenbeanConfig.READ_BOOK_TYPE, userId);
+        Integer wishCount = myBookService.getMyBookCount(GreenbeanConfig.WISH_BOOK_TYPE, userId);
         model.addAttribute("readingCount",readingCount);
         model.addAttribute("readCount",readCount);
         model.addAttribute("wishCount",wishCount);
+    
+        List<String> readingBookPictures = myBookService.getMyBookPictures(GreenbeanConfig.READING_BOOK_TYPE, userId);
+        List<String> readBookPictures = myBookService.getMyBookPictures(GreenbeanConfig.READ_BOOK_TYPE, userId);
+        List<String> wishBookPictures = myBookService.getMyBookPictures(GreenbeanConfig.WISH_BOOK_TYPE, userId);
+        model.addAttribute("readingBookPictures",readingBookPictures);
+        model.addAttribute("readBookPictures",readBookPictures);
+        model.addAttribute("wishBookPictures",wishBookPictures);
         return "home";
     }
 }

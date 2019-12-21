@@ -15,7 +15,7 @@
     </select>
 
     <select id="getMyBookPictures" resultType="java.lang.String">
-        select picture from t_book_user inner join t_book on t_book_user.book_id = t_book.id where user_id = #{userId} and type = #{type}
+        select picture from t_book_user inner join t_book on t_book_user.book_id = t_book.id where user_id = #{userId} and type = #{type} limit 5
     </select>
 
 </mapper>

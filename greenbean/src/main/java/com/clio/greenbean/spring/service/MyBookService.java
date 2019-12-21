@@ -2,8 +2,10 @@ package com.clio.greenbean.spring.service;
 
 import com.clio.greenbean.mybatis.mapper.MyBookMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,6 +15,9 @@ import java.util.List;
 public class MyBookService {
     
     private MyBookMapper myBookMapper;
+    
+    @Value("${bookPicturesPath}")
+    private String bookPicturesPath;
     
     @Autowired
     public MyBookService(MyBookMapper myBookMapper) {
@@ -24,6 +29,14 @@ public class MyBookService {
     }
     
     public List<String> getMyBookPictures(Short type, Integer userId){
-        return myBookMapper.getMyBookPictures(type, userId);
+        List<String> myBookPicturesPath = myBookMapper.getMyBookPictures(type, userId);
+        String homePath = System.getProperty("user.home").replace("\\", "/");
+        String path = homePath + bookPicturesPath;
+        
+        List<String> myBookPicturesRealPath = new ArrayList<>();
+        for(String myBookPicturePath : myBookPicturesPath){
+            myBookPicturesRealPath.add(path + myBookPicturePath);
+        }
+        return myBookPicturesRealPath;
     }
 }

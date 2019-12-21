@@ -38,13 +38,13 @@ public class UserService {
         }
     }
     
-    @Cacheable("userService")
+    @Cacheable(cacheNames="greenbean", key="'validateUsernameDuplicated'.concat(#username)")
     public boolean validateUsernameDuplicated(String username) {
         User result = userMapper.getUserByUsername(username);
         return result == null;
     }
     
-    @Cacheable("userService")
+    @Cacheable(cacheNames="greenbean", key="'getUserByUsername'.concat(#username)")
     public User getUserByUsername(String username){
         return userMapper.getUserByUsername(username);
     }
