@@ -6,8 +6,7 @@
     <title>Home</title>
     <link th:replace="fragments :: boostrapCSS">
     <link th:replace="fragments :: fontAwesomeCSS">
-    <link th:replace="fragments :: headerCSS">
-    <link th:replace="fragments :: homeCSS">
+    <link href="home.css" rel="stylesheet" th:href="@{/static/template/home.css}">
 </head>
 <body>
     <header th:include="fragments :: header"></header>
@@ -60,6 +59,6 @@
     <script th:replace="fragments :: jQueryJS"></script>
     <script th:replace="fragments :: popperJS"></script>
     <script th:replace="fragments :: bootstrapJS"></script>
-    <script th:replace="fragments :: homeJS"></script>
+    <script src="home.js" th:src="@{/static/template/home.js}"></script>
 </body>
 </html>
