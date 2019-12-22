@@ -47,4 +47,10 @@ public class HomeController {
         model.addAttribute("wishBookPictures",wishBookPictures);
         return "home";
     }
+    
+    @RequestMapping(value="/setting")
+    public String setting(){
+        
+        return "setting";
+    }
 }
