@@ -1,7 +1,6 @@
 package com.clio.greenbean.spring.controller;
 
 import com.clio.greenbean.config.GreenbeanConfig;
-import com.clio.greenbean.domain.User;
 import com.clio.greenbean.spring.service.MyBookService;
 import com.clio.greenbean.spring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.security.Principal;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -28,10 +27,9 @@ public class HomeController {
     }
     
     @RequestMapping(value="/home")
-    public String home(Model model, Principal principal){
-        String username = principal.getName();
-        User user = userService.getUserByUsername(username);
-        Integer userId = user.getId();
+    public String home(Model model, HttpSession session){
+        Integer userId = (Integer) session.getAttribute("userId");
+        
         Integer readingCount = myBookService.getMyBookCount(GreenbeanConfig.READING_BOOK_TYPE, userId);
         Integer readCount = myBookService.getMyBookCount(GreenbeanConfig.READ_BOOK_TYPE, userId);
         Integer wishCount = myBookService.getMyBookCount(GreenbeanConfig.WISH_BOOK_TYPE, userId);

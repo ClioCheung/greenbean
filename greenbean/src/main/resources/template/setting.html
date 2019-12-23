@@ -9,10 +9,12 @@
 </head>
 <body>
     <header th:include="fragments :: header"></header>
-    <form th:include="~{fragments :: #signOutForm}"></form>
+    <form th:replace="~{fragments :: #signOutForm}"></form>
 
     <script th:replace="fragments :: jQueryJS"></script>
     <script th:replace="fragments :: popperJS"></script>
     <script th:replace="fragments :: bootstrapJS"></script>
+    <script th:replace="fragments :: headerJS"></script>
+    <script th:replace="fragments :: homeJS"></script>
 </body>
 </html>

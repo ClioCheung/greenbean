@@ -6,11 +6,10 @@
     <title>Home</title>
     <link th:replace="fragments :: boostrapCSS">
     <link th:replace="fragments :: fontAwesomeCSS">
-    <link href="home.css" rel="stylesheet" th:href="@{/static/template/home.css}">
+    <link th:replace="fragments :: homeCSS">
 </head>
 <body>
     <header th:include="fragments :: header"></header>
-    <form th:include="~{fragments :: #signOutForm}"></form>
 
     <div class="container" id="bookDiv">
         <h5>Read  · · · · · · ( <span th:text="${readingCount}">7</span>本reading · <span th:text="${wishCount}">554</span>本wish · <span th:text="${readCount}">235</span>本read )</h5>
@@ -55,10 +54,12 @@
             </div>
         </div>
     </div>
+    <form th:replace="~{fragments :: #signOutForm}"></form>
 
     <script th:replace="fragments :: jQueryJS"></script>
     <script th:replace="fragments :: popperJS"></script>
     <script th:replace="fragments :: bootstrapJS"></script>
-    <script src="home.js" th:src="@{/static/template/home.js}"></script>
+    <script th:replace="fragments :: headerJS"></script>
+    <script th:replace="fragments :: homeJS"></script>
 </body>
 </html>

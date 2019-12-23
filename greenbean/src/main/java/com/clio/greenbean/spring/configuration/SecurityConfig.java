@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import javax.sql.DataSource;
 
@@ -24,10 +25,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     
     // @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     private DataSource dataSource;
+    private AuthenticationSuccessHandler authenticationSuccessHandler;
     
     @Autowired
-    public SecurityConfig(DataSource dataSource) {
+    public SecurityConfig(DataSource dataSource,AuthenticationSuccessHandler authenticationSuccessHandler) {
         this.dataSource = dataSource;
+        this.authenticationSuccessHandler = authenticationSuccessHandler;
     }
     
     @Override
@@ -38,7 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/static/common/**","/static/template/**","/signUp","/signUp/*","/about").permitAll()
             .anyRequest().authenticated()
             .and().formLogin().loginPage("/signIn").permitAll()
-            .defaultSuccessUrl("/home", true)
+            .successHandler(authenticationSuccessHandler)
             .failureUrl("/signInError")
             .and().logout().logoutUrl("/signOut").logoutSuccessUrl("/signIn")
             .and().rememberMe().key("greenbean").tokenValiditySeconds(120)
