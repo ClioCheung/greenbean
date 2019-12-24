@@ -6,13 +6,21 @@
     <link th:replace="fragments :: boostrapCSS">
     <link th:replace="fragments :: fontAwesomeCSS">
     <link th:replace="fragments :: headerCSS">
+    <link th:replace="fragments :: settingCSS">
 </head>
 <body>
     <header th:include="fragments :: header"></header>
     <form th:replace="~{fragments :: #signOutForm}"></form>
 
-    <img alt="我是超好看的头像" src="sample.jpg" th:src="@{/static/picture/avatars/{avatar}(avatar=${session.userAvatar})}">
-
+    <div id="nicknameFormDiv">
+        <form>
+            <div class="form-group">
+                <label for="nicknameInput">Nickname</label>
+                <input aria-describedby="nickname" class="form-control" id="nicknameInput" th:value="${session.userNickname}" type="text">
+            </div>
+            <button class="btn btn-primary" type="submit">Update settings</button>
+        </form>
+    </div>
 
 
     <script th:replace="fragments :: jQueryJS"></script>

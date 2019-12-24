@@ -7,6 +7,7 @@
     <link href="../common/fontawesome-free-5.12.0-web/css/all.css" rel="stylesheet" th:fragment="fontAwesomeCSS" th:href="@{/static/common/fontawesome-free-5.12.0-web/css/all.css}">
     <link href="header.css" rel="stylesheet" th:fragment="headerCSS" th:href="@{/static/template/header.css}">
     <link href="home.css" rel="stylesheet" th:fragment="homeCSS" th:href="@{/static/template/home.css}">
+    <link href="setting.css" rel="stylesheet" th:fragment="settingCSS" th:href="@{/static/template/setting.css}">
 </head>
 <body>
     <header th:fragment="header">
@@ -26,7 +27,7 @@
 
             <div class="dropdown">
                 <button aria-expanded="false" aria-haspopup="true" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" id="dropdownMenuButton" type="button">
-                    <span th:text="${session.userNickName}">User</span>'s account
+                    <span th:text="${session.userNickname}">User</span>'s account
                 </button>
                 <div aria-labelledby="dropdownMenuButton" class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item" href="home">Home</a>

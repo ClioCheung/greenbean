@@ -34,7 +34,7 @@ public class SignInSuccessHandler implements AuthenticationSuccessHandler {
         HttpSession session = httpServletRequest.getSession();
         session.setAttribute("userId", user.getId());
         session.setAttribute("userName", user.getUsername());
-        session.setAttribute("userNickName",user.getNickName());
+        session.setAttribute("userNickname",user.getNickname());
         session.setAttribute("userAvatar", user.getAvatar());
         
         httpServletResponse.sendRedirect("home");

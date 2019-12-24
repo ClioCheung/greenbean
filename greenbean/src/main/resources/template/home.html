@@ -17,7 +17,7 @@
                 <img alt="${session.userAvatar}" id="avatar" src="sample.jpg" th:if="${session.userAvatar != null}" th:src="@{/static/picture/avatars/{userAvatar}(userAvatar=${session.userAvatar})}">
             </div>
             <div class="col-sm-1">
-                <h3 th:text="${session.userNickName}"></h3>
+                <h3 th:text="${session.userNickname}"></h3>
             </div>
         </div>
     </div>
