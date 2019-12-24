@@ -11,6 +11,10 @@
     <header th:include="fragments :: header"></header>
     <form th:replace="~{fragments :: #signOutForm}"></form>
 
+    <img alt="我是超好看的头像" src="sample.jpg" th:src="@{/static/picture/avatars/{avatar}(avatar=${session.userAvatar})}">
+
+
+
     <script th:replace="fragments :: jQueryJS"></script>
     <script th:replace="fragments :: popperJS"></script>
     <script th:replace="fragments :: bootstrapJS"></script>

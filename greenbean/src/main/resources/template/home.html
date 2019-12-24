@@ -11,6 +11,17 @@
 <body>
     <header th:include="fragments :: header"></header>
 
+    <div class="container userInfoDiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <img alt="${session.userAvatar}" id="avatar" src="sample.jpg" th:if="${session.userAvatar != null}" th:src="@{/static/picture/avatars/{userAvatar}(userAvatar=${session.userAvatar})}">
+            </div>
+            <div class="col-sm-1">
+                <h3 th:text="${session.userNickName}"></h3>
+            </div>
+        </div>
+    </div>
+
     <div class="container" id="bookDiv">
         <h5>Read  · · · · · · ( <span th:text="${readingCount}">7</span>本reading · <span th:text="${wishCount}">554</span>本wish · <span th:text="${readCount}">235</span>本read )</h5>
         <div class="row bookRow">
