@@ -46,6 +46,13 @@
     <script th:replace="fragments :: bootstrapJS"></script>
     <script th:replace="fragments :: headerJS"></script>
     <script th:replace="fragments :: homeJS"></script>
+    <script th:inline="javascript">
+        const csrfObject = {
+            parameterName : [[${_csrf.parameterName}]],
+            headerName : [[${_csrf.headerName}]],
+            token :  [[${_csrf.token}]]
+        };
+    </script>
     <script src="setting.js" th:src="@{/static/template/setting.js}"></script>
 </body>
 </html>

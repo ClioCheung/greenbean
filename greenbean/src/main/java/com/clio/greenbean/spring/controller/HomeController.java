@@ -7,7 +7,9 @@ import com.clio.greenbean.spring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.security.Principal;
 import java.util.List;
@@ -56,8 +58,9 @@ public class HomeController {
     }
     
     @RequestMapping(value="/updateSettings")
-    public void updateSettings(Principal principal, String nickname){
-        System.out.println(principal.getName());
-        userService.updateUserNickname(principal.getName(),nickname);
+    @ResponseBody
+    public void updateSettings(@RequestBody String nickname){
+        System.out.println(nickname);
+//        userService.updateUserNickname(principal.getName(),nickname);
     }
 }
