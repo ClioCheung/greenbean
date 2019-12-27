@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.List;
 
@@ -59,8 +60,8 @@ public class HomeController {
     
     @RequestMapping(value="/updateSettings")
     @ResponseBody
-    public void updateSettings(@RequestBody String nickname){
-        System.out.println(nickname);
-//        userService.updateUserNickname(principal.getName(),nickname);
+    public void updateSettings(Principal principal, String nickname, HttpSession session){
+        userService.updateUserNickname(principal.getName(),nickname);
+        session.setAttribute("userNickname", nickname);
     }
 }
