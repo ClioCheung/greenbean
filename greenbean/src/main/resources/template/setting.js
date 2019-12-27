@@ -17,9 +17,11 @@
             }).done(function () {
             //    TODO  the message of success!
                 $("#userNicknameHeaderSpan").text(nicknameObject.nickname);
+                $('.toast').toast('show');
             }).fail(function () {
 
             });
+            $('.toast').toast({delay : 2000});
         });
     });
 })();
