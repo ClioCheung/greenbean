@@ -4,60 +4,44 @@
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
-    <link href="../common/bootstrap-4.3.1/css/bootstrap.min.css" rel="stylesheet" th:href="@{/static/common/bootstrap-4.3.1/css/bootstrap.min.css}">
-    <link href="../common/fontawesome-free-5.12.0-web/css/all.css" rel="stylesheet" th:href="@{/static/common/fontawesome-free-5.12.0-web/css/all.css}">
-    <link href="home.css" rel="stylesheet" th:href="@{/static/template/home.css}">
+    <link th:replace="fragments :: boostrapCSS">
+    <link th:replace="fragments :: fontAwesomeCSS">
+    <link th:replace="fragments :: homeCSS">
 </head>
 <body>
-    <header>
-        <div class="navbar navbar-dark bg-dark shadow-sm">
-            <div class="container d-flex justify-content-between">
-                <a class="navbar-brand d-flex align-items-center" href="#">
-                    <svg class="mr-2" fill="none" focusable="false" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-                    <strong>Album</strong>
-                </a>
-                <div class="input-group searchInput">
-                    <input aria-describedby="Search Books" aria-label="Search Books" class="form-control" placeholder="Search Books" type="text">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" id="Search Books" type="button"><i class="fas fa-search"></i></button>
-                    </div>
-                </div>
-            </div>
+    <header th:include="fragments :: header"></header>
 
-            <div class="dropdown">
-                <button aria-expanded="false" aria-haspopup="true" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" id="dropdownMenuButton" type="button">
-                    <span sec:authentication="name">User</span>'s account
-                </button>
-                <div aria-labelledby="dropdownMenuButton" class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="javascript:void(0)">Home</a>
-                    <a class="dropdown-item" href="javascript:void(0)">Account Setting</a>
-                    <a class="dropdown-item" href="javascript:void(0)" id="signOutLink">Sign Out</a>
-                </div>
+    <div class="container userInfoDiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <img alt="${session.userAvatar}" id="avatar" src="sample.jpg" th:if="${session.userAvatar != null}" th:src="@{/static/picture/avatars/{userAvatar}(userAvatar=${session.userAvatar})}">
+            </div>
+            <div class="col-sm-1">
+                <h3 th:text="${session.userNickname}"></h3>
             </div>
         </div>
-    </header>
-    <form id="signOutForm" style="display:none" method="post" th:action="@{/signOut}"></form>
+    </div>
 
     <div class="container" id="bookDiv">
-        <h5>Read  · · · · · ·  ( 7本reading · 552本wish · 235本read )</h5>
+        <h5>Read  · · · · · · ( <span th:text="${readingCount}">7</span>本reading · <span th:text="${wishCount}">554</span>本wish · <span th:text="${readCount}">235</span>本read )</h5>
         <div class="row bookRow">
             <div class="col-sm-1 bookHead">
                 reading
             </div>
             <div class="col-sm bookPlace">
-                <img alt="大话数据结构" src="sample.jpg">
+                <img alt="大话数据结构" src="sample.jpg" th:if="${readingCount > 0}" th:src="@{/static/picture/books/{readingBookPicture}(readingBookPicture=${readingBookPictures[0]})}">
             </div>
             <div class="col-sm bookPlace">
-                <img alt="大话数据结构" src="sample.jpg">
+                <img alt="大话数据结构" src="sample.jpg" th:if="${readingCount > 1}" th:src="@{/static/picture/books/{readingBookPicture}(readingBookPicture=${readingBookPictures[1]})}">
             </div>
             <div class="col-sm bookPlace">
-                <img alt="大话数据结构" src="sample.jpg">
+                <img alt="大话数据结构" src="sample.jpg" th:if="${readingCount > 2}" th:src="@{/static/picture/books/{readingBookPicture}(readingBookPicture=${readingBookPictures[2]})}">
             </div>
             <div class="col-sm bookPlace">
-                <img alt="大话数据结构" src="sample.jpg">
+                <img alt="大话数据结构" src="sample.jpg" th:if="${readingCount > 3}" th:src="@{/static/picture/books/{readingBookPicture}(readingBookPicture=${readingBookPictures[3]})}">
             </div>
             <div class="col-sm bookPlace">
-                <img alt="大话数据结构" src="sample.jpg">
+                <img alt="大话数据结构" src="sample.jpg" th:if="${readingCount > 4}" th:src="@{/static/picture/books/{readingBookPicture}(readingBookPicture=${readingBookPictures[4]})}">
             </div>
         </div>
         <div class="row bookRow">
@@ -65,26 +49,28 @@
                 read
             </div>
             <div class="col-sm bookPlace">
-                <img alt="大话数据结构" src="sample.jpg">
+                <img alt="大话数据结构" src="sample.jpg" th:if="${readCount > 0}" th:src="@{/static/picture/books/{readBookPicture}(readBookPicture=${readBookPictures[0]})}">
             </div>
             <div class="col-sm bookPlace">
-                <img alt="大话数据结构" src="sample.jpg">
+                <img alt="大话数据结构" src="sample.jpg" th:if="${readCount > 1}" th:src="@{/static/picture/books/{readBookPicture}(readBookPicture=${readBookPictures[1]})}">
             </div>
             <div class="col-sm bookPlace">
-                <img alt="大话数据结构" src="sample.jpg">
+                <img alt="大话数据结构" src="sample.jpg" th:if="${readCount > 2}" th:src="@{/static/picture/books/{readBookPicture}(readBookPicture=${readBookPictures[2]})}">
             </div>
             <div class="col-sm bookPlace">
-                <img alt="大话数据结构" src="sample.jpg">
+                <img alt="大话数据结构" src="sample.jpg" th:if="${readCount > 3}" th:src="@{/static/picture/books/{readBookPicture}(readBookPicture=${readBookPictures[3]})}">
             </div>
             <div class="col-sm bookPlace">
-                <img alt="大话数据结构" src="sample.jpg">
+                <img alt="大话数据结构" src="sample.jpg" th:if="${readCount > 4}" th:src="@{/static/picture/books/{readBookPicture}(readBookPicture=${readBookPictures[4]})}">
             </div>
         </div>
     </div>
+    <form th:replace="~{fragments :: #signOutForm}"></form>
 
-    <script src="../common/jquery-3.4.1/jquery-3.4.1.min.js" th:src="@{/static/common/jquery-3.4.1/jquery-3.4.1.min.js}"></script>
-    <script src="../common/popper-1.14.7/popper.min.js" th:src="@{/static/common/popper-1.14.7/popper.min.js}"></script>
-    <script src="../common/bootstrap-4.3.1/js/bootstrap.min.js" th:src="@{/static/common/bootstrap-4.3.1/js/bootstrap.min.js}"></script>
-    <script src="home.js" th:src="@{/static/template/home.js}"></script>
+    <script th:replace="fragments :: jQueryJS"></script>
+    <script th:replace="fragments :: popperJS"></script>
+    <script th:replace="fragments :: bootstrapJS"></script>
+    <script th:replace="fragments :: headerJS"></script>
+    <script th:replace="fragments :: homeJS"></script>
 </body>
 </html>

@@ -12,6 +12,8 @@ public class User implements Serializable {
     private String username;
     private String password;
     private boolean enabled;
+    private String nickname;
+    private String avatar;
     private List<String> authority;
     
     public Integer getId() {
@@ -44,6 +46,22 @@ public class User implements Serializable {
     
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+    
+    public String getNickname() {
+        return nickname;
+    }
+    
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+    
+    public String getAvatar() {
+        return avatar;
+    }
+    
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
     
     @SuppressWarnings("unused")

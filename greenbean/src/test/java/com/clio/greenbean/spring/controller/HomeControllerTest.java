@@ -1,7 +1,10 @@
 package com.clio.greenbean.spring.controller;
 
+import com.clio.greenbean.spring.service.MyBookService;
+import com.clio.greenbean.spring.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
@@ -23,8 +26,10 @@ class HomeControllerTest {
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
         viewResolver.setPrefix("classpath:/template/");
         viewResolver.setSuffix(".html");
-        
-        this.mockMvc = MockMvcBuilders.standaloneSetup(new HomeController()).setViewResolvers(viewResolver).build();
+        MyBookService myBookService = Mockito.mock(MyBookService.class);
+        UserService userService = Mockito.mock(UserService.class);
+        HomeController homeController = new HomeController(myBookService, userService);
+        this.mockMvc = MockMvcBuilders.standaloneSetup(homeController).setViewResolvers(viewResolver).build();
     }
     
     @Test

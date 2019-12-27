@@ -1,6 +1,7 @@
 package com.clio.greenbean.spring.configuration;
 
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
@@ -37,7 +38,10 @@ import java.util.List;
     }
 )
 public class DispatcherServletConfig implements WebMvcConfigurer,ApplicationContextAware {
-   
+    
+    @Value("${picturesPath}")
+    private String picturesPath;
+    
     private ApplicationContext applicationContext;
     /**
      * 声明模板解析器bean
@@ -90,6 +94,9 @@ public class DispatcherServletConfig implements WebMvcConfigurer,ApplicationCont
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/static/common/**").addResourceLocations("classpath:/common/");
         registry.addResourceHandler("/static/template/**").addResourceLocations("classpath:/template/");
+        String homePath = System.getProperty("user.home").replace("\\", "/");
+        String path = "file:" + homePath + picturesPath;
+        registry.addResourceHandler("/static/picture/**").addResourceLocations(path);
     }
     
     @Override

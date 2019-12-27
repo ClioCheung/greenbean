@@ -28,4 +28,8 @@
             (#{userId},#{value})
         </foreach>
     </insert>
+
+    <update id="updateUserNickname">
+        update t_user set nickname=#{nickname} where username=#{username}
+    </update>
 </mapper>
