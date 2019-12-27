@@ -5,12 +5,9 @@
 .avatar {
     width:100%;
 }
-#toastWrapperDiv {
-    position: relative;
-    min-height: 200px;
-}
 .toast {
-    position: absolute;
-    top: 0;
+    width:300px;
+    position: fixed;
+    bottom: 0;
     right: 0;
 }
