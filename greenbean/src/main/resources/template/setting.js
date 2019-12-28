@@ -16,8 +16,8 @@
             $.ajax({
                 url : "updateSettings",
                 method : "POST",
+                contentType : false,
                 headers : headerObject,
-                contentType : "multipart/form-data",
                 data : formData,
                 processData : false
             }).done(function () {
