@@ -62,9 +62,11 @@ public class SignController {
     
     private User generateUser(UserDTO userDTO){
         User user = new User();
+        String username = userDTO.getUsername();
         String userPassword = userDTO.getPassword().trim();
         String bcryptPassword = EncryptionUtils.encode(userPassword);
-        user.setUsername(userDTO.getUsername());
+        user.setUsername(username);
+        user.setNickname(username);
         user.setPassword(bcryptPassword);
         user.setEnabled(true);
         List<String> authority = new ArrayList<>();
