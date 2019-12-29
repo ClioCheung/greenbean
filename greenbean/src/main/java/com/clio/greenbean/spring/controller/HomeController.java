@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * created by 吾乃逆世之神也 on 2019/10/15
@@ -73,7 +74,11 @@ public class HomeController {
         userService.updateUserNickname(username, nickname);
         session.setAttribute("userNickname", nickname);
         if(avatar != null) {
-            String avatarFilename = avatar.getOriginalFilename();
+            // 使用UUID替换原上传头像的名称,并保留原后缀名
+            String avatarOriginalFilename = avatar.getOriginalFilename();
+            String avatarExtensionName = avatarOriginalFilename.substring(avatarOriginalFilename.lastIndexOf('.'));
+            String uuid = UUID.randomUUID().toString();
+            String avatarFilename = uuid + avatarExtensionName;
             
             String homePath = System.getProperty("user.home").replaceAll("\\\\", "/");
             String path = homePath + picturesPath;
