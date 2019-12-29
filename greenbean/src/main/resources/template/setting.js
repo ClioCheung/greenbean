@@ -21,8 +21,10 @@
                 data : formData,
                 processData : false
             }).done(function (data) {
-            //    TODO  自动刷新读取到avatar
-                $(".avatar").attr("src", "/greenbean/static/picture/avatars/" + data);
+                if(data !== undefined && data !== ""){
+                    //XXX 处理URL
+                    $(".avatar").attr("src", "/greenbean/static/picture/avatars/" + data);
+                }
                 $("#userNicknameHeaderSpan").text(nickname);
                 $('.toast').toast('show');
             }).fail(function () {
