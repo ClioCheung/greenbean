@@ -10,7 +10,6 @@
 </head>
 <body>
     <header th:include="fragments :: header"></header>
-    <form th:replace="~{fragments :: #signOutForm}"></form>
 
     <div class="settingFormDiv">
         <form>
@@ -18,12 +17,12 @@
                 <label for="avatarInput">Avatar</label>
                 <div class="container">
                     <div class="row">
-                        <div class="col-sm-2">
+                        <div class="col-sm-2 avatarWrapperDiv">
                             <img alt="${session.userAvatar}" class="avatar" src="sample.jpg"
                                  th:if="${session.userAvatar != null}"
                                  th:src="@{/static/picture/avatars/{userAvatar}(userAvatar=${session.userAvatar})}">
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-3 avatarWrapperDiv">
                             <img class="avatar" th:if="${session.userAvatar != null}"
                                  th:src="@{/static/picture/avatars/{userAvatar}(userAvatar=${session.userAvatar})}">
                         </div>
@@ -44,15 +43,15 @@
     <div aria-atomic="true" aria-live="assertive" class="toast" role="alert">
         <div class="toast-header">
             <svg class="rounded mr-2" focusable="false" height="20" preserveAspectRatio="xMidYMid slice" role="img" width="20" xmlns="http://www.w3.org/2000/svg">
-                <rect fill="#007aff" height="100%" width="100%"></rect>
+                <rect fill="#007aff" height="100%" id="toastSvgRect" width="100%"></rect>
             </svg>
             <strong class="mr-auto">Message</strong>
             <button aria-label="Close" class="ml-2 mb-1 close" data-dismiss="toast" type="button">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <div class="toast-body">
-            Update success.
+        <div class="toast-body" id="toastBody">
+            Update successfully.
         </div>
     </div>
 
@@ -60,7 +59,6 @@
     <script th:replace="fragments :: popperJS"></script>
     <script th:replace="fragments :: bootstrapJS"></script>
     <script th:replace="fragments :: headerJS"></script>
-    <script th:replace="fragments :: homeJS"></script>
     <script th:inline="javascript">
         const csrfObject = {
             parameterName : [[${_csrf.parameterName}]],

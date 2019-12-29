@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * created by 吾乃逆世之神也 on 2019/10/15
@@ -68,12 +69,17 @@ public class HomeController {
     
     @RequestMapping(value="/updateSettings")
     @ResponseBody
-    public void updateSettings(@RequestParam(value="nickname") String nickname, @RequestParam(value="avatar", required=false) MultipartFile avatar, Principal principal, HttpSession session) throws IOException {
+    public String updateSettings(@RequestParam(value="nickname") String nickname, @RequestParam(value="avatar", required=false) MultipartFile avatar, Principal principal, HttpSession session) throws IOException {
         String username = principal.getName();
         userService.updateUserNickname(username, nickname);
         session.setAttribute("userNickname", nickname);
+        String avatarFilename = null;
         if(avatar != null) {
-            String avatarFilename = avatar.getOriginalFilename();
+            // 使用UUID替换原上传头像的名称,并保留原后缀名
+            String avatarOriginalFilename = avatar.getOriginalFilename();
+            String avatarExtensionName = avatarOriginalFilename.substring(avatarOriginalFilename.lastIndexOf('.'));
+            String uuid = UUID.randomUUID().toString();
+            avatarFilename = uuid + avatarExtensionName;
             
             String homePath = System.getProperty("user.home").replaceAll("\\\\", "/");
             String path = homePath + picturesPath;
@@ -82,11 +88,12 @@ public class HomeController {
                 avatarFolder.mkdir();
             }
             File avatarFile = new File(avatarFolder, avatarFilename);
+            // TODO delete old avatar
             avatar.transferTo(avatarFile.toPath());
             
             userService.updateAvatar(username, avatarFilename);
             session.setAttribute("userAvatar",avatarFilename);
         }
-        
+        return avatarFilename;
     }
 }

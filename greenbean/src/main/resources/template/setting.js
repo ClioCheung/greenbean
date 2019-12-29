@@ -8,7 +8,6 @@
 
             const nickname =  $("#nicknameInput").val();
             const avatar = $("#avatarInput")[0].files[0];
-
             const formData = new FormData();
             formData.append("nickname", nickname);
             formData.append("avatar", avatar);
@@ -20,14 +19,35 @@
                 headers : headerObject,
                 data : formData,
                 processData : false
-            }).done(function () {
-            //    TODO  自动刷新读取到avatar
+            }).done(function (data) {
+                if(data !== undefined && data !== ""){
+                    //XXX 处理URL
+                    const avatarSrc = "/greenbean/static/picture/avatars/" + data;
+                    const avatar = $(".avatar");
+                    if(avatar.length > 0) {
+                        avatar.attr("src", avatarSrc);
+                    } else {
+                        const avatarElement = $("<img src='' alt='avatar'>");
+                        avatarElement.addClass("avatar");
+                        avatarElement.attr("src", avatarSrc);
+                        $(".avatarWrapperDiv").append(avatarElement);
+                        // avatarElement.appendTo(".avatarWrapperDiv");
+                    }
+                }
                 $("#userNicknameHeaderSpan").text(nickname);
-                $('.toast').toast('show');
+                dealTips("Update successfully!", "#32CD32");
             }).fail(function () {
-
+                dealTips("Update unSuccessfully.", "#FF0000");
             });
-            $('.toast').toast({delay : 2000});
+
+            function dealTips(message, rectcolor){
+                $("#toastBody").text(message);
+                $("#toastSvgRect").attr("fill",rectcolor);
+                $('.toast').toast('show');
+            };
+            $('.toast').toast({delay : 5000});
+
+
         });
     });
 })();
