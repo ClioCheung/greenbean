@@ -69,16 +69,17 @@ public class HomeController {
     
     @RequestMapping(value="/updateSettings")
     @ResponseBody
-    public void updateSettings(@RequestParam(value="nickname") String nickname, @RequestParam(value="avatar", required=false) MultipartFile avatar, Principal principal, HttpSession session) throws IOException {
+    public String updateSettings(@RequestParam(value="nickname") String nickname, @RequestParam(value="avatar", required=false) MultipartFile avatar, Principal principal, HttpSession session) throws IOException {
         String username = principal.getName();
         userService.updateUserNickname(username, nickname);
         session.setAttribute("userNickname", nickname);
+        String avatarFilename = null;
         if(avatar != null) {
             // 使用UUID替换原上传头像的名称,并保留原后缀名
             String avatarOriginalFilename = avatar.getOriginalFilename();
             String avatarExtensionName = avatarOriginalFilename.substring(avatarOriginalFilename.lastIndexOf('.'));
             String uuid = UUID.randomUUID().toString();
-            String avatarFilename = uuid + avatarExtensionName;
+            avatarFilename = uuid + avatarExtensionName;
             
             String homePath = System.getProperty("user.home").replaceAll("\\\\", "/");
             String path = homePath + picturesPath;
@@ -92,6 +93,6 @@ public class HomeController {
             userService.updateAvatar(username, avatarFilename);
             session.setAttribute("userAvatar",avatarFilename);
         }
-        
+        return avatarFilename;
     }
 }
