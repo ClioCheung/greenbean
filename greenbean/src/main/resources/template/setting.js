@@ -8,7 +8,6 @@
 
             const nickname =  $("#nicknameInput").val();
             const avatar = $("#avatarInput")[0].files[0];
-
             const formData = new FormData();
             formData.append("nickname", nickname);
             formData.append("avatar", avatar);
@@ -23,10 +22,19 @@
             }).done(function (data) {
                 if(data !== undefined && data !== ""){
                     //XXX 处理URL
-                    $(".avatar").attr("src", "/greenbean/static/picture/avatars/" + data);
+                    const avatarSrc = "/greenbean/static/picture/avatars/" + data;
+                    const avatar = $(".avatar");
+                    if(avatar.length > 0) {
+                        avatar.attr("src", avatarSrc);
+                    } else {
+                        const avatarElement = $("<img src='' alt='avatar'>");
+                        avatarElement.addClass("avatar");
+                        avatarElement.attr("src", avatarSrc);
+                        $(".avatarWrapperDiv").append(avatarElement);
+                        // avatarElement.appendTo(".avatarWrapperDiv");
+                    }
                 }
                 $("#userNicknameHeaderSpan").text(nickname);
-
                 dealTips("Update successfully!", "#32CD32");
             }).fail(function () {
                 dealTips("Update unSuccessfully.", "#FF0000");
