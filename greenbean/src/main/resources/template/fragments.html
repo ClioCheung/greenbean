@@ -17,12 +17,14 @@
                     <svg class="mr-2" fill="none" focusable="false" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
                     <strong>Album</strong>
                 </a>
-                <div class="input-group searchInput">
-                    <input aria-describedby="Search Books" aria-label="Search Books" class="form-control" placeholder="Search Books" type="text">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" id="Search Books" type="button"><i class="fas fa-search"></i></button>
+                <form class="searchForm" method="get" th:action="@{/search}">
+                    <div class="input-group">
+                        <input aria-describedby="Search Books" aria-label="Search Books" class="form-control" name="searchKeyWord" placeholder="Search Books" type="text">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" id="Search Books" type="submit"><i class="fas fa-search"></i></button>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
 
             <div class="dropdown">
@@ -36,8 +38,8 @@
                 </div>
             </div>
         </div>
+        <form id="signOutForm" method="post" style="display:none" th:action="@{/signOut}"></form>
     </header>
-    <form id="signOutForm" method="post" style="display:none" th:action="@{/signOut}"></form>
 
     <script src="../common/jquery-3.4.1/jquery-3.4.1.min.js" th:fragment="jQueryJS" th:src="@{/static/common/jquery-3.4.1/jquery-3.4.1.min.js}"></script>
     <script src="../common/popper-1.14.7/popper.min.js" th:fragment="popperJS" th:src="@{/static/common/popper-1.14.7/popper.min.js}"></script>
