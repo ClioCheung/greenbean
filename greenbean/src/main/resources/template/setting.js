@@ -21,7 +21,7 @@
                 data : formData,
                 processData : false
             }).done(function () {
-            //    TODO  the message of success!
+            //    TODO  自动刷新读取到avatar
                 $("#userNicknameHeaderSpan").text(nickname);
                 $('.toast').toast('show');
             }).fail(function () {

@@ -30,6 +30,6 @@ public class MyWebAppInitializer extends AbstractAnnotationConfigDispatcherServl
     @Override
     protected void customizeRegistration(ServletRegistration.Dynamic registration) {
         // TODO 处理路径配置
-        registration.setMultipartConfig(new MultipartConfigElement("C:/Users/Clio/greenbean/pictures/avatars"));
+        registration.setMultipartConfig(new MultipartConfigElement("/tmp"));
     }
 }
