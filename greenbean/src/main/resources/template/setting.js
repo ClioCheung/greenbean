@@ -26,11 +26,20 @@
                     $(".avatar").attr("src", "/greenbean/static/picture/avatars/" + data);
                 }
                 $("#userNicknameHeaderSpan").text(nickname);
-                $('.toast').toast('show');
-            }).fail(function () {
 
+                dealTips("Update successfully!", "#32CD32");
+            }).fail(function () {
+                dealTips("Update unSuccessfully.", "#FF0000");
             });
-            $('.toast').toast({delay : 2000});
+
+            function dealTips(message, rectcolor){
+                $("#toastBody").text(message);
+                $("#toastSvgRect").attr("fill",rectcolor);
+                $('.toast').toast('show');
+            };
+            $('.toast').toast({delay : 5000});
+
+
         });
     });
 })();
