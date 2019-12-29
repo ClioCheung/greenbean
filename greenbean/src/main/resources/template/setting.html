@@ -37,8 +37,23 @@
                 <label for="nicknameInput">Nickname</label>
                 <input aria-describedby="nickname" class="form-control" id="nicknameInput" th:value="${session.userNickname}" type="text">
             </div>
-            <button class="btn btn-primary" id="updateSettingsButton" type="submit">Update settings</button>
+            <button class="btn btn-primary" id="updateSettingsButton" type="button">Update settings</button>
         </form>
+    </div>
+
+    <div aria-atomic="true" aria-live="assertive" class="toast" role="alert">
+        <div class="toast-header">
+            <svg class="rounded mr-2" focusable="false" height="20" preserveAspectRatio="xMidYMid slice" role="img" width="20" xmlns="http://www.w3.org/2000/svg">
+                <rect fill="#007aff" height="100%" width="100%"></rect>
+            </svg>
+            <strong class="mr-auto">Message</strong>
+            <button aria-label="Close" class="ml-2 mb-1 close" data-dismiss="toast" type="button">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="toast-body">
+            Update success.
+        </div>
     </div>
 
     <script th:replace="fragments :: jQueryJS"></script>
@@ -46,6 +61,13 @@
     <script th:replace="fragments :: bootstrapJS"></script>
     <script th:replace="fragments :: headerJS"></script>
     <script th:replace="fragments :: homeJS"></script>
+    <script th:inline="javascript">
+        const csrfObject = {
+            parameterName : [[${_csrf.parameterName}]],
+            headerName : [[${_csrf.headerName}]],
+            token :  [[${_csrf.token}]]
+        };
+    </script>
     <script src="setting.js" th:src="@{/static/template/setting.js}"></script>
 </body>
 </html>

@@ -5,3 +5,9 @@
 .avatar {
     width:100%;
 }
+.toast {
+    width:300px;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+}

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Fragments</title>
@@ -27,7 +27,7 @@
 
             <div class="dropdown">
                 <button aria-expanded="false" aria-haspopup="true" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" id="dropdownMenuButton" type="button">
-                    <span th:text="${session.userNickname}">User</span>'s account
+                    <span id="userNicknameHeaderSpan" th:text="${session.userNickname}">User</span>'s account
                 </button>
                 <div aria-labelledby="dropdownMenuButton" class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item" href="home">Home</a>
