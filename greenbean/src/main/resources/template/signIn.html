@@ -62,8 +62,8 @@
     <script src="../common/jquery-3.4.1/jquery-3.4.1.min.js" th:src="@{/static/common/jquery-3.4.1/jquery-3.4.1.min.js}"></script>
     <script src="../common/popper-1.14.7/popper.min.js" th:src="@{/static/common/popper-1.14.7/popper.min.js}"></script>
     <script src="../common/bootstrap-4.3.1/js/bootstrap.min.js" th:src="@{/static/common/bootstrap-4.3.1/js/bootstrap.min.js}"></script>
-    <script src="../common/jquery-validation-1.19.1/jquery.validate.min.js" th:src="@{/static/common/jquery-validation-1.19.1/jquery.validate.min.js}"></script>
-    <script src="../common/jquery-validation-1.19.1/additional-methods.min.js" th:src="@{/static/common/jquery-validation-1.19.1/additional-methods.min.js}"></script>
+    <script th:replace="fragments :: jqueryValidationJS" ></script>
+    <script th:replace="fragments :: jqueryValidationAdditionalJS" ></script>
     <script src="sign.js" th:src="@{/static/template/sign.js}"></script>
 </body>
 </html>
