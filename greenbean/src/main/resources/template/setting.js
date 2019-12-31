@@ -1,8 +1,35 @@
 // TODO 验证表单
 (function () {
     $(function () {
-        const updateSettingsButton = $("#updateSettingsButton");
-        updateSettingsButton.on("click", function () {
+        const settingsForm = $("#settingForm");
+        settingsForm.validate({
+            rules : {
+                nickname : {
+                    required : true
+                }
+            },
+            message : {
+                nickname : {
+                    required : "Please input your nickname."
+                }
+            },
+            validClass: "is-valid",
+            errorClass: "is-invalid",
+            errorElement: "div",
+            showErrors: function () {
+                this.defaultShowErrors();
+                $("div.is-invalid").addClass("invalid-feedback");
+            },
+            submitHandler : function () {
+                submitOptions();
+            },
+            invalidHandler : function () {
+                return false;
+            }
+
+        });
+
+        function submitOptions() {
             const headerObject = {};
             headerObject[csrfObject.headerName] = csrfObject.token;
 
@@ -39,15 +66,14 @@
             }).fail(function () {
                 dealTips("Update unSuccessfully.", "#FF0000");
             });
+            $('.toast').toast({delay : 5000});
 
             function dealTips(message, rectcolor){
                 $("#toastBody").text(message);
                 $("#toastSvgRect").attr("fill",rectcolor);
                 $('.toast').toast('show');
             };
-            $('.toast').toast({delay : 5000});
+        };
 
-
-        });
     });
 })();
