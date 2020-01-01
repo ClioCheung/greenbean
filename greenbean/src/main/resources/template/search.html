@@ -7,6 +7,7 @@
     <link th:replace="fragments :: fontAwesomeCSS">
     <link th:replace="fragments :: headerCSS">
     <link href="search.css" rel="stylesheet" th:href="@{/static/template/search.css}">
+    <link th:replace="fragments :: starCSS">
 </head>
 <body>
     <header th:include="fragments :: header"></header>
@@ -33,7 +34,11 @@
                                                 <div class="col-sm-10">
                                                     <div class="container">
                                                         <div class="row bookNameRow"><span><a href="">书读完了</a></span></div>
-                                                        <div class="row bookRatingRow"><span>(1564人评价)</span></div>
+                                                        <div class="row bookRatingRow">
+                                                            <span class="star45" id="star"></span>
+                                                            <span id="score">8.9</span>
+                                                            <span>(1564人评价)</span>
+                                                        </div>
                                                         <div class="row bookInfoRow"><span>金克木 / 上海辞书出版社 / 2007-7 / 32.00元</span></div>
                                                     </div>
                                                 </div>
@@ -45,7 +50,9 @@
                                                 <div class="col-sm-10">
                                                     <div class="container">
                                                         <div class="row bookNameRow"><span><a href="">书读完了</a></span></div>
-                                                        <div class="row bookRatingRow"><span>(1564人评价)</span></div>
+                                                        <div class="row bookRatingRow">
+                                                            <span>(1564人评价)</span>
+                                                        </div>
                                                         <div class="row bookInfoRow"><span>金克木 / 上海辞书出版社 / 2007-7 / 32.00元</span></div>
                                                     </div>
                                                 </div>
@@ -57,7 +64,9 @@
                                                 <div class="col-sm-10">
                                                     <div class="container">
                                                         <div class="row bookNameRow"><span><a href="">书读完了</a></span></div>
-                                                        <div class="row bookRatingRow"><span>(1564人评价)</span></div>
+                                                        <div class="row bookRatingRow">
+                                                            <span>(1564人评价)</span>
+                                                        </div>
                                                         <div class="row bookInfoRow"><span>金克木 / 上海辞书出版社 / 2007-7 / 32.00元</span></div>
                                                     </div>
                                                 </div>

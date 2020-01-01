@@ -16,7 +16,7 @@
 }
 .bookRatingRow {
     font-size: 16px;
-    margin : 15px 0;
+    margin : 15px -15px;
 }
 .bookInfoRow {
     font-size : 16px;
@@ -28,4 +28,10 @@
 }
 #addNewBook {
     font-size : 16px;
+}
+#star {
+    width : 55px;
+    height : 11px;
+    margin : 6px 3px 0 0;
+    background-image : url("../pic/star.png");
 }
