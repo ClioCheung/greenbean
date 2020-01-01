@@ -22,3 +22,10 @@
     font-size : 16px;
     color : #9999;
 }
+#addBookQuestion {
+    font-size : 18px;
+    margin-bottom : 15px;
+}
+#addNewBook {
+    font-size : 16px;
+}
