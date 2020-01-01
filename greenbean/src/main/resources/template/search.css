@@ -1,9 +1,24 @@
 #searchBoxDiv {
-    margin-top: 50px;
+    margin-top : 40px;
 }
-#searchBookListDiv {
-    margin-top: 30px;
+#searchTitle {
+    margin : 30px 0;
 }
 .bookPictureImg {
-    width : 100%;
+    max-width : 100%;
+}
+.bookRowDiv {
+    margin-bottom : 28px;
+}
+.bookNameRow {
+    font-size : 18px;
+    color : #005cbf;
+}
+.bookRatingRow {
+    font-size: 16px;
+    margin : 15px 0;
+}
+.bookInfoRow {
+    font-size : 16px;
+    color : #9999;
 }
