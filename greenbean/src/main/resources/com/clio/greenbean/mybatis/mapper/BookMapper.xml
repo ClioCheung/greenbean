@@ -10,10 +10,7 @@
         <property name="memoryStoreEvictionPolicy" value="LRU"/>
     </cache>
     <select id="getSearchBooks" resultType="java.util.Map">
-        select distinct book_id,book_name,author_name,book_isbn from v_search_book
-            where book_name like concat('%',#{keyword},'%')
-            or author_name like concat('%',#{keyword},'%')
-            or book_isbn like concat('%',#{keyword},'%');
+        <bind name="searchKeyword" value="'%' + keyword + '%'" />
+            select distinct book_id from v_search_book where book_name like #{searchKeyword} or author_name like #{searchKeyword} or book_isbn = #{keyword}
     </select>
-
 </mapper>
