@@ -10,9 +10,10 @@
         <property name="memoryStoreEvictionPolicy" value="LRU"/>
     </cache>
     <select id="getSearchBooks" resultType="java.util.Map">
-        select distinct t_book.id,t_book.bookname from t_book_author
-            inner join t_book on t_book_author.book_id = t_book.id
-            inner join t_author on t_book_author.author_id = t_author.id;
+        select distinct book_id,book_name,author_name,book_isbn from v_search_book
+            where book_name like concat('%',#{keyword},'%')
+            or author_name like concat('%',#{keyword},'%')
+            or book_isbn like concat('%',#{keyword},'%');
     </select>
 
 </mapper>

@@ -1,5 +1,6 @@
 package com.clio.greenbean.spring.configuration;
 
+import com.clio.greenbean.mybatis.mapper.BookMapper;
 import com.clio.greenbean.mybatis.mapper.MyBookMapper;
 import com.clio.greenbean.mybatis.mapper.UserMapper;
 import org.apache.commons.dbcp2.BasicDataSource;
@@ -73,6 +74,7 @@ public class RootConfig {
         return dataSourceTransactionManager;
     }
     
+    // XXX 创建Mapper类的配置进行统一管理
     @Bean
     public UserMapper userMapper(SqlSessionFactory sqlSessionFactory){
         SqlSessionTemplate sqlSessionTemplate = new SqlSessionTemplate(sqlSessionFactory);
@@ -83,6 +85,12 @@ public class RootConfig {
     public MyBookMapper myBookMapper(SqlSessionFactory sqlSessionFactory){
         SqlSessionTemplate sqlSessionTemplate = new SqlSessionTemplate(sqlSessionFactory);
         return sqlSessionTemplate.getMapper(MyBookMapper.class);
+    }
+    
+    @Bean
+    public BookMapper bookMapper(SqlSessionFactory sqlSessionFactory){
+        SqlSessionTemplate sqlSessionTemplate = new SqlSessionTemplate(sqlSessionFactory);
+        return sqlSessionTemplate.getMapper(BookMapper.class);
     }
     
     @Bean

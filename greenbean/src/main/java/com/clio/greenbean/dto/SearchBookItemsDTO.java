@@ -13,7 +13,8 @@ public class SearchBookItemsDTO {
     private String publisher;
     private String publishDate;
     private String price;
-    
+    private String isbn;
+  
     public String getBookName() {
         return bookName;
     }
@@ -84,5 +85,13 @@ public class SearchBookItemsDTO {
     
     public void setPrice(String price) {
         this.price = price;
+    }
+    
+    public String getIsbn() {
+        return isbn;
+    }
+    
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
 }
