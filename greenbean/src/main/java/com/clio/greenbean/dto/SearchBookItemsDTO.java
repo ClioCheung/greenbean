@@ -13,7 +13,7 @@ public class SearchBookItemsDTO {
     private String publisher;
     private String publishDate;
     private String price;
-    private String isbn;
+    private String picture;
   
     public String getBookName() {
         return bookName;
@@ -87,11 +87,11 @@ public class SearchBookItemsDTO {
         this.price = price;
     }
     
-    public String getIsbn() {
-        return isbn;
+    public String getPicture() {
+        return picture;
     }
     
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 }

@@ -1,9 +1,13 @@
 package com.clio.greenbean.spring.controller;
 
+import com.clio.greenbean.dto.SearchBookItemsDTO;
 import com.clio.greenbean.spring.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.List;
 
 /**
  * created by 吾乃逆世之神也 on 2019/12/29
@@ -18,8 +22,9 @@ public class BookController {
     }
     
     @GetMapping("/search")
-    public String search(String searchKeyWord){
-        bookService.getSearchBooks(searchKeyWord);
+    public String search(String searchKeyWord, Model model){
+        List<SearchBookItemsDTO> searchBooks = bookService.getSearchBooks(searchKeyWord);
+        model.addAttribute("searchBooks",searchBooks);
         return "search";
     }
 }

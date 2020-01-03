@@ -11,6 +11,10 @@
     </cache>
     <select id="getSearchBooks" resultType="java.util.Map">
         <bind name="searchKeyword" value="'%' + keyword + '%'" />
-            select distinct book_id from v_search_book where book_name like #{searchKeyword} or author_name like #{searchKeyword} or book_isbn = #{keyword}
+            select distinct book_id as id from v_search_book where book_name like #{searchKeyword} or author_name like #{searchKeyword} or book_isbn = #{keyword}
+    </select>
+
+    <select id="getBooksBaseInfoByID" resultType="com.clio.greenbean.domain.Book">
+        select bookname as name,picture,publisher,publish_year publishYear,publish_month publishMonth,publish_day publishDay,price from t_book where id = #{id};
     </select>
 </mapper>
