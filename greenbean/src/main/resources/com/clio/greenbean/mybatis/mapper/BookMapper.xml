@@ -25,4 +25,8 @@
     <select id="getTranslatorByID" resultType="com.clio.greenbean.domain.Translator">
         select translator_name name from v_book_translator where book_id = #{id}
     </select>
+
+    <select id="getRatingAndRatingCountByID" resultType="java.util.Map">
+        select count(*) as ratingCount,avg(score) as rating from t_book_user where book_id = #{id} and score is not null
+    </select>
 </mapper>

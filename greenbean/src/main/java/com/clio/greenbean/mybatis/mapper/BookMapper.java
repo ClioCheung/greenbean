@@ -13,9 +13,12 @@ import java.util.Map;
  */
 public interface BookMapper {
     List<Map<String,Integer>> getSearchBooks(@Param("keyword") String keyword);
+    
     Book getBooksBaseInfoByID(Integer id);
     
     List<Author> getAuthorByID(@Param("id") Integer id);
     
     List<Translator> getTranslatorByID(Integer id);
+    
+    Map<String, Object> getRatingAndRatingCountByID(Integer id);
 }

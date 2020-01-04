@@ -8,6 +8,8 @@ import com.clio.greenbean.mybatis.mapper.BookMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -31,21 +33,24 @@ public class BookService {
         for (Map<String, Integer> idMap : searchBookItemsIDs) {
             Integer id = idMap.get("id");
             // TODO 拿到book信息
-            SearchBookItemsDTO searchBookItemsDTO = new SearchBookItemsDTO();
+            SearchBookItemsDTO dto = new SearchBookItemsDTO();
             Book book = this.getBooksBaseInfoByID(id);
-            this.setBookIntoDTO(book, searchBookItemsDTO);
+            this.setBookIntoDTO(book, dto);
             
             List<Author> authorList = this.getAuthorByID(id);
-            this.setAuthorByID(authorList,searchBookItemsDTO);
+            this.setAuthorByID(authorList,dto);
             
             List<Translator> translatorList = this.getTranslatorByID(id);
-            this.setTranslatorByID(translatorList,searchBookItemsDTO);
+            this.setTranslatorByID(translatorList,dto);
+    
+            Map<String, Object>  ratings = this.getRatingAndRatingCountByID(id);
+            this.setRatingByID(ratings,dto);
             
-            SearchBookDTOs.add(searchBookItemsDTO);
+            SearchBookDTOs.add(dto);
         }
         return SearchBookDTOs;
     }
-   
+    
     public List<Map<String, Integer>> getSearchBooksID(String keyword){
         return bookMapper.getSearchBooks(keyword);
     }
@@ -62,24 +67,8 @@ public class BookService {
         return this.bookMapper.getTranslatorByID(id);
     }
     
-    public void setAuthorByID(List<Author> authorList,SearchBookItemsDTO searchBookItemsDTO){
-        StringBuilder authorsBuilder = new StringBuilder();
-        for (Author author : authorList) {
-            authorsBuilder.append(author.getName());
-            authorsBuilder.append(" / ");
-        }
-        authorsBuilder.delete(authorsBuilder.length() - 3, authorsBuilder.length());
-        searchBookItemsDTO.setAuthorName(authorsBuilder.toString());
-    }
-    
-    public void setTranslatorByID(List<Translator> translatorList,SearchBookItemsDTO searchBookItemsDTO){
-        StringBuilder translatorBuilder = new StringBuilder();
-        for (Translator translator : translatorList) {
-            translatorBuilder.append(translator.getName());
-            translatorBuilder.append(" / ");
-        }
-        translatorBuilder.delete(translatorBuilder.length() - 3, translatorBuilder.length());
-        searchBookItemsDTO.setTranslatorName(translatorBuilder.toString());
+    public Map<String, Object> getRatingAndRatingCountByID(Integer id) {
+        return this.bookMapper.getRatingAndRatingCountByID(id);
     }
     
     private SearchBookItemsDTO setBookIntoDTO(Book book, SearchBookItemsDTO dto){
@@ -102,5 +91,48 @@ public class BookService {
         dto.setPublishDate(publishDate.toString());
         dto.setPrice(String.valueOf(book.getPrice()));
         return dto;
+    }
+    
+    private void setAuthorByID(List<Author> authorList,SearchBookItemsDTO dto){
+        StringBuilder authorsBuilder = new StringBuilder();
+        for (Author author : authorList) {
+            authorsBuilder.append(author.getName());
+            authorsBuilder.append(" / ");
+        }
+        authorsBuilder.delete(authorsBuilder.length() - 3, authorsBuilder.length());
+        dto.setAuthorName(authorsBuilder.toString());
+    }
+    
+    private void setTranslatorByID(List<Translator> translatorList,SearchBookItemsDTO dto){
+        StringBuilder translatorBuilder = new StringBuilder();
+        for (Translator translator : translatorList) {
+            translatorBuilder.append(translator.getName());
+            translatorBuilder.append(" / ");
+        }
+        if(translatorBuilder.length() > 0) {
+            translatorBuilder.delete(translatorBuilder.length() - 3, translatorBuilder.length());
+            dto.setTranslatorName(translatorBuilder.toString());
+        }
+    }
+    
+    private void setRatingByID(Map<String, Object>  ratings, SearchBookItemsDTO dto) {
+        Long ratingCount = (Long)ratings.get("ratingCount");
+        dto.setRatingCount(String.valueOf(ratingCount));
+        if(ratingCount > 0){
+            /* rating.setScale(1, RoundingMode.HALF_UP);
+            dto.setRating(String.valueOf(rating)); */
+            DecimalFormat ratingDecimalFormat = new DecimalFormat("0.0");
+            BigDecimal rating = (BigDecimal) ratings.get("rating");
+            String ratingNum = ratingDecimalFormat.format(rating);
+            dto.setRating(ratingNum);
+            
+            rating = rating.divide(new BigDecimal(2)).multiply(new BigDecimal(10));
+            String starNum = ratingDecimalFormat.format(rating).replace(".", "");
+            String starRatingName = "star" + starNum;
+            dto.setStarRatingName(starRatingName);
+        } else {
+            // XXX 修改硬代码
+            dto.setStarRatingName("star00");
+        }
     }
 }
