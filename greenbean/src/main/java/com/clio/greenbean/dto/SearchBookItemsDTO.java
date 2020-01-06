@@ -6,7 +6,7 @@ package com.clio.greenbean.dto;
 public class SearchBookItemsDTO {
     private String bookName;
     private String starRatingName;
-    private String rating;
+    private Integer rating;
     private String ratingCount;
     private String authorName;
     private String translatorName;
@@ -31,11 +31,11 @@ public class SearchBookItemsDTO {
         this.starRatingName = starRatingName;
     }
     
-    public String getRating() {
+    public Integer getRating() {
         return rating;
     }
     
-    public void setRating(String rating) {
+    public void setRating(Integer rating) {
         this.rating = rating;
     }
     

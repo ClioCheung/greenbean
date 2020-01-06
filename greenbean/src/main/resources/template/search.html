@@ -19,7 +19,7 @@
                     <div class="container">
                         <div class="row">
                             <div  class="col-sm-12" id="searchTitle">
-                                <h1>search books</h1>
+                                <h1>search <span th:text="${param.searchKeyWord}"></span></h1>
                             </div>
                         </div>
                         <div class="row">
@@ -27,24 +27,28 @@
                                 <div class="row">
                                     <div class="col-sm-8">
                                         <div class="container">
-                                            <div class="row bookRowDiv">
+                                            <!--/*@thymesVar id="searchBooks" type="java.util.List"*/-->
+                                            <div class="row bookRowDiv" th:each="bookItem : ${searchBooks}">
                                                 <div class="col-sm-2">
-                                                    <img class="bookPictureImg" th:src="@{/static/picture/books/logic.jpg}">
+                                                    <a href="#">
+                                                        <img class="bookPictureImg" th:if="${bookItem.picture != null}" th:src="@{/static/picture/books/{bookPicture}(bookPicture=${bookItem.picture})}">
+                                                    </a>
                                                 </div>
                                                 <div class="col-sm-10">
                                                     <div class="container">
-                                                        <div class="row bookNameRow"><span><a href="">书读完了</a></span></div>
+                                                        <div class="row bookNameRow"><span><a href="#" th:text="${bookItem.bookName}"></a></span></div>
                                                         <div class="row bookRatingRow">
-                                                            <span class="allStars star45"></span>
-                                                            <span class="rating_nums">8.9</span>&nbsp;
-                                                            (<span>1564</span>&nbsp;人评价)
+                                                            <span class="allStars" th:classappend="${bookItem.starRatingName}"></span>
+                                                            <span class="rating_nums" th:text="${bookItem.rating}"></span>&nbsp;
+                                                            (<span  th:text="${bookItem.ratingCount}"></span>&nbsp;人评价)
                                                         </div>
                                                         <div class="row bookInfoRow">
-                                                            <span>金克木</span>&nbsp;/&nbsp;
-                                                            <span>译者</span>&nbsp;/&nbsp;
-                                                            <span>上海辞书出版社</span>&nbsp;/&nbsp;
-                                                            <span>2007-7</span>&nbsp;/&nbsp;
-                                                            <span>32.00元</span>&nbsp;&nbsp;
+                                                            <!-- TODO 当行内容多于一行时，使用省略号结尾-->
+                                                            <span th:text="${bookItem.authorName}">author</span>/
+                                                            <span th:if="${bookItem.translatorName != null}" th:text="${bookItem.translatorName}">translator</span><span  th:if="${bookItem.translatorName != null}" >/</span>
+                                                            <span th:text="${bookItem.publisher}">publisher</span>/
+                                                            <span th:text="${bookItem.publishDate}">publishDate</span>/
+                                                            <span th:text="${bookItem.price}">price</span>元
                                                         </div>
                                                     </div>
                                                 </div>

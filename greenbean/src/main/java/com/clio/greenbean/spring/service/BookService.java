@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -119,16 +120,14 @@ public class BookService {
         Long ratingCount = (Long)ratings.get("ratingCount");
         dto.setRatingCount(String.valueOf(ratingCount));
         if(ratingCount > 0){
-            /* rating.setScale(1, RoundingMode.HALF_UP);
-            dto.setRating(String.valueOf(rating)); */
-            DecimalFormat ratingDecimalFormat = new DecimalFormat("0.0");
             BigDecimal rating = (BigDecimal) ratings.get("rating");
-            String ratingNum = ratingDecimalFormat.format(rating);
-            dto.setRating(ratingNum);
-            
-            rating = rating.divide(new BigDecimal(2)).multiply(new BigDecimal(10));
-            String starNum = ratingDecimalFormat.format(rating).replace(".", "");
-            String starRatingName = "star" + starNum;
+            BigDecimal ratingWithOneDecimal = rating.setScale(1, RoundingMode.HALF_UP);
+            dto.setRating(ratingWithOneDecimal.intValue());
+
+            DecimalFormat ratingFormat = new DecimalFormat("00");
+            BigDecimal ratingWithTwoNum = rating.divide(new BigDecimal(2)).multiply(new BigDecimal(10));
+            String starSuffix = ratingFormat.format(ratingWithTwoNum);
+            String starRatingName = "star" + starSuffix;
             dto.setStarRatingName(starRatingName);
         } else {
             // XXX 修改硬代码

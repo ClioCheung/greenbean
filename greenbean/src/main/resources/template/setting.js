@@ -1,4 +1,3 @@
-// TODO 验证表单
 (function () {
     $(function () {
         const updateSettingsButton = $("#updateSettingsButton");
