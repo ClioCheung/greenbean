@@ -14,6 +14,12 @@
             select distinct book_id as id from v_book_author where book_name like #{searchKeyword} or author_name like #{searchKeyword} or book_isbn = #{keyword}
     </select>
 
+    <!-- XXX 修正硬编码 -->
+    <select id="getSearchBooksWithPagination" resultType="java.util.Map">
+        <bind name="searchKeyword" value="'%' + keyword + '%'" />
+        select distinct book_id as id from v_book_author where book_name like #{searchKeyword} or author_name like #{searchKeyword} or book_isbn = #{keyword} limit #{start},3
+    </select>
+
     <select id="getBooksBaseInfoByID" resultType="com.clio.greenbean.domain.Book">
         select bookname as name,picture,publisher,publish_year publishYear,publish_month publishMonth,publish_day publishDay,price from t_book where id = #{id};
     </select>

@@ -22,8 +22,11 @@ public class BookController {
     }
     
     @GetMapping("/search")
-    public String search(String searchKeyWord, Model model){
-        List<SearchBookItemsDTO> searchBooks = bookService.getSearchBooks(searchKeyWord);
+    public String search(String searchKeyWord, Integer start, Model model){
+        if(start == null) {
+            start = 0;
+        }
+        List<SearchBookItemsDTO> searchBooks = bookService.getSearchBooks(searchKeyWord,start);
         model.addAttribute("searchBooks",searchBooks);
         return "search";
     }

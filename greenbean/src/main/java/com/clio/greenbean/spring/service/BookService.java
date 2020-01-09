@@ -28,25 +28,33 @@ public class BookService {
     }
     
     public List<SearchBookItemsDTO> getSearchBooks(String keyword){
+        return this.getSearchBooks(keyword, null);
+    }
+    
+    public List<SearchBookItemsDTO> getSearchBooks(String keyword, Integer start){
+        List<Map<String, Integer>> searchBookItemsIDs;
+        if(start != null){
+            searchBookItemsIDs = this.getSearchBooksID(keyword,start);
+        } else{
+            searchBookItemsIDs = this.getSearchBooksID(keyword);
+        }
         List<SearchBookItemsDTO> SearchBookDTOs = new ArrayList<>();
-        List<Map<String, Integer>> searchBookItemsIDs = this.getSearchBooksID(keyword);
-        
         for (Map<String, Integer> idMap : searchBookItemsIDs) {
             Integer id = idMap.get("id");
             // TODO 拿到book信息
             SearchBookItemsDTO dto = new SearchBookItemsDTO();
             Book book = this.getBooksBaseInfoByID(id);
             this.setBookIntoDTO(book, dto);
-            
+        
             List<Author> authorList = this.getAuthorByID(id);
             this.setAuthorByID(authorList,dto);
-            
+        
             List<Translator> translatorList = this.getTranslatorByID(id);
             this.setTranslatorByID(translatorList,dto);
-    
+        
             Map<String, Object>  ratings = this.getRatingAndRatingCountByID(id);
             this.setRatingByID(ratings,dto);
-            
+        
             SearchBookDTOs.add(dto);
         }
         return SearchBookDTOs;
@@ -54,6 +62,10 @@ public class BookService {
     
     public List<Map<String, Integer>> getSearchBooksID(String keyword){
         return bookMapper.getSearchBooks(keyword);
+    }
+    
+    public List<Map<String, Integer>> getSearchBooksID(String keyword, Integer start){
+        return bookMapper.getSearchBooksWithPagination(keyword,start);
     }
     
     public Book getBooksBaseInfoByID (Integer id) {
