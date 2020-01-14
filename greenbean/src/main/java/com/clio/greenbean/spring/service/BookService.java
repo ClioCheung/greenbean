@@ -4,8 +4,10 @@ import com.clio.greenbean.domain.Author;
 import com.clio.greenbean.domain.Book;
 import com.clio.greenbean.domain.Translator;
 import com.clio.greenbean.dto.SearchBookItemsDTO;
+import com.clio.greenbean.dto.SearchPageDTO;
 import com.clio.greenbean.mybatis.mapper.BookMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -27,17 +29,20 @@ public class BookService {
         this.bookMapper = bookMapper;
     }
     
-    public List<SearchBookItemsDTO> getSearchBooks(String keyword){
-        return this.getSearchBooks(keyword, null);
+    @Value("#{greenbean.pagination.size}")
+    private Integer paginationSize;
+    
+    public SearchPageDTO getSearchPage(String keyword){
+        SearchPageDTO searchPageDTO = new SearchPageDTO();
+        List<SearchBookItemsDTO> bookItemsDTOS = this.getSearchBooks(keyword);
+        searchPageDTO.setBookItemsList(bookItemsDTOS);
+        
+        
+        return searchPageDTO;
     }
     
-    public List<SearchBookItemsDTO> getSearchBooks(String keyword, Integer start){
-        List<Map<String, Integer>> searchBookItemsIDs;
-        if(start != null){
-            searchBookItemsIDs = this.getSearchBooksID(keyword,start);
-        } else{
-            searchBookItemsIDs = this.getSearchBooksID(keyword);
-        }
+    public List<SearchBookItemsDTO> getSearchBooks(String keyword){
+        List<Map<String, Integer>> searchBookItemsIDs = this.getSearchBooksID(keyword);
         List<SearchBookItemsDTO> SearchBookDTOs = new ArrayList<>();
         for (Map<String, Integer> idMap : searchBookItemsIDs) {
             Integer id = idMap.get("id");
@@ -65,7 +70,7 @@ public class BookService {
     }
     
     public List<Map<String, Integer>> getSearchBooksID(String keyword, Integer start){
-        return bookMapper.getSearchBooksWithPagination(keyword,start);
+        return bookMapper.getSearchBooksWithPagination(keyword, start, paginationSize);
     }
     
     public Book getBooksBaseInfoByID (Integer id) {
@@ -118,7 +123,7 @@ public class BookService {
     
     private void setTranslatorByID(List<Translator> translatorList,SearchBookItemsDTO dto){
         StringBuilder translatorBuilder = new StringBuilder();
-        for (Translator translator : translatorList) {
+        for (Translator translator : translatorList){
             translatorBuilder.append(translator.getName());
             translatorBuilder.append(" / ");
         }

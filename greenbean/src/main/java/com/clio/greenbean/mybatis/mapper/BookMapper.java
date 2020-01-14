@@ -14,7 +14,9 @@ import java.util.Map;
 public interface BookMapper {
     List<Map<String,Integer>> getSearchBooks(@Param("keyword") String keyword);
     
-    List<Map<String, Integer>> getSearchBooksWithPagination(@Param("keyword")String keyword, @Param("start")Integer start);
+    Integer getSearchBooksCount(@Param("keyword") String keyword);
+    
+    List<Map<String, Integer>> getSearchBooksWithPagination(@Param("keyword")String keyword, @Param("start")Integer start, @Param("size")Integer size);
     
     Book getBooksBaseInfoByID(Integer id);
     

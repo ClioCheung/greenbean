@@ -23,7 +23,11 @@ import java.util.Map;
  * created by 吾乃逆世之神也 on 2019/10/11
  */
 @Configuration
-@PropertySource({"classpath:properties/database.properties","classpath:properties/path.properties"})
+@PropertySource({
+    "classpath:properties/database.properties",
+    "classpath:properties/path.properties",
+    "classpath:properties/system.properties"
+})
 @EnableTransactionManagement
 @EnableAspectJAutoProxy
 @EnableCaching
