@@ -24,7 +24,7 @@ public class BookController {
         if(start == null) {
             start = 0;
         }
-        SearchPageDTO searchPageDTO = bookService.getSearchPage(searchKeyWord);
+        SearchPageDTO searchPageDTO = bookService.getSearchPage(searchKeyWord, start);
         model.addAttribute("searchBooks",searchPageDTO.getBookItemsList());
         model.addAttribute("pagination",searchPageDTO.getPaginationVo());
         
