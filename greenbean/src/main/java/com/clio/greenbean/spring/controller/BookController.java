@@ -20,11 +20,11 @@ public class BookController {
     }
     
     @GetMapping("/search")
-    public String search(String searchKeyWord, Integer start, Model model){
-        if(start == null) {
-            start = 0;
+    public String search(String searchKeyWord, Integer offset, Model model){
+        if(offset == null) {
+            offset = 0;
         }
-        SearchPageDTO searchPageDTO = bookService.getSearchPage(searchKeyWord, start);
+        SearchPageDTO searchPageDTO = bookService.getSearchPage(searchKeyWord, offset);
         model.addAttribute("searchBooks",searchPageDTO.getBookItemsList());
         model.addAttribute("pagination",searchPageDTO.getPaginationVo());
         

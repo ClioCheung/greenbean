@@ -59,14 +59,16 @@
                                             <div  class="row justify-content-center">
                                                 <nav aria-label="Page navigation example">
                                                     <ul class="pagination">
-                                                        <li class="page-item">
-                                                            <a aria-label="Previous" class="page-link" href="#">
+                                                        <li class="page-item" th:classappend="${pagination.pageNumber == 1}? 'disabled'" >
+                                                            <a aria-label="Previous" class="page-link" th:href="@{/search/(searchKeyWord=${param.searchKeyWord}, offset=${(pagination.pageNumber - 2) * pagination.singleSize})}" >
                                                                 <span aria-hidden="true">&laquo;</span>
                                                             </a>
                                                         </li>
-                                                        <li class="page-item" th:classappend="${i == pagination.pageNumber}? 'active'" th:each="i : ${#numbers.sequence(1,pagination.totalPagesCount)}"><a class="page-link" href="#" th:text="${i}">1</a></li>
-                                                        <li class="page-item">
-                                                            <a aria-label="Next" class="page-link" href="#">
+                                                        <li class="page-item" th:classappend="${i == pagination.pageNumber}? 'active'" th:each="i : ${#numbers.sequence(1,pagination.totalPagesCount)}">
+                                                            <a class="page-link" th:href="@{/search/(searchKeyWord=${param.searchKeyWord}, offset=${(i - 1) * pagination.singleSize})}" th:text="${i}">1</a>
+                                                        </li>
+                                                        <li class="page-item"  th:classappend="${pagination.pageNumber == pagination.totalPagesCount}? 'disabled'">
+                                                            <a aria-label="Next" class="page-link" th:href="@{/search/(searchKeyWord=${param.searchKeyWord}, offset=${(pagination.pageNumber) * pagination.singleSize})}">
                                                                 <span aria-hidden="true">&raquo;</span>
                                                             </a>
                                                         </li>
