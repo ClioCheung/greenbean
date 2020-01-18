@@ -52,8 +52,9 @@ public class PaginationVo {
     public int getTotalPagesCount(){
         int count = 0;
         if(singleSize != 0){
-            count = totalItemsCount / singleSize;
-            BigDecimal bigDecimal = new BigDecimal(count);
+            BigDecimal totalItemsCountBigDecimal = new BigDecimal(totalItemsCount);
+            BigDecimal singleSizeBigDecimal = new BigDecimal(singleSize);
+            BigDecimal bigDecimal =totalItemsCountBigDecimal.divide(singleSizeBigDecimal);
             bigDecimal = bigDecimal.setScale(0, RoundingMode.UP);
             count = bigDecimal.intValue();
         }
