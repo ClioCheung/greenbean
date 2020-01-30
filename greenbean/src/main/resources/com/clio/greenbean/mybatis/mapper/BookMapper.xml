@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--suppress SqlDialectInspection, SqlNoDataSourceInspection -->
+<mapper namespace="com.clio.greenbean.mybatis.mapper.BookMapper">
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache">
+        <property name="timeToIdleSeconds" value="3600"/>
+        <property name="timeToLiveSeconds" value="3600"/>
+        <property name="maxEntriesLocalHeap" value="1000"/>
+        <property name="maxEntriesLocalDisk" value="10000000"/>
+        <property name="memoryStoreEvictionPolicy" value="LRU"/>
+    </cache>
+    <select id="getSearchBooks" resultType="java.util.Map">
+        <bind name="searchKeyword" value="'%' + keyword + '%'" />
+            select distinct book_id as id from v_book_author where book_name like #{searchKeyword} or author_name like #{searchKeyword} or book_isbn = #{keyword}
+    </select>
+
+    <select id="getBooksBaseInfoByID" resultType="com.clio.greenbean.domain.Book">
+        select bookname as name,picture,publisher,publish_year publishYear,publish_month publishMonth,publish_day publishDay,price from t_book where id = #{id};
+    </select>
+
+    <select id="getAuthorByID" resultType="com.clio.greenbean.domain.Author">
+        select author_name name from v_book_author where book_id = #{id}
+    </select>
+
+    <select id="getTranslatorByID" resultType="com.clio.greenbean.domain.Translator">
+        select translator_name name from v_book_translator where book_id = #{id}
+    </select>
+
+    <select id="getRatingAndRatingCountByID" resultType="java.util.Map">
+        select count(*) as ratingCount,avg(score) as rating from t_book_user where book_id = #{id} and score is not null
+    </select>
+
+    <!-- XXX 有没更好的写法 -->
+    <select id="getSearchBooksWithPagination" resultType="java.util.Map">
+        <bind name="searchKeyword" value="'%' + keyword + '%'" />
+        select distinct book_id as id from v_book_author where book_name like #{searchKeyword} or author_name like #{searchKeyword} or book_isbn = #{keyword} limit #{start},#{size}
+    </select>
+
+    <select id="getSearchBooksCount" resultType="java.lang.Integer">
+        <bind name="searchKeyword" value="'%' + keyword + '%'" />
+        select count(distinct book_id) as count from v_book_author where book_name like #{searchKeyword} or author_name like #{searchKeyword} or book_isbn = #{keyword}
+    </select>
+</mapper>

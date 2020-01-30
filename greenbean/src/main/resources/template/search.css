@@ -1,0 +1,44 @@
+#searchBoxDiv {
+    margin-top : 40px;
+}
+#searchTitle {
+    margin : 30px 0;
+}
+.bookPictureImg {
+    max-width : 100%;
+}
+.bookRowDiv {
+    margin-bottom : 28px;
+}
+.bookNameRow {
+    font-size : 18px;
+    color : #005cbf;
+}
+.bookRatingRow {
+    font-size: 16px;
+    margin : 15px -15px;
+}
+.bookInfoRow {
+    font-size : 16px;
+    color : #9999;
+}
+.bookInfoRow>span {
+    margin : 0 5px;
+}
+#addBookQuestion {
+    font-size : 18px;
+    margin-bottom : 15px;
+}
+#addNewBook {
+    font-size : 16px;
+}
+.allStars {
+    width : 55px;
+    height : 11px;
+    margin : 6px 3px 0 0;
+    background-image : url("../pic/star.png");
+}
+.rating_nums {
+    color: #e09015;
+    padding: 0 3px;
+}
