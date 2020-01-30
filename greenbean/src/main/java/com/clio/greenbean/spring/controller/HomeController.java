@@ -39,7 +39,7 @@ public class HomeController {
     @Value("${picturesPath}")
     private String picturesPath;
     
-    @RequestMapping(value="/home")
+    @RequestMapping(value="home")
     public String home(Model model, Principal principal){
         String username = principal.getName();
         User user = userService.getUserByUsername(username);

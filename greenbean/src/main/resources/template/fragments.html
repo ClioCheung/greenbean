@@ -8,6 +8,7 @@
     <link href="header.css" rel="stylesheet" th:fragment="headerCSS" th:href="@{/static/template/header.css}">
     <link href="home.css" rel="stylesheet" th:fragment="homeCSS" th:href="@{/static/template/home.css}">
     <link href="setting.css" rel="stylesheet" th:fragment="settingCSS" th:href="@{/static/template/setting.css}">
+    <link href="star.css" rel="stylesheet" th:fragment="starCSS" th:href="@{/static/template/star.css}">
 </head>
 <body>
     <header th:fragment="header">
@@ -20,6 +21,7 @@
                 <form class="searchForm" method="get" th:action="@{/search}">
                     <div class="input-group">
                         <input aria-describedby="Search Books" aria-label="Search Books" class="form-control" name="searchKeyWord" placeholder="Search Books" type="text">
+                        <input class="form-control" name="start" type="hidden">
                         <div class="input-group-append">
                             <button class="btn btn-outline-secondary" id="Search Books" type="submit"><i class="fas fa-search"></i></button>
                         </div>

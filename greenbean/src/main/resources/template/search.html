@@ -6,10 +6,97 @@
     <link th:replace="fragments :: boostrapCSS">
     <link th:replace="fragments :: fontAwesomeCSS">
     <link th:replace="fragments :: headerCSS">
+    <link href="search.css" rel="stylesheet" th:href="@{/static/template/search.css}">
+    <link th:replace="fragments :: starCSS">
 </head>
 <body>
     <header th:include="fragments :: header"></header>
-Search!
+
+    <div class="container" id="searchBoxDiv">
+        <div class="row">
+            <div class="container">
+                <div class="row">
+                    <div class="container">
+                        <div class="row">
+                            <div  class="col-sm-12" id="searchTitle">
+                                <h1>search <span th:text="${param.searchKeyWord}"></span></h1>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <div class="container">
+                                            <!--/*@thymesVar id="searchBooks" type="java.util.List"*/-->
+                                            <div class="row bookRowDiv" th:each="bookItem : ${searchBooks}">
+                                                <div class="col-sm-2">
+                                                    <a href="#">
+                                                        <img class="bookPictureImg" th:if="${bookItem.picture != null}" th:src="@{/static/picture/books/{bookPicture}(bookPicture=${bookItem.picture})}">
+                                                    </a>
+                                                </div>
+                                                <div class="col-sm-10">
+                                                    <div class="container">
+                                                        <div class="row bookNameRow"><span><a href="#" th:text="${bookItem.bookName}"></a></span></div>
+                                                        <div class="row bookRatingRow">
+                                                            <span class="allStars" th:classappend="${bookItem.starRatingName}"></span>
+                                                            <span class="rating_nums" th:text="${bookItem.rating}"></span>&nbsp;
+                                                            (<span  th:text="${bookItem.ratingCount}"></span>&nbsp;人评价)
+                                                        </div>
+                                                        <div class="row bookInfoRow">
+                                                            <!-- TODO 当行内容多于一行时，使用省略号结尾-->
+                                                            <span th:text="${bookItem.authorName}">author</span>/
+                                                            <span th:if="${bookItem.translatorName != null}" th:text="${bookItem.translatorName}">translator</span><span  th:if="${bookItem.translatorName != null}" >/</span>
+                                                            <span th:text="${bookItem.publisher}">publisher</span>/
+                                                            <span th:text="${bookItem.publishDate}">publishDate</span>/
+                                                            <span th:text="${bookItem.price}">price</span>元
+                                                            <!--  test -->
+                                                            <span th:text="${pagination.pageNumber}">price</span>
+                                                            <span th:text="${pagination.singleSize}">price</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div  class="row justify-content-center">
+                                                <nav aria-label="Page navigation example" th:if="${pagination.totalItemsCount} &gt; 0">
+                                                    <ul class="pagination">
+                                                        <li class="page-item" th:classappend="${pagination.pageNumber == 1}? 'disabled'" >
+                                                            <a aria-label="Previous" class="page-link" th:href="@{/search/(searchKeyWord=${param.searchKeyWord}, offset=${(pagination.pageNumber - 2) * pagination.singleSize})}" >
+                                                                <span aria-hidden="true">&laquo;</span>
+                                                            </a>
+                                                        </li>
+                                                        <li class="page-item" th:classappend="${i == pagination.pageNumber}? 'active'" th:each="i : ${#numbers.sequence(1,pagination.totalPagesCount)}">
+                                                            <a class="page-link" th:href="@{/search/(searchKeyWord=${param.searchKeyWord}, offset=${(i - 1) * pagination.singleSize})}" th:text="${i}">1</a>
+                                                        </li>
+                                                        <li class="page-item"  th:classappend="${pagination.pageNumber == pagination.totalPagesCount}? 'disabled'">
+                                                            <a aria-label="Next" class="page-link" th:href="@{/search/(searchKeyWord=${param.searchKeyWord}, offset=${(pagination.pageNumber) * pagination.singleSize})}">
+                                                                <span aria-hidden="true">&raquo;</span>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </nav>
+                                            </div>
+                                            <div th:if="${pagination.totalItemsCount} &lt; 1">
+                                                <p>search nothing with &quot; <span th:text="${param.searchKeyWord}"></span> &quot;</p>
+                                                <p>Please try a difference keyword. </p>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div id="addBookQuestion">Can't find this book? What should I do...</div>
+                                        <div id="addNewBook">
+                                            <a href="">>Add a new Book...</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script th:replace="fragments :: jQueryJS"></script>
     <script th:replace="fragments :: popperJS"></script>
     <script th:replace="fragments :: bootstrapJS"></script>
