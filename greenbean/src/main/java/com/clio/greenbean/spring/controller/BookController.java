@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * created by 吾乃逆世之神也 on 2019/12/29
@@ -30,4 +31,11 @@ public class BookController {
         
         return "search";
     }
+    
+    @RequestMapping(value="/addBook")
+    public String addBook(){
+        
+        return "addBook";
+    }
 }
+
