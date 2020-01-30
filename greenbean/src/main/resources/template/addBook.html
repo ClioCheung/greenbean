@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<!-- XXX 抽取页面的公共部分-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link th:replace="fragments :: boostrapCSS">
+    <link th:replace="fragments :: fontAwesomeCSS">
+    <link th:replace="fragments :: headerCSS">
+    <link th:replace="fragments :: addBookCSS">
+</head>
+<body>
+    <header th:include="fragments :: header"></header>
+
+    <div class="container" id="addBookBoxDiv">
+        <div class="row">
+            <div class="container">
+                <div class="row">
+                    <div  class="col-sm-12" id="title">
+                        <h1>addBook </h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label" for="name">Name</label>
+                            <div class="col-sm-5">
+                                <input class="form-control" id="name" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label" for="isbn">ISBN</label>
+                            <div class="col-sm-5">
+                                <input class="form-control" id="isbn" type="text">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div id="addBookQuestion">Tank you for helping Greenbean</div>
+                        <div id="addNewBook">
+                            <a href="">>Add a new Book...</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script th:replace="fragments :: jQueryJS"></script>
+    <script th:replace="fragments :: popperJS"></script>
+    <script th:replace="fragments :: bootstrapJS"></script>
+    <script th:replace="fragments :: headerJS"></script>
+</body>
+</html>
