@@ -22,13 +22,13 @@
             <div class="col-sm-8">
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="name">Name</label>
-                    <div class="col-sm-6">
+                    <div class="col-sm-6 marginLeft">
                         <input class="form-control" id="name" type="text">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="isbn">ISBN</label>
-                    <div class="col-sm-6">
+                    <div class="col-sm-6 marginLeft">
                         <input class="form-control" id="isbn" type="text">
                     </div>
                 </div>
@@ -37,16 +37,19 @@
                     <div class="col-sm-6">
                         <div class="row">
                             <span class="col-sm-1">1.</span>
-                            <input class="form-control col-sm-10" id="authorFirst" type="text">
+                            <input class="form-control col-sm-11" id="authorFirst" type="text">
                         </div>
                         <div class="row">
                             <span class="col-sm-1">2.</span>
-                            <input class="form-control col-sm-10" type="text">
+                            <input class="form-control col-sm-11" type="text">
                         </div>
                         <div class="row">
                             <span class="col-sm-1">3.</span>
-                            <input class="form-control col-sm-10" type="text">
+                            <input class="form-control col-sm-11" type="text">
                         </div>
+                    </div>
+                    <div>
+                        <button class="btn btn-outline-secondary addButton" id="addAuthorDiv"><i aria-hidden="true" class="fa fa-plus"></i></button>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -54,36 +57,36 @@
                     <div class="col-sm-6">
                         <div class="row">
                             <span class="col-sm-1">1.</span>
-                            <input class="form-control col-sm-10" id="translatorFirst" type="text">
+                            <input class="form-control col-sm-11" id="translatorFirst" type="text">
                         </div>
                         <div class="row">
                             <span class="col-sm-1">2.</span>
-                            <input class="form-control col-sm-10" type="text">
+                            <input class="form-control col-sm-11" type="text">
                         </div>
                         <div class="row">
                             <span class="col-sm-1">3.</span>
-                            <input class="form-control col-sm-10" type="text">
+                            <input class="form-control col-sm-11" type="text">
                         </div>
                     </div>
                     <div>
-                        <button class="btn btn-outline-secondary"><i class="fas fa-search"></i></button>
+                        <button class="btn btn-outline-secondary addButton" id="addTranslatorDiv"><i aria-hidden="true" class="fa fa-plus"></i></button>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="price">Price</label>
-                    <div class="col-sm-6">
+                    <div class="col-sm-6 marginLeft">
                         <input class="form-control" id="price" type="text">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="publisher">Publisher</label>
-                    <div class="col-sm-6">
+                    <div class="col-sm-6 marginLeft">
                         <input class="form-control" id="publisher" type="text">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="publishYear">Date</label>
-                    <div class="col-sm-2">
+                    <div class="col-sm-2 marginLeft">
                         <select class="custom-select mr-sm-2" id="publishYear">
                             <option selected>2019</option>
                             <option value="1">2020</option>
@@ -109,9 +112,8 @@
                     </div>
                 </div>
 
-                <div class="form-group row">
-                    <div class="col-sm-2"></div>
-                    <div class="col-sm-6">
+                <div class="form-group row justify-content-center">
+                    <div class="col-sm-4">
                         <button class="btn btn-outline-primary" type="button">Next</button>
                         <button class="btn btn-outline-secondary" type="button">Cancel</button>
                     </div>
