@@ -7,13 +7,16 @@
 .form-group>label {
     text-align : right;
 }
+.preFixNumber{
+    line-height: 32px;
+}
 .addButton {
     position : relative;
 }
-#addAuthorDiv {
+#addAuthorButton {
     top : 58px;
 }
-#addTranslatorDiv {
+#addTranslatorButton {
     top : 58px;
 }
 .marginLeft {
