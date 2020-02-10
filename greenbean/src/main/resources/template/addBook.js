@@ -1,5 +1,4 @@
 (function () {
-
     $(function(){
         bindNextButtonClickEvent();
         bindCancelButtonClickEvent();
@@ -13,25 +12,26 @@
             $('.d-none').removeClass("d-none");
             $('#isbn').attr('readonly','');
         });
-    };
+    }
 
     function bindCancelButtonClickEvent() {
         const cancelButton = $('#cancelButton');
         cancelButton.on('click',function () {
             window.location.href="home";
         });
-    };
+    }
 
     function bindAddButtonClickEvent(){
         const addButton = $('.addButton');
         addButton.on('click',function(event){
+            const addButton = $(event.currentTarget);
+            const dataNumber = parseInt(addButton.attr("data-number"));
+            const row = addButton.parent().prev().children(":last-child");
+            const cloneRow = row.clone();
+            row.after(cloneRow);
+            cloneRow.find("span:first").text(dataNumber+1);
+
             debugger;
-            const target = $(event.currentTarget);
-            const dataNumber = target.attr("data-number");
-            // TODO to do
         });
-
-    };
-
-
+    }
 })();
