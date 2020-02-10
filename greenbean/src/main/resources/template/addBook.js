@@ -2,7 +2,8 @@
     $(function(){
         bindNextButtonClickEvent();
         bindCancelButtonClickEvent();
-        bindAddButtonClickEvent()
+        bindAddButtonClickEvent();
+        debugger;
     });
 
     function bindNextButtonClickEvent() {
@@ -11,6 +12,8 @@
             // TODO first step ： 验证ISBN
             $('.d-none').removeClass("d-none");
             $('#isbn').attr('readonly','');
+            nextButton.hide();
+            $("#submitButton").show();
         });
     }
 
