@@ -30,8 +30,10 @@
             const cloneRow = row.clone();
             row.after(cloneRow);
             cloneRow.find("span:first").text(dataNumber+1);
-
-            debugger;
+            addButton.attr("data-number",dataNumber+1);
+            // TODO 修正此处硬代码，有没更好的方法
+            const lineHeight = 32;
+            addButton.css("top",dataNumber * lineHeight + "px");
         });
     }
 })();
