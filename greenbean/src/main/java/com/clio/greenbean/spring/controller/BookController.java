@@ -1,5 +1,6 @@
 package com.clio.greenbean.spring.controller;
 
+import com.clio.greenbean.dto.BookDTO;
 import com.clio.greenbean.dto.SearchPageDTO;
 import com.clio.greenbean.spring.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,7 @@ public class BookController {
     }
     
     @PostMapping(value="/book")
-    public String addBook(){
+    public String addBook(BookDTO bookDTO){
         return null;
     }
 }
