@@ -3,6 +3,7 @@ package com.clio.greenbean.spring.service;
 import com.clio.greenbean.domain.Author;
 import com.clio.greenbean.domain.Book;
 import com.clio.greenbean.domain.Translator;
+import com.clio.greenbean.dto.BookDTO;
 import com.clio.greenbean.dto.SearchBookItemsDTO;
 import com.clio.greenbean.dto.SearchPageDTO;
 import com.clio.greenbean.mybatis.mapper.BookMapper;
@@ -10,6 +11,7 @@ import com.clio.greenbean.vo.PaginationVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -41,6 +43,28 @@ public class BookService {
         PaginationVo paginationVo = new PaginationVo(paginationSize, offset, totalItemsCount);
         searchPageDTO.setPaginationVo(paginationVo);
         return searchPageDTO;
+    }
+    
+    @Transactional
+    public void saveBook(BookDTO bookDTO){
+        Book book = this.generatedBook(bookDTO);
+        this.insertBookBasicInfo(book);
+    }
+    
+    private Book generatedBook(BookDTO bookDTO){
+        Book book = new Book();
+        book.setName(bookDTO.getName());
+        book.setIsbn(bookDTO.getIsbn());
+        book.setPrice(bookDTO.getPrice());
+        book.setPublisher(bookDTO.getPublisher());
+        book.setPublishYear(bookDTO.getPublicationYear());
+        book.setPublishMonth(bookDTO.getPublicationMonth());
+        book.setPublishDay(bookDTO.getPublicationDay());
+        return book;
+    }
+    
+    private Integer insertBookBasicInfo(Book book){
+        return this.bookMapper.insertBookBasicInfo(book);
     }
     
     private Integer getSearchBooksCount(String keyword){
