@@ -7,7 +7,7 @@ import java.util.List;
  */
 public class BookDTO {
     private String name;
-    private Integer isbn;
+    private String isbn;
     private List<Integer> author;
     private List<Integer> translator;
     private float price;
@@ -24,11 +24,11 @@ public class BookDTO {
         this.name = name;
     }
     
-    public Integer getIsbn() {
+    public String getIsbn() {
         return isbn;
     }
     
-    public void setIsbn(Integer isbn) {
+    public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
     

@@ -25,4 +25,6 @@ public interface BookMapper {
     List<Translator> getTranslatorByID(Integer id);
     
     Map<String, Object> getRatingAndRatingCountByID(Integer id);
+    
+    Integer insertBookBasicInfo(Book book);
 }

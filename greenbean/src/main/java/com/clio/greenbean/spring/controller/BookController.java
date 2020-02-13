@@ -30,7 +30,6 @@ public class BookController {
         SearchPageDTO searchPageDTO = bookService.getSearchPage(searchKeyWord, offset);
         model.addAttribute("searchBooks",searchPageDTO.getBookItemsList());
         model.addAttribute("pagination",searchPageDTO.getPaginationVo());
-        
         return "search";
     }
     
@@ -41,6 +40,7 @@ public class BookController {
     
     @PostMapping(value="/book")
     public String addBook(BookDTO bookDTO){
+        this.bookService.saveBook(bookDTO);
         return null;
     }
 }
