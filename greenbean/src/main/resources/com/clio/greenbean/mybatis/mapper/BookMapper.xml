@@ -45,4 +45,11 @@
         <selectKey keyProperty="id" order="AFTER" resultType="int">select last_insert_id()</selectKey>
         insert into t_book (bookname, isbn, price, publisher, publish_year, publish_month, publish_day) values(#{name},#{isbn},#{price},#{publisher},#{publishYear},#{publishMonth},#{publishDay})
     </insert>
+
+    <insert id="insertBookAuthor">
+        insert into t_book_author (book_id,author_id) values
+        <foreach item="value" collection="author" separator=",">
+            (#{bookId},#{value})
+        </foreach>
+    </insert>
 </mapper>
