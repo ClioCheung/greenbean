@@ -49,10 +49,12 @@ public class BookService {
     public void saveBook(BookDTO bookDTO){
         Book book = this.generatedBook(bookDTO);
         this.insertBookBasicInfo(book);
+        this.insertBookAuthor(book.getId(),bookDTO.getAuthor());
     }
     
     private Book generatedBook(BookDTO bookDTO){
         Book book = new Book();
+        //XXX 书的反射处理
         book.setName(bookDTO.getName());
         book.setIsbn(bookDTO.getIsbn());
         book.setPrice(bookDTO.getPrice());
@@ -63,8 +65,12 @@ public class BookService {
         return book;
     }
     
-    private Integer insertBookBasicInfo(Book book){
-        return this.bookMapper.insertBookBasicInfo(book);
+    private void insertBookBasicInfo(Book book){
+        this.bookMapper.insertBookBasicInfo(book);
+    }
+    
+    private void insertBookAuthor(Integer bookId,List<Integer> author){
+        this.bookMapper.insertBookAuthor(bookId, author);
     }
     
     private Integer getSearchBooksCount(String keyword){

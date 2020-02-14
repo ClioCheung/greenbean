@@ -26,5 +26,7 @@ public interface BookMapper {
     
     Map<String, Object> getRatingAndRatingCountByID(Integer id);
     
-    Integer insertBookBasicInfo(Book book);
+    void insertBookBasicInfo(Book book);
+    
+    void insertBookAuthor(@Param("bookId")Integer bookId, @Param("author")List<Integer> author);
 }
