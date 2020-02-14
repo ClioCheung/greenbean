@@ -61,8 +61,12 @@ public class BookService {
         book.setPrice(bookDTO.getPrice());
         book.setPublisher(bookDTO.getPublisher());
         book.setPublishYear(bookDTO.getPublicationYear());
-        book.setPublishMonth(bookDTO.getPublicationMonth());
-        book.setPublishDay(bookDTO.getPublicationDay());
+        if(bookDTO.getPublicationMonth() != 0){
+            book.setPublishMonth(bookDTO.getPublicationMonth());
+        }
+        if(bookDTO.getPublicationDay() != 0){
+            book.setPublishDay(bookDTO.getPublicationDay());
+        }
         return book;
     }
     
