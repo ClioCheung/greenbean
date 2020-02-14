@@ -41,7 +41,7 @@ public class BookController {
     @PostMapping(value="/book")
     public String addBook(BookDTO bookDTO){
         this.bookService.saveBook(bookDTO);
-        return null;
+        return "addBookSuccess";
     }
 }
 
