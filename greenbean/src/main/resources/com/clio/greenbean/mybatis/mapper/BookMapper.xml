@@ -52,4 +52,11 @@
             (#{bookId},#{value})
         </foreach>
     </insert>
+
+    <insert id="insertBookTranslator">
+        insert into t_book_translator (book_id,translator_id) values
+        <foreach item="value" collection="translator" separator=",">
+            (#{bookId},#{value})
+        </foreach>
+    </insert>
 </mapper>
