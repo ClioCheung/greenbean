@@ -50,6 +50,7 @@ public class BookService {
         Book book = this.generatedBook(bookDTO);
         this.insertBookBasicInfo(book);
         this.insertBookAuthor(book.getId(),bookDTO.getAuthor());
+        this.insertBookTranslator(book.getId(),bookDTO.getTranslator());
     }
     
     private Book generatedBook(BookDTO bookDTO){
@@ -71,6 +72,10 @@ public class BookService {
     
     private void insertBookAuthor(Integer bookId,List<Integer> author){
         this.bookMapper.insertBookAuthor(bookId, author);
+    }
+    
+    private void insertBookTranslator(Integer bookId,List<Integer> translator){
+        this.bookMapper.insertBookTranslator(bookId, translator);
     }
     
     private Integer getSearchBooksCount(String keyword){
