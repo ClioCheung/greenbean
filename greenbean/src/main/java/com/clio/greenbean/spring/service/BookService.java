@@ -53,6 +53,10 @@ public class BookService {
         this.insertBookTranslator(book.getId(),bookDTO.getTranslator());
     }
     
+    public List<Author>  getAuthorSuggestion(String authorSuggestion){
+        return this.bookMapper.getAuthorSuggestion(authorSuggestion);
+    }
+    
     private Book generatedBook(BookDTO bookDTO){
         Book book = new Book();
         //XXX 书的反射处理

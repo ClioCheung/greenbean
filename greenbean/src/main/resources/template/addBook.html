@@ -38,13 +38,17 @@
                         <div class="col-sm-6">
                             <div class="row preFixNumber" th:each="i:${#numbers.sequence(1,3)}">
                                 <span class="col-sm-1" th:text="${i}">1</span>
-                                <input class="form-control col-sm-11" name="author" type="text">
+                                <input autocomplete="off" class="form-control col-sm-11" list="authorSuggestion" name="author" type="text">
                             </div>
                         </div>
                         <div>
                             <button class="btn addButton" data-number="3" id="addAuthorButton" type="button">
                                 <i aria-hidden="true" class="fa fa-plus"></i>
                             </button>
+                            <datalist id="authorSuggestion">
+                                <option>阿尔贝·加缪</option>
+                                <option>布兰登·罗伊尔</option>
+                            </datalist>
                         </div>
                     </div>
                     <div class="form-group row d-none">
@@ -52,13 +56,17 @@
                         <div class="col-sm-6">
                             <div class="row preFixNumber"  th:each="i:${#numbers.sequence(1,2)}">
                                 <span class="col-sm-1" th:text="${i}">1</span>
-                                <input class="form-control col-sm-11" name="translator" type="text">
+                                <input autocomplete="off" class="form-control col-sm-11" list="translatorSuggestion" name="translator" type="text">
                             </div>
                         </div>
                         <div>
                             <button class="btn addButton" data-number="2" id="addTranslatorButton" type="button">
                                 <i aria-hidden="true" class="fa fa-plus"></i>
                             </button>
+                            <datalist id="translatorSuggestion">
+                                <option>萧宝森</option>
+                                <option>赵明燕</option>
+                            </datalist>
                         </div>
                     </div>
                     <div class="form-group row d-none">

@@ -3,8 +3,28 @@
         bindNextButtonClickEvent();
         bindCancelButtonClickEvent();
         bindAddButtonClickEvent();
-        debugger;
+        bindAuthorChangeEvent();
     });
+
+    function bindAuthorChangeEvent(){
+        const  authorSuggestion = $("input[name='author']");
+        authorSuggestion.on('input',function (event) {
+           console.log("aaaa");
+           //TODO  发起ajax请求，获取提示数据，放在页面datalist
+            $.ajax({
+                url : "getAuthorSuggestion",
+                method : "GET",
+                data : {
+                    keyword : $(event.currentTarget).val()
+                },
+                dataType : "json"
+            }).done(function () {
+
+            }).fail(function () {
+
+            });
+        });
+    }
 
     function bindNextButtonClickEvent() {
         const nextButton = $('#nextButton');
@@ -39,4 +59,10 @@
             addButton.css("top",dataNumber * lineHeight + "px");
         });
     }
+
+    $("#authorSuggestion").on("keyPress",function () {
+
+    });
+
+
 })();
