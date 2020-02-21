@@ -71,6 +71,8 @@
     <orderEntry type="library" name="Maven: edu.washington.cs.types.checker:checker-framework:1.7.0" level="project" />
     <orderEntry type="library" name="Maven: org.mybatis.caches:mybatis-ehcache:1.1.0" level="project" />
     <orderEntry type="library" name="Maven: net.sf.ehcache:ehcache-core:2.6.11" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.10.1" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.10.1" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.10.1" level="project" />
     <orderEntry type="library" name="Maven: net.sf.ehcache:ehcache-terracotta:2.6.11" level="project" />
     <orderEntry type="library" name="Maven: org.terracotta:terracotta-toolkit-1.6-runtime:5.10.0" level="project" />

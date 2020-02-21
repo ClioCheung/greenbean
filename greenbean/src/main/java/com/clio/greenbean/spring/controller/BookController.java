@@ -43,6 +43,7 @@ public class BookController {
     }
     
     @PostMapping(value="/book")
+    //TODO 表单数据的验证
     public String addBook(BookDTO bookDTO){
         this.bookService.saveBook(bookDTO);
         return "addBookSuccess";
