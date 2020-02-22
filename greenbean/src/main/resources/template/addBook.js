@@ -3,35 +3,26 @@
         bindNextButtonClickEvent();
         bindCancelButtonClickEvent();
         bindAddButtonClickEvent();
-        bindAuthorChangeEvent();
+        initAuthorSuggestion();
     });
 
-    function bindAuthorChangeEvent(){
+    function initAuthorSuggestion(){
         const authorSuggestion = $("input[name='author']");
-        authorSuggestion.on('input',function (event) {
-            //TODO 关键词为空时，不发请求
-            //TODO 点击选择后，不发请求
-            $.ajax({
-                url : "getAuthorSuggestion",
-                method : "GET",
-                data : {
-                    keyword : $(event.currentTarget).val()
-                },
-                dataType : "json"
-            }).done(function (data) {
-                const dataList = $("#authorSuggestion");
-                dataList.children().remove();
-                for(let dataElement of data){
-                    const option = $("<option></option>");
-                    option.attr("data-value",dataElement.id);
-                    option.text(dataElement.name);
-                    dataList.append(option);
-                    //TODO 切换下一个<input>时，清空之前的查询结果
-                }
-                debugger;
-            }).fail(function () {
-
-            });
+        authorSuggestion.autocomplete({
+            minLength : 1,
+            source : function (request,response) {
+                $.ajax({
+                    url : "getAuthorSuggestion",
+                    method : "GET",
+                    data : {
+                        keyword : request.term
+                    },
+                    dataType : "json"
+                }).done(function (data) {
+                    response(data);
+                }).fail(function () {
+                });
+            }
         });
     }
 

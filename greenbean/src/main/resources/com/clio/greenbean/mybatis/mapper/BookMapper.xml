@@ -60,8 +60,8 @@
         </foreach>
     </insert>
 
-    <select id="getAuthorSuggestion" resultType="com.clio.greenbean.domain.Author">
+    <select id="getAuthorSuggestion" resultType="java.lang.String">
         <bind name="suggestion" value="'%' + authorSuggestion + '%'" />
-        select * from t_author where name like #{suggestion}
+        select name from t_author where name like #{suggestion}
     </select>
 </mapper>

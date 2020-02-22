@@ -53,7 +53,7 @@ public class BookService {
         this.insertBookTranslator(book.getId(),bookDTO.getTranslator());
     }
     
-    public List<Author>  getAuthorSuggestion(String authorSuggestion){
+    public List<String> getAuthorSuggestion(String authorSuggestion){
         return this.bookMapper.getAuthorSuggestion(authorSuggestion);
     }
     

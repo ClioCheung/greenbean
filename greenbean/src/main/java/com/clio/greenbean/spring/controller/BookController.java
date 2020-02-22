@@ -1,6 +1,5 @@
 package com.clio.greenbean.spring.controller;
 
-import com.clio.greenbean.domain.Author;
 import com.clio.greenbean.dto.BookDTO;
 import com.clio.greenbean.dto.SearchPageDTO;
 import com.clio.greenbean.spring.service.BookService;
@@ -51,9 +50,8 @@ public class BookController {
     
     @GetMapping(value="/getAuthorSuggestion")
     @ResponseBody
-    public List<Author> getAuthorSuggestion(String keyword){
-        List<Author> authorSuggestion = this.bookService.getAuthorSuggestion(keyword);
-        return authorSuggestion;
+    public List<String> getAuthorSuggestion(String keyword){
+        return this.bookService.getAuthorSuggestion(keyword);
     }
 }
 

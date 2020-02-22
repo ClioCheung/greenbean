@@ -8,6 +8,7 @@
     <link th:replace="fragments :: fontAwesomeCSS">
     <link th:replace="fragments :: headerCSS">
     <link th:replace="fragments :: addBookCSS">
+    <link href="../common/jquery-ui-1.12.1/css/jquery-ui.min.css" rel="stylesheet" th:href="@{/static/common/jquery-ui-1.12.1/css/jquery-ui.min.css}">
 </head>
 <body>
     <header th:include="fragments :: header"></header>
@@ -38,14 +39,13 @@
                         <div class="col-sm-6">
                             <div class="row preFixNumber" th:each="i:${#numbers.sequence(1,3)}">
                                 <span class="col-sm-1" th:text="${i}">1</span>
-                                <input autocomplete="off" class="form-control col-sm-11" list="authorSuggestion" name="author" type="text">
+                                <input autocomplete="off" class="form-control col-sm-11" name="author" type="text">
                             </div>
                         </div>
                         <div>
                             <button class="btn addButton" data-number="3" id="addAuthorButton" type="button">
                                 <i aria-hidden="true" class="fa fa-plus"></i>
                             </button>
-                            <datalist id="authorSuggestion"></datalist>
                         </div>
                     </div>
                     <div class="form-group row d-none">
@@ -124,6 +124,7 @@
     <script th:replace="fragments :: jQueryJS"></script>
     <script th:replace="fragments :: popperJS"></script>
     <script th:replace="fragments :: bootstrapJS"></script>
+    <script src="../common/jquery-ui-1.12.1/js/jquery-ui.min.js" th:src="@{/static/common/jquery-ui-1.12.1/js/jquery-ui.min.js}"></script>
     <script th:replace="fragments :: headerJS"></script>
     <script th:replace="fragments :: addBookJS"></script>
 </body>
