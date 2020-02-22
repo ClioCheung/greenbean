@@ -64,4 +64,9 @@
         <bind name="suggestion" value="'%' + authorSuggestion + '%'" />
         select name from t_author where name like #{suggestion}
     </select>
+
+    <select id="getTranslatorSuggestion" resultType="java.lang.String">
+        <bind name="suggestion" value="'%' + translatorSuggestion + '%'" />
+        select name from t_translator where name like #{suggestion}
+    </select>
 </mapper>

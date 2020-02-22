@@ -53,5 +53,11 @@ public class BookController {
     public List<String> getAuthorSuggestion(String keyword){
         return this.bookService.getAuthorSuggestion(keyword);
     }
+    
+    @GetMapping("/getTranslatorSuggestion")
+    @ResponseBody
+    public List<String> getTranslatorSuggestion(String keyword){
+        return this.bookService.getTranslatorSuggestion(keyword);
+    }
 }
 

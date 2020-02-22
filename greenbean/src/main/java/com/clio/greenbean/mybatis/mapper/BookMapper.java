@@ -33,4 +33,6 @@ public interface BookMapper {
     void insertBookTranslator(@Param("bookId")Integer bookId, @Param("translator")List<Integer> translator);
     
     List<String> getAuthorSuggestion(String authorSuggestion);
+    
+    List<String> getTranslatorSuggestion(String translatorSuggestion);
 }

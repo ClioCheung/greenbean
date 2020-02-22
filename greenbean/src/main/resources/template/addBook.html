@@ -53,17 +53,13 @@
                         <div class="col-sm-6">
                             <div class="row preFixNumber"  th:each="i:${#numbers.sequence(1,2)}">
                                 <span class="col-sm-1" th:text="${i}">1</span>
-                                <input autocomplete="off" class="form-control col-sm-11" list="translatorSuggestion" name="translator" type="text">
+                                <input autocomplete="off" class="form-control col-sm-11" name="translator" type="text">
                             </div>
                         </div>
                         <div>
                             <button class="btn addButton" data-number="2" id="addTranslatorButton" type="button">
                                 <i aria-hidden="true" class="fa fa-plus"></i>
                             </button>
-                            <datalist id="translatorSuggestion">
-                                <option>萧宝森</option>
-                                <option>赵明燕</option>
-                            </datalist>
                         </div>
                     </div>
                     <div class="form-group row d-none">

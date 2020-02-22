@@ -3,16 +3,19 @@
         bindNextButtonClickEvent();
         bindCancelButtonClickEvent();
         bindAddButtonClickEvent();
-        initAuthorSuggestion();
+        initAutoComplete("author");
+        initAutoComplete("translator");
     });
 
-    function initAuthorSuggestion(){
-        const authorSuggestion = $("input[name='author']");
-        authorSuggestion.autocomplete({
+    //XXX 在后台进行 type 的区分
+    function initAutoComplete(type){
+        const suggestion = $('input[name="' + type + '"]');
+        const getSuggestionUrl = "get" + type.substring(0,1).toUpperCase()+ type.substring(1) + "Suggestion";
+        suggestion.autocomplete({
             minLength : 1,
             source : function (request,response) {
                 $.ajax({
-                    url : "getAuthorSuggestion",
+                    url : getSuggestionUrl,
                     method : "GET",
                     data : {
                         keyword : request.term
