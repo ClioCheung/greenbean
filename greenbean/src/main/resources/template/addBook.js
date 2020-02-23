@@ -5,7 +5,28 @@
         bindAddButtonClickEvent();
         initAutoComplete($('input[name="author"]'),'getAuthorSuggestion');
         initAutoComplete($('input[name="translator"]'),'getTranslatorSuggestion');
+        bindDateChangeEvent();
     });
+
+    function bindDateChangeEvent(){
+        const publicationDate = $('#publicationYear,#publicationMonth');
+        publicationDate.on('change',function () {
+            const publicationDayElement = $('#publicationDay');
+            publicationDayElement.children(':not(:first-child)').remove();
+            //XXX 切换年月时，当月的天数一致时，日无需归零
+            const publicationMonthValue = $('#publicationMonth').val();
+            if(publicationMonthValue != 0){
+                const publicationYearValue = $('#publicationYear').val();
+                const dayNumber = new Date(publicationYearValue,publicationMonthValue,0).getDate();
+                for(let i = 0; i < dayNumber; i++){
+                    const dayOption = $('<option></option>');
+                    dayOption.val(i + 1);
+                    dayOption.text(i + 1);
+                    publicationDayElement.append(dayOption);
+                }
+            }
+        });
+    }
 
     //XXX 在后台进行 type 的区分
     function initAutoComplete(selector,url){

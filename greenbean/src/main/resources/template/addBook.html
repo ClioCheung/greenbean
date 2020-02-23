@@ -79,23 +79,18 @@
                         <label class="col-sm-2 col-form-label" for="publicationYear">Date</label>
                         <div class="col-sm-2 marginLeft">
                             <select class="custom-select mr-sm-2" id="publicationYear" name="publicationYear">
-                                <option th:each="i : ${#numbers.sequence(#calendars.year(#calendars.createToday()) + 3,1980)}" th:selected="${i == #calendars.year(#calendars.createToday())}? 'true':'false'" th:text="${i}"></option>
+                                <option th:each="i : ${#numbers.sequence(#calendars.year(#calendars.createToday()) + 3,1980)}" th:selected="${i == #calendars.year(#calendars.createToday())}? 'true':'false'" th:text="${i}" th:value="${i}"></option>
                             </select>
                         </div>
                         <div class="col-sm-2">
                             <select class="custom-select mr-sm-2" id="publicationMonth" name="publicationMonth">
                                 <option selected value="0">N/A</option>
-                                <option value="1">01</option>
-                                <option value="2">02</option>
-                                <option value="3">03</option>
+                                <option th:each="i : ${#numbers.sequence(1,12)}" th:text="${i}" th:value="${i}"></option>
                             </select>
                         </div>
                         <div class="col-sm-2">
                             <select class="custom-select mr-sm-2" id="publicationDay" name="publicationDay">
                                 <option selected value="0">N/A</option>
-                                <option value="1">01</option>
-                                <option value="2">02</option>
-                                <option value="3">03</option>
                             </select>
                         </div>
                     </div>
