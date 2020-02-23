@@ -53,11 +53,11 @@
             const row = addButton.parent().prev().children(":last-child");
             const cloneRow = row.clone();
 
-            const selectorInput = cloneRow.find("input");
-            selectorInput.val("");
-            const inputName = selectorInput.attr("name");
+            const cloneRowInput = cloneRow.find("input");
+            cloneRowInput.val("");
+            const inputName = cloneRowInput.attr("name");
             let url = "get" + inputName.substr(0,1).toUpperCase()+ inputName.substr(1) + "Suggestion";
-            initAutoComplete(selectorInput,url);
+            initAutoComplete(cloneRowInput,url);
 
             row.after(cloneRow);
             cloneRow.find("span:first").text(dataNumber+1);
