@@ -49,8 +49,11 @@ public class BookService {
     public void saveBook(BookDTO bookDTO){
         Book book = this.generatedBook(bookDTO);
         this.insertBookBasicInfo(book);
-        this.insertBookAuthor(book.getId(),bookDTO.getAuthor());
-        this.insertBookTranslator(book.getId(),bookDTO.getTranslator());
+        //XXX 作者和译者为空或重名的问题
+        List<Integer> authorIDs = this.bookMapper.getAuthorIDsByNames(bookDTO.getAuthor());
+        this.insertBookAuthor(book.getId(),authorIDs);
+        List<Integer> translatorIDs = this.bookMapper.getTranslatorIDsByNames(bookDTO.getTranslator());
+        this.insertBookTranslator(book.getId(),translatorIDs);
     }
     
     public List<String> getAuthorSuggestion(String authorSuggestion){

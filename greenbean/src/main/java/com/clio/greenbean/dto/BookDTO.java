@@ -8,8 +8,8 @@ import java.util.List;
 public class BookDTO {
     private String name;
     private String isbn;
-    private List<Integer> author;
-    private List<Integer> translator;
+    private List<String> author;
+    private List<String> translator;
     private float price;
     private String publisher;
     private Integer publicationYear;
@@ -32,19 +32,19 @@ public class BookDTO {
         this.isbn = isbn;
     }
     
-    public List<Integer> getAuthor() {
+    public List<String> getAuthor() {
         return author;
     }
     
-    public void setAuthor(List<Integer> author) {
+    public void setAuthor(List<String> author) {
         this.author = author;
     }
     
-    public List<Integer> getTranslator() {
+    public List<String> getTranslator() {
         return translator;
     }
     
-    public void setTranslator(List<Integer> translator) {
+    public void setTranslator(List<String> translator) {
         this.translator = translator;
     }
     

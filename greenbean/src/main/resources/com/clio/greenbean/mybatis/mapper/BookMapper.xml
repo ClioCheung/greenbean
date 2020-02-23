@@ -69,4 +69,18 @@
         <bind name="suggestion" value="'%' + translatorSuggestion + '%'" />
         select name from t_translator where name like #{suggestion}
     </select>
+
+    <select id="getAuthorIDsByNames" resultType="java.lang.Integer">
+        select id from t_author where name in(
+        <foreach collection="authorNames" item="value" separator=",">
+            #{value}
+        </foreach>)
+    </select>
+    
+    <select id="getTranslatorIDsByNames" resultType="java.lang.Integer">
+        select id from t_translator where name in(
+        <foreach collection="translatorNames" item="value" separator=",">
+            #{value}
+        </foreach>)
+    </select>
 </mapper>

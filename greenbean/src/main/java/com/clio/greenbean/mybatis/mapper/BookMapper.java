@@ -35,4 +35,8 @@ public interface BookMapper {
     List<String> getAuthorSuggestion(String authorSuggestion);
     
     List<String> getTranslatorSuggestion(String translatorSuggestion);
+    
+    List<Integer> getAuthorIDsByNames(@Param("authorNames") List<String> authorNames);
+    
+    List<Integer> getTranslatorIDsByNames(@Param("translatorNames") List<String> translatorNames);
 }

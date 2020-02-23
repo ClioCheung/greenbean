@@ -54,10 +54,12 @@ public class BookController {
         return this.bookService.getAuthorSuggestion(keyword);
     }
     
-    @GetMapping("/getTranslatorSuggestion")
+    @GetMapping(value="/getTranslatorSuggestion")
     @ResponseBody
     public List<String> getTranslatorSuggestion(String keyword){
         return this.bookService.getTranslatorSuggestion(keyword);
     }
+    
+    //TODO 出错视图
 }
 
