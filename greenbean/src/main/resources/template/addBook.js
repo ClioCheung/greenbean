@@ -3,17 +3,19 @@
         bindNextButtonClickEvent();
         bindCancelButtonClickEvent();
         bindAddButtonClickEvent();
-        initAutoComplete($('input[name="author"]'),'getAuthorSuggestion');
-        initAutoComplete($('input[name="translator"]'),'getTranslatorSuggestion');
+        initAutoComplete("author");
+        initAutoComplete("translator");
     });
 
     //XXX 在后台进行 type 的区分
-    function initAutoComplete(selector,url){
-        selector.autocomplete({
+    function initAutoComplete(type){
+        const suggestion = $('input[name="' + type + '"]');
+        const getSuggestionUrl = "get" + type.substring(0,1).toUpperCase()+ type.substring(1) + "Suggestion";
+        suggestion.autocomplete({
             minLength : 1,
             source : function (request,response) {
                 $.ajax({
-                    url : url,
+                    url : getSuggestionUrl,
                     method : "GET",
                     data : {
                         keyword : request.term
@@ -52,13 +54,6 @@
             const dataNumber = parseInt(addButton.attr("data-number"));
             const row = addButton.parent().prev().children(":last-child");
             const cloneRow = row.clone();
-
-            const selectorInput = cloneRow.find("input");
-            selectorInput.val("");
-            const inputName = selectorInput.attr("name");
-            let url = "get" + inputName.substr(0,1).toUpperCase()+ inputName.substr(1) + "Suggestion";
-            initAutoComplete(selectorInput,url);
-
             row.after(cloneRow);
             cloneRow.find("span:first").text(dataNumber+1);
             addButton.attr("data-number",dataNumber+1);
