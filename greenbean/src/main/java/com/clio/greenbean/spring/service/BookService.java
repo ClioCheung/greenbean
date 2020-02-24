@@ -101,6 +101,14 @@ public class BookService {
         book.setPrice(bookDTO.getPrice());
         book.setPublisher(bookDTO.getPublisher());
         book.setPublishYear(bookDTO.getPublicationYear());
+        book.setSubtitle(bookDTO.getSubtitle());
+        book.setOriginalName(bookDTO.getOriginalName());
+        book.setBinding(bookDTO.getBinding());
+        book.setPage(bookDTO.getPage());
+        book.setContentIntro(bookDTO.getContentIntro());
+        book.setAuthorIntro(bookDTO.getAuthorIntro());
+        book.setDirectory(bookDTO.getDirectory());
+        
         if(bookDTO.getPublicationMonth() != 0){
             book.setPublishMonth(bookDTO.getPublicationMonth());
         }

@@ -10,11 +10,18 @@ public class BookDTO {
     private String isbn;
     private List<String> author;
     private List<String> translator;
-    private float price;
     private String publisher;
     private Integer publicationYear;
     private Integer publicationMonth;
     private Integer publicationDay;
+    private float price;
+    private String subtitle;
+    private String originalName;
+    private Integer binding;
+    private Integer page;
+    private String contentIntro;
+    private String authorIntro;
+    private String directory;
     
     public String getName() {
         return name;
@@ -86,5 +93,61 @@ public class BookDTO {
     
     public void setPublicationDay(Integer publicationDay) {
         this.publicationDay = publicationDay;
+    }
+    
+    public String getSubtitle() {
+        return subtitle;
+    }
+    
+    public void setSubtitle(String subtitle) {
+        this.subtitle = subtitle;
+    }
+    
+    public String getOriginalName() {
+        return originalName;
+    }
+    
+    public void setOriginalName(String originalName) {
+        this.originalName = originalName;
+    }
+    
+    public Integer getBinding() {
+        return binding;
+    }
+    
+    public void setBinding(Integer binding) {
+        this.binding = binding;
+    }
+    
+    public Integer getPage() {
+        return page;
+    }
+    
+    public void setPage(Integer page) {
+        this.page = page;
+    }
+    
+    public String getContentIntro() {
+        return contentIntro;
+    }
+    
+    public void setContentIntro(String contentIntro) {
+        this.contentIntro = contentIntro;
+    }
+    
+    public String getAuthorIntro() {
+        return authorIntro;
+    }
+    
+    public void setAuthorIntro(String authorIntro) {
+        this.authorIntro = authorIntro;
+    }
+    
+    public String getDirectory() {
+        return directory;
+    }
+    
+    public void setDirectory(String directory) {
+        this.directory = directory;
     }
 }
