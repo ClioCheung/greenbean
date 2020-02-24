@@ -10,6 +10,9 @@
 .preFixNumber{
     line-height: 32px;
 }
+.lineHeightDiv {
+    line-height: 32px;
+}
 .addButton {
     position : relative;
 }
@@ -26,4 +29,7 @@
 input::-webkit-calendar-picker-indicator {
     display: none;
     -webkit-appearance: none;
+}
+textarea {
+    resize: none;
 }

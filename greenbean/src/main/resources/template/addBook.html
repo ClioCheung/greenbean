@@ -28,6 +28,18 @@
                             <input class="form-control" id="name" name="name"type="text">
                         </div>
                     </div>
+                    <div class="form-group row d-none">
+                        <label class="col-sm-2 col-form-label" for="subtitle">Subtitle</label>
+                        <div class="col-sm-6 marginLeft">
+                            <input class="form-control" id="subtitle" name="subtitle" type="text">
+                        </div>
+                    </div>
+                    <div class="form-group row d-none">
+                        <label class="col-sm-2 col-form-label" for="originalName">Original Name</label>
+                        <div class="col-sm-6 marginLeft">
+                            <input class="form-control" id="originalName" name="originalName" type="text">
+                        </div>
+                    </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="isbn">ISBN</label>
                         <div class="col-sm-6 marginLeft">
@@ -92,6 +104,44 @@
                             <select class="custom-select mr-sm-2" id="publicationDay" name="publicationDay">
                                 <option selected value="0">N/A</option>
                             </select>
+                        </div>
+                    </div>
+                    <div class="form-group row d-none">
+                        <label class="col-sm-2 col-form-label">Binding</label>
+                        <div class="col-sm-6 marginLeft lineHeightDiv">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" id="binding_1" name="binding" type="radio" value="binding">
+                                <label class="form-check-label" for="binding_1">平装</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" id="binding_2" name="binding" type="radio" value="binding">
+                                <label class="form-check-label" for="binding_2">精装</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row d-none">
+                        <label class="col-sm-2 col-form-label" for="page">Page</label>
+                        <div class="col-sm-6 marginLeft">
+                            <input class="form-control" id="page" name="page" type="text">
+                        </div>
+                        <div class="lineHeightDiv"><span>页</span></div>
+                    </div>
+                    <div class="form-group row d-none">
+                        <label class="col-sm-2 col-form-label" for="contentIntro">ContentIntro</label>
+                        <div class="col-sm-6 marginLeft">
+                            <textarea class="form-control" id="contentIntro" name="contentIntro" required rows="10"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row d-none">
+                        <label class="col-sm-2 col-form-label" for="authorIntro">AuthorIntro</label>
+                        <div class="col-sm-6 marginLeft">
+                            <textarea class="form-control" id="authorIntro" name="authorIntro" required rows="10"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row d-none">
+                        <label class="col-sm-2 col-form-label" for="directory">Directory</label>
+                        <div class="col-sm-6 marginLeft">
+                            <textarea class="form-control" id="directory" name="directory" required rows="10"></textarea>
                         </div>
                     </div>
 
