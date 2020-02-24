@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.thymeleaf.util.StringUtils;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -44,8 +46,20 @@ public class BookController {
     @PostMapping(value="/book")
     //TODO 表单数据的验证
     public String addBook(BookDTO bookDTO){
+        removeBlankNames(bookDTO.getAuthor());
+        removeBlankNames(bookDTO.getTranslator());
         this.bookService.saveBook(bookDTO);
         return "addBookSuccess";
+    }
+    
+    private void removeBlankNames(List<String> nameList){
+        Iterator<String> iterator = nameList.iterator();
+        while (iterator.hasNext()){
+            //XXX Iterator removeIf
+            if(StringUtils.isEmptyOrWhitespace(iterator.next())){
+                iterator.remove();
+            }
+        }
     }
     
     @GetMapping(value="/getAuthorSuggestion")

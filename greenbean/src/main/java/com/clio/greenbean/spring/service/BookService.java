@@ -49,11 +49,40 @@ public class BookService {
     public void saveBook(BookDTO bookDTO){
         Book book = this.generatedBook(bookDTO);
         this.insertBookBasicInfo(book);
-        //XXX 作者和译者为空或重名的问题
-        List<Integer> authorIDs = this.bookMapper.getAuthorIDsByNames(bookDTO.getAuthor());
-        this.insertBookAuthor(book.getId(),authorIDs);
-        List<Integer> translatorIDs = this.bookMapper.getTranslatorIDsByNames(bookDTO.getTranslator());
-        this.insertBookTranslator(book.getId(),translatorIDs);
+        //XXX 待重构的代码
+        List<String> authorNames = bookDTO.getAuthor();
+        List<Integer> authorIds = new ArrayList<>();
+        for(String name : authorNames){
+            List<Integer> id = this.bookMapper.getAuthorIdByName(name);
+            if (id.size() >= 1) {
+                authorIds.add(id.get(0));
+            } else {
+                Author author = new Author();
+                author.setName(name);
+                this.bookMapper.insertAuthorByName(author);
+                authorIds.add(author.getId());
+            }
+        }
+        if(authorIds.size() > 0){
+            this.insertBookAuthor(book.getId(),authorIds);
+        }
+    
+        List<String> translatorNames = bookDTO.getTranslator();
+        List<Integer> translatorIds = new ArrayList<>();
+        for(String name : translatorNames){
+            List<Integer> id = this.bookMapper.getTranslatorIdByName(name);
+            if (id.size() >= 1) {
+                translatorIds.add(id.get(0));
+            } else {
+                Translator translator = new Translator();
+                translator.setName(name);
+                this.bookMapper.insertTranslatorByName(translator);
+                translatorIds.add(translator.getId());
+            }
+        }
+        if(translatorIds.size() > 0){
+            this.insertBookTranslator(book.getId(),translatorIds);
+        }
     }
     
     public List<String> getAuthorSuggestion(String authorSuggestion){

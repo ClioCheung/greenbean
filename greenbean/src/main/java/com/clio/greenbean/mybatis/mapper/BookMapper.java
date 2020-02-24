@@ -36,7 +36,11 @@ public interface BookMapper {
     
     List<String> getTranslatorSuggestion(String translatorSuggestion);
     
-    List<Integer> getAuthorIDsByNames(@Param("authorNames") List<String> authorNames);
+    List<Integer> getAuthorIdByName(@Param("authorName") String authorName);
     
-    List<Integer> getTranslatorIDsByNames(@Param("translatorNames") List<String> translatorNames);
+    List<Integer> getTranslatorIdByName(@Param("translatorName") String translatorName);
+    
+    void insertAuthorByName(Author name);
+    
+    void insertTranslatorByName(Translator name);
 }
