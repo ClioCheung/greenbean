@@ -24,7 +24,8 @@
                 <div class="row bookRowDiv" th:each="bookItem : ${searchBooks}">
                     <div class="col-sm-2">
                         <a href="#">
-                            <img class="bookPictureImg" th:if="${bookItem.picture != null}" th:src="@{/static/picture/books/{bookPicture}(bookPicture=${bookItem.picture})}">
+                            <!-- 可暂时忽略thymeleafde的报错提示 -->
+                            <img class="bookPictureImg" th:src="${bookItem.picture != null}? @{/static/picture/books/{bookPicture}(bookPicture=${bookItem.picture})} : @{/static/pic/bookDefault.gif}">
                         </a>
                     </div>
                     <div class="col-sm-10">
@@ -32,7 +33,7 @@
                         <div class="row bookRatingRow">
                             <span class="allStars" th:classappend="${bookItem.starRatingName}"></span>
                             <span class="rating_nums" th:text="${bookItem.rating}"></span>&nbsp;
-                            (<span  th:text="${bookItem.ratingCount}"></span>&nbsp;人评价)
+                            (<span th:text="${bookItem.ratingCount}"></span>&nbsp;人评价)
                         </div>
                         <div class="row bookInfoRow">
                             <!-- TODO 当行内容多于一行时，使用省略号结尾-->
@@ -41,9 +42,6 @@
                             <span th:text="${bookItem.publisher}">publisher</span>/
                             <span th:text="${bookItem.publishDate}">publishDate</span>/
                             <span th:text="${bookItem.price}">price</span>元
-                            <!--  test -->
-                            <span th:text="${pagination.pageNumber}">price</span>
-                            <span th:text="${pagination.singleSize}">price</span>
                         </div>
                     </div>
                 </div>
