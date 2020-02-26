@@ -34,7 +34,7 @@
                 <img alt="大话数据结构" th:src="${readingCount > 0}? @{/static/picture/books/{readingBookPicture}(readingBookPicture=${readingBookPictures[0]})} : @{static/pic/bookDefault.gif}">
             </div>
             <div class="col-sm bookPlace">
-                <img alt="大话数据结构" src="sample.jpg" th:if="${readingCount > 1}" th:src="@{/static/picture/books/{readingBookPicture}(readingBookPicture=${readingBookPictures[1]})}">
+                <img alt="大话数据结构" th:src="${readingCount > 1}? @{/static/picture/books/{readingBookPicture}(readingBookPicture=${readingBookPictures[1]})} : @{static/pic/bookDefault.gif}">
             </div>
             <div class="col-sm bookPlace">
                 <img alt="大话数据结构" src="sample.jpg" th:if="${readingCount > 2}" th:src="@{/static/picture/books/{readingBookPicture}(readingBookPicture=${readingBookPictures[2]})}">
