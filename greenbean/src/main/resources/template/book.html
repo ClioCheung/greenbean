@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>bookDetailPage</title>
+    <link th:replace="fragments :: boostrapCSS">
+    <link th:replace="fragments :: fontAwesomeCSS">
+    <link th:replace="fragments :: headerCSS">
+    <link href="book.css" th:href="@{static/template/book.css}">
+</head>
+<body>
+    <header th:include="fragments :: header"></header>
+
+
+
+
+bookDetailPage!
+
+    <script th:replace="fragments :: jQueryJS"></script>
+    <script th:replace="fragments :: popperJS"></script>
+    <script th:replace="fragments :: bootstrapJS"></script>
+    <script th:replace="fragments :: headerJS"></script>
+</body>
+</html>
