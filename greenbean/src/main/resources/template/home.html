@@ -23,6 +23,7 @@
         </div>
     </div>
 
+    <!--XXX 把主体框架放进fragments，以提高代码复用率  -->
     <div class="container" id="bookDiv">
         <h5>Read  · · · · · · ( <span th:text="${readingCount}">7</span>本reading · <span th:text="${wishCount}">554</span>本wish · <span th:text="${readCount}">235</span>本read )</h5>
         <div class="row bookRow">
@@ -30,7 +31,7 @@
                 reading
             </div>
             <div class="col-sm bookPlace">
-                <img alt="大话数据结构" src="sample.jpg" th:if="${readingCount > 0}" th:src="@{/static/picture/books/{readingBookPicture}(readingBookPicture=${readingBookPictures[0]})}">
+                <img alt="大话数据结构" th:src="${readingCount > 0}? @{/static/picture/books/{readingBookPicture}(readingBookPicture=${readingBookPictures[0]})} : @{static/pic/bookDefault.gif}">
             </div>
             <div class="col-sm bookPlace">
                 <img alt="大话数据结构" src="sample.jpg" th:if="${readingCount > 1}" th:src="@{/static/picture/books/{readingBookPicture}(readingBookPicture=${readingBookPictures[1]})}">

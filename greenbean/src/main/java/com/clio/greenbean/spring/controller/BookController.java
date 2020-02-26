@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.thymeleaf.util.StringUtils;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
@@ -45,10 +47,15 @@ public class BookController {
     
     @PostMapping(value="/book")
     //TODO 表单数据的验证
-    public String addBook(BookDTO bookDTO){
+    public void addBook(BookDTO bookDTO, HttpServletResponse httpServletResponse) throws IOException {
         removeBlankNames(bookDTO.getAuthor());
         removeBlankNames(bookDTO.getTranslator());
         this.bookService.saveBook(bookDTO);
+        httpServletResponse.sendRedirect("addBookSuccess");
+    }
+    
+    @GetMapping(value="/addBookSuccess")
+    public String addBookSuccess(){
         return "addBookSuccess";
     }
     
