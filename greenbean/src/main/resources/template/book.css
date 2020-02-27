@@ -1,0 +1,21 @@
+#wrapper {
+    margin-top : 85px;
+}
+h1 {
+    font-size : 26px;
+    font-weight : bold;
+}
+.bookImg {
+    width: 100%;
+    margin-bottom: 10px;
+}
+#bookInfo>p {
+    font-size: 12px;
+    margin-bottom: 0.45rem;
+}
+.bigStarImg {
+    width : 75px;
+    height : 15px;
+    background-image : url("../pic/bigStar.png");
+    background-repeat: no-repeat;
+}
