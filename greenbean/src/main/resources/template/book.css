@@ -1,12 +1,17 @@
 #wrapper {
     margin-top : 85px;
 }
+#bookName {
+    margin-bottom: 20px;
+}
 h1 {
     font-size : 26px;
     font-weight : bold;
 }
 .bookImg {
     width: 100%;
+    max-height: 200px;
+    object-fit: contain;
     margin-bottom: 10px;
 }
 #bookInfo>p {
@@ -18,4 +23,27 @@ h1 {
     height : 15px;
     background-image : url("../pic/bigStar.png");
     background-repeat: no-repeat;
+    margin-top: 4px;
+}
+.greenbeanRatingRowDiv {
+    color: #9b9b9b;
+    line-height: 1;
+    font-family: Helvetica,Arial,sans-serif;
+    padding-left: 15px;
+}
+a+p {
+    text-align: center;
+}
+.ratingCountDiv {
+    line-height: 2;
+    font-size: 28px;
+    min-width: 30%;
+}
+.starDiv {
+    padding: 8px 0 8px 6px;
+}
+.ratingDiv {
+    line-height: 2;
+    color: #3377aa;
+    font-family: Helvetica,Arial,sans-serif;
 }
