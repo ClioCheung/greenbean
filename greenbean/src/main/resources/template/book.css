@@ -25,6 +25,9 @@ h1 {
     background-repeat: no-repeat;
     margin-top: 4px;
 }
+#greenbeanRatingDiv {
+    border-left: 1px solid #eaeaea;
+}
 .greenbeanRatingRowDiv {
     color: #9b9b9b;
     line-height: 1;
@@ -46,4 +49,23 @@ a+p {
     line-height: 2;
     color: #3377aa;
     font-family: Helvetica,Arial,sans-serif;
+}
+.starPower {
+    width: 64px;
+    height: 10px;
+    float: left;
+    margin: 1px 4px;
+    background: #ffd596 none repeat scroll 0 0;
+}
+.power {
+    padding-left: 15px;
+    line-height: 14px;
+    font-size: 12px;
+    color: #9b9b9b;
+}
+.starCount {
+    margin-right: 5px;
+}
+.powerPercentage {
+    margin-left: 5px;
 }
