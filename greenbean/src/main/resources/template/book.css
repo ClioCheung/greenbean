@@ -2,70 +2,82 @@
     margin-top : 85px;
 }
 #bookName {
-    margin-bottom: 20px;
+    margin-bottom : 20px;
 }
 h1 {
     font-size : 26px;
     font-weight : bold;
 }
 .bookImg {
-    width: 100%;
-    max-height: 200px;
-    object-fit: contain;
-    margin-bottom: 10px;
+    width : 100%;
+    max-height : 200px;
+    object-fit : contain;
+    margin-bottom : 10px;
 }
 #bookInfo>p {
-    font-size: 12px;
-    margin-bottom: 0.45rem;
+    font-size : 12px;
+    margin-bottom : 0.45rem;
 }
 .bigStarImg {
     width : 75px;
     height : 15px;
     background-image : url("../pic/bigStar.png");
-    background-repeat: no-repeat;
-    margin-top: 4px;
+    background-repeat : no-repeat;
+    margin-top : 4px;
 }
 #greenbeanRatingDiv {
-    border-left: 1px solid #eaeaea;
+    border-left : 1px solid #eaeaea;
 }
 .greenbeanRatingRowDiv {
-    color: #9b9b9b;
-    line-height: 1;
-    font-family: Helvetica,Arial,sans-serif;
-    padding-left: 15px;
+    color : #9b9b9b;
+    line-height : 1;
+    font-family : Helvetica,Arial,sans-serif;
+    padding-left : 15px;
 }
 a+p {
-    text-align: center;
+    text-align : center;
 }
 .ratingCountDiv {
-    line-height: 2;
-    font-size: 28px;
-    min-width: 30%;
+    line-height : 2;
+    font-size : 28px;
+    min-width : 30%;
 }
 .starDiv {
-    padding: 8px 0 8px 6px;
+    padding : 8px 0 8px 6px;
 }
 .ratingDiv {
-    line-height: 2;
-    color: #3377aa;
-    font-family: Helvetica,Arial,sans-serif;
+    line-height : 2;
+    color : #3377aa;
+    font-family : Helvetica,Arial,sans-serif;
 }
 .starPower {
-    width: 64px;
-    height: 10px;
-    float: left;
-    margin: 1px 4px;
-    background: #ffd596 none repeat scroll 0 0;
+    width : 64px;
+    height : 10px;
+    float : left;
+    margin : 1px 4px;
+    background : #ffd596 none repeat scroll 0 0;
 }
 .power {
-    padding-left: 15px;
-    line-height: 14px;
-    font-size: 12px;
-    color: #9b9b9b;
+    padding-left : 15px;
+    line-height : 14px;
+    font-size : 12px;
+    color : #9b9b9b;
 }
 .starCount {
-    margin-right: 5px;
+    margin-right : 5px;
 }
 .powerPercentage {
-    margin-left: 5px;
+    margin-left : 5px;
+}
+#ratingSignRow {
+    padding : 20px 0 3px;
+}
+#ratingSignRow button {
+    margin-right : 10px;
+    width : 66px;
+}
+.ratingClickStar {
+    position : relative;
+    top : -3px;
+    font-size : 0;
 }
