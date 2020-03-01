@@ -81,3 +81,16 @@ a+p {
     top : -3px;
     font-size : 0;
 }
+.contentIntroDiv h4{
+    font-size: 16px;
+    color: #007722;
+    line-height: 150%;
+    margin-top: 24px;
+    margin-bottom: 3px;
+}
+.contentIntroduction p {
+    text-indent: 2em;
+    word-break: normal;
+    word-wrap: break-word;
+    font-size: 13px;
+}
