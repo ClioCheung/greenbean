@@ -3,6 +3,7 @@ package com.clio.greenbean.mybatis.mapper;
 import com.clio.greenbean.domain.Author;
 import com.clio.greenbean.domain.Book;
 import com.clio.greenbean.domain.Translator;
+import com.clio.greenbean.dto.BookItemsDTO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -43,4 +44,6 @@ public interface BookMapper {
     void insertAuthorByName(Author name);
     
     void insertTranslatorByName(Translator name);
+    
+    BookItemsDTO getBookItemsById(Integer id);
 }

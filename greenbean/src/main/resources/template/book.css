@@ -81,6 +81,9 @@ a+p {
     top : -3px;
     font-size : 0;
 }
+.contentIntroDiv {
+    padding-left: 15px;
+}
 .contentIntroDiv h4{
     font-size: 16px;
     color: #007722;

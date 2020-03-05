@@ -1,6 +1,7 @@
 package com.clio.greenbean.spring.controller;
 
 import com.clio.greenbean.dto.BookDTO;
+import com.clio.greenbean.dto.BookItemsDTO;
 import com.clio.greenbean.dto.SearchPageDTO;
 import com.clio.greenbean.spring.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,7 +82,9 @@ public class BookController {
     //TODO 出错视图
     
     @GetMapping(value="/book/{id}")
-    public String showBook(@PathVariable Integer id){
+    public String showBook(@PathVariable Integer id, Model model){
+        BookItemsDTO bookItemsDTO = this.bookService.getBookItemsById(id);
+        model.addAttribute("bookItemDto",bookItemsDTO);
         return "book";
     }
 }

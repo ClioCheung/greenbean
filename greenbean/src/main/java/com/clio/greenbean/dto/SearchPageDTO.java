@@ -8,14 +8,14 @@ import java.util.List;
  * created by 吾乃逆世之神也 on 2020/1/14
  */
 public class SearchPageDTO {
-    private List<SearchBookItemsDTO> bookItemsList;
+    private List<BookItemsDTO> bookItemsList;
     private PaginationVo paginationVo;
     
-    public List<SearchBookItemsDTO> getBookItemsList() {
+    public List<BookItemsDTO> getBookItemsList() {
         return bookItemsList;
     }
     
-    public void setBookItemsList(List<SearchBookItemsDTO> bookItemsList) {
+    public void setBookItemsList(List<BookItemsDTO> bookItemsList) {
         this.bookItemsList = bookItemsList;
     }
     

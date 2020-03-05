@@ -4,7 +4,7 @@ import com.clio.greenbean.domain.Author;
 import com.clio.greenbean.domain.Book;
 import com.clio.greenbean.domain.Translator;
 import com.clio.greenbean.dto.BookDTO;
-import com.clio.greenbean.dto.SearchBookItemsDTO;
+import com.clio.greenbean.dto.BookItemsDTO;
 import com.clio.greenbean.dto.SearchPageDTO;
 import com.clio.greenbean.mybatis.mapper.BookMapper;
 import com.clio.greenbean.vo.PaginationVo;
@@ -37,7 +37,7 @@ public class BookService {
     
     public SearchPageDTO getSearchPage(String keyword ,Integer offset){
         SearchPageDTO searchPageDTO = new SearchPageDTO();
-        List<SearchBookItemsDTO> bookItemsDTOS = this.getSearchBooksInOnePage(keyword,offset);
+        List<BookItemsDTO> bookItemsDTOS = this.getSearchBooksInOnePage(keyword,offset);
         searchPageDTO.setBookItemsList(bookItemsDTOS);
         Integer totalItemsCount = this.getSearchBooksCount(keyword);
         PaginationVo paginationVo = new PaginationVo(paginationSize, offset, totalItemsCount);
@@ -134,13 +134,13 @@ public class BookService {
         return this.bookMapper.getSearchBooksCount(keyword);
     }
     
-    private List<SearchBookItemsDTO> getSearchBooksInOnePage(String keyword, Integer offset){
+    private List<BookItemsDTO> getSearchBooksInOnePage(String keyword, Integer offset){
         List<Map<String, Integer>> searchBookItemsIDs = this.getSearchBooksIDInOnePage(keyword, offset);
-        List<SearchBookItemsDTO> SearchBookDTOs = new ArrayList<>();
+        List<BookItemsDTO> SearchBookDTOs = new ArrayList<>();
         for (Map<String, Integer> idMap : searchBookItemsIDs) {
             Integer id = idMap.get("id");
             // TODO 拿到book信息
-            SearchBookItemsDTO dto = new SearchBookItemsDTO();
+            BookItemsDTO dto = new BookItemsDTO();
             Book book = this.getBooksBaseInfoByID(id);
             this.setBookIntoDTO(book, dto);
         
@@ -162,23 +162,23 @@ public class BookService {
         return bookMapper.getSearchBooksWithPagination(keyword, offset, paginationSize);
     }
     
-    public Book getBooksBaseInfoByID (Integer id) {
+    private Book getBooksBaseInfoByID (Integer id) {
         return this.bookMapper.getBooksBaseInfoByID(id);
     }
     
-    public List<Author> getAuthorByID(Integer id) {
+    private List<Author> getAuthorByID(Integer id) {
         return this.bookMapper.getAuthorByID(id);
     }
     
-    public List<Translator> getTranslatorByID(Integer id) {
+    private List<Translator> getTranslatorByID(Integer id) {
         return this.bookMapper.getTranslatorByID(id);
     }
     
-    public Map<String, Object> getRatingAndRatingCountByID(Integer id) {
+    private Map<String, Object> getRatingAndRatingCountByID(Integer id) {
         return this.bookMapper.getRatingAndRatingCountByID(id);
     }
     
-    private SearchBookItemsDTO setBookIntoDTO(Book book, SearchBookItemsDTO dto){
+    private BookItemsDTO setBookIntoDTO(Book book, BookItemsDTO dto){
         dto.setBookName(book.getName());
         dto.setPicture(book.getPicture());
         dto.setPublisher(book.getPublisher());
@@ -200,7 +200,7 @@ public class BookService {
         return dto;
     }
     
-    private void setAuthorByID(List<Author> authorList,SearchBookItemsDTO dto){
+    private void setAuthorByID(List<Author> authorList, BookItemsDTO dto){
         StringBuilder authorsBuilder = new StringBuilder();
         for (Author author : authorList) {
             authorsBuilder.append(author.getName());
@@ -210,7 +210,7 @@ public class BookService {
         dto.setAuthorName(authorsBuilder.toString());
     }
     
-    private void setTranslatorByID(List<Translator> translatorList,SearchBookItemsDTO dto){
+    private void setTranslatorByID(List<Translator> translatorList, BookItemsDTO dto){
         StringBuilder translatorBuilder = new StringBuilder();
         for (Translator translator : translatorList){
             translatorBuilder.append(translator.getName());
@@ -222,13 +222,13 @@ public class BookService {
         }
     }
     
-    private void setRatingByID(Map<String, Object>  ratings, SearchBookItemsDTO dto) {
+    private void setRatingByID(Map<String, Object>  ratings, BookItemsDTO dto) {
         Long ratingCount = (Long)ratings.get("ratingCount");
         dto.setRatingCount(String.valueOf(ratingCount));
         if(ratingCount > 0){
             BigDecimal rating = (BigDecimal) ratings.get("rating");
             BigDecimal ratingWithOneDecimal = rating.setScale(1, RoundingMode.HALF_UP);
-            dto.setRating(ratingWithOneDecimal.intValue());
+            dto.setRating(String.valueOf(ratingWithOneDecimal));
 
             DecimalFormat ratingFormat = new DecimalFormat("00");
             BigDecimal ratingWithTwoNum = rating.divide(new BigDecimal(2)).multiply(new BigDecimal(10));
@@ -239,5 +239,10 @@ public class BookService {
             // XXX 修改硬代码
             dto.setStarRatingName("star00");
         }
+    }
+    
+    public BookItemsDTO getBookItemsById(Integer id) {
+        
+        return this.bookMapper.getBookItemsById(id);
     }
 }
