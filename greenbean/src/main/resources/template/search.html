@@ -23,17 +23,22 @@
                 <!--/*@thymesVar id="searchBooks" type="java.util.List"*/-->
                 <div class="row bookRowDiv" th:each="bookItem : ${searchBooks}">
                     <div class="col-sm-2">
-                        <a href="#">
+                        <a th:href="@{/book/{id}(id=${bookItem.id})}">
                             <!-- 可暂时忽略thymeleafde的报错提示 -->
                             <img class="bookPictureImg" th:src="${bookItem.picture != null}? @{/static/picture/books/{bookPicture}(bookPicture=${bookItem.picture})} : @{/static/pic/bookDefault.gif}">
                         </a>
                     </div>
                     <div class="col-sm-10">
-                        <div class="row bookNameRow"><span><a href="#" th:text="${bookItem.bookName}"></a></span></div>
+                        <div class="row bookNameRow"><span><a th:href="@{book/{id}(id=${bookItem.id})}" th:text="${bookItem.bookName}"></a></span></div>
                         <div class="row bookRatingRow">
                             <span class="allStars" th:classappend="${bookItem.starRatingName}"></span>
                             <span class="rating_nums" th:text="${bookItem.rating}"></span>&nbsp;
-                            (<span th:text="${bookItem.ratingCount}"></span>&nbsp;人评价)
+                            <span th:if="${#conversions.convert(bookItem.ratingCount,'java.lang.Integer') > 0}">
+                                (&nbsp;<span th:text="${bookItem.ratingCount}"></span>&nbsp;人评价&nbsp;)
+                            </span>
+                            <span th:if="${#conversions.convert(bookItem.ratingCount,'java.lang.Integer') == 0}">
+                                (&nbsp;No rating temporarily&nbsp;)
+                            </span>
                         </div>
                         <div class="row bookInfoRow">
                             <!-- TODO 当行内容多于一行时，使用省略号结尾-->
