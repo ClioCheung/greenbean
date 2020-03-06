@@ -14,7 +14,7 @@ public class BookItemsDTO {
     private String authorName;
     private String translatorName;
     private String publisher;
-    private String publishDate;
+    private String publicationDate;
     private String price;
     private String picture;
     private String subtitle;
@@ -91,12 +91,12 @@ public class BookItemsDTO {
         this.publisher = publisher;
     }
     
-    public String getPublishDate() {
-        return publishDate;
+    public String getPublicationDate() {
+        return publicationDate;
     }
     
-    public void setPublishDate(String publishDate) {
-        this.publishDate = publishDate;
+    public void setPublicationDate(String publicationDate) {
+        this.publicationDate = publicationDate;
     }
     
     public String getPrice() {

@@ -208,11 +208,21 @@ public class BookService {
                 publishDate.append(day);
             }
         }
-        dto.setPublishDate(publishDate.toString());
+        dto.setPublicationDate(publishDate.toString());
+        dto.setPage(String.valueOf(book.getPage()));
         dto.setPrice(String.valueOf(book.getPrice()));
         dto.setSubtitle(book.getSubtitle());
         dto.setOriginalName(book.getOriginalName());
-        dto.setBinding(String.valueOf(book.getBinding()));
+        String bindingStr = null;
+        Integer binding = book.getBinding();
+        if(binding != null){
+            if(binding == 1){
+                bindingStr = "平装";
+            } else if(binding == 2){
+                bindingStr = "精装";
+            }
+            dto.setBinding(bindingStr);
+        }
         dto.setIsbn((book.getIsbn()));
         dto.setContentIntro(book.getContentIntro());
         dto.setAuthorIntro(book.getAuthorIntro());
@@ -253,11 +263,11 @@ public class BookService {
             DecimalFormat ratingFormat = new DecimalFormat("#.0");
             BigDecimal ratingWithTwoNum = rating.divide(new BigDecimal(2)).multiply(new BigDecimal(10));
             String starSuffix = ratingFormat.format(ratingWithTwoNum);
-            String starRatingName = "star" + starSuffix;
+            String starRatingName = starSuffix;
             dto.setStarRatingName(starRatingName);
         } else {
             // XXX 修改硬代码
-            dto.setStarRatingName("star00");
+            dto.setStarRatingName("00");
         }
     }
     

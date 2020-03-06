@@ -29,28 +29,28 @@
                         <p><a>Update Information</a></p>
                     </div>
                     <div class="col-sm-6 px-sm-0" id="bookInfo">
-                        <p>Author: <a href="#">[挪威] 乔斯坦·贾德</a></p>
-                        <p>Publisher: 作家出版社</p>
-                        <p>Original Name: Sofies verden</p>
-                        <p>Translator: 萧宝森</p>
-                        <p>PublicationDate: 2007-10</p>
-                        <p>Page: 528</p>
-                        <p>Price: 26.00元</p>
-                        <p>Binding: 平装</p>
-                        <p>ISBN: 9787506341271</p>
+                        <p th:if="${bookPage.authorName}">Author: <span th:text="${bookPage.authorName}"></span></p>
+                        <p th:if="${bookPage.publisher}">Publisher: <span th:text="${bookPage.publisher}"></span></p>
+                        <p th:if="${bookPage.originalName}">Original Name: <span th:text="${bookPage.originalName}"></span></p>
+                        <p th:if="${bookPage.translatorName}">Translator: <span th:text="${bookPage.translatorName}"></span></p>
+                        <p th:if="${bookPage.publicationDate}">PublicationDate: <span th:text="${bookPage.publicationDate}"></span></p>
+                        <p th:if="${bookPage.page}">Page: <span th:text="${bookPage.page}"></span></p>
+                        <p th:if="${bookPage.price}">Price: <span th:text="${bookPage.price}"></span>元</p>
+                        <p th:if="${bookPage.binding}">Binding: <span th:text="${bookPage.binding}"></span></p>
+                        <p th:if="${bookPage.isbn}">ISBN: <span th:text="${bookPage.isbn}"></span></p>
                     </div>
                     <div class="col-sm-3" id="greenbeanRatingDiv">
                         <div class="row greenbeanRatingRowDiv">
                                 <span>GreenbeanRating</span>
                         </div>
                         <div class="row">
-                            <div class="col-sm-4 ratingCountDiv">
-                                <span>9.2</span>
+                            <div class="col-sm-4 ratingCountDiv" th:if="${bookPage.rating}">
+                                <span th:text="${bookPage.rating}"></span>
                             </div>
                             <div class="col-sm-8 starDiv">
                                 <div class="bigStarImg bigStar45"></div>
                                 <div class="ratingDiv">
-                                    <span>31323 Rating</span>
+                                    <span th:text="${bookPage.ratingCount}"></span>&nbsp;Rating
                                 </div>
                             </div>
                         </div>
