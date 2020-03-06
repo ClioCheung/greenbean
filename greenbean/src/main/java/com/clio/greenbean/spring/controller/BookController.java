@@ -83,7 +83,7 @@ public class BookController {
     
     @GetMapping(value="/book/{id}")
     public String showBook(@PathVariable Integer id, Model model){
-        BookItemsDTO bookItemsDTO = this.bookService.getBookItemsById(id);
+        BookItemsDTO bookItemsDTO = this.bookService.getBookPage(id);
         model.addAttribute("bookItemDto",bookItemsDTO);
         return "book";
     }

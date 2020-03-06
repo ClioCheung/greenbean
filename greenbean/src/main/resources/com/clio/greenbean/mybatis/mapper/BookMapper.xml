@@ -15,7 +15,7 @@
     </select>
 
     <select id="getBooksBaseInfoByID" resultType="com.clio.greenbean.domain.Book">
-        select bookname as name,picture,publisher,publish_year publishYear,publish_month publishMonth,publish_day publishDay,price from t_book where id = #{id};
+        select id, name, isbn, picture, publisher,publish_year publishYear , publish_month publishMonth, publish_day publishDay, price, subtitle, original_name originalName, binding, page, content_intro contenIntro, author_intro authorIntro, directory from t_book where id = #{id};
     </select>
 
     <select id="getAuthorByID" resultType="com.clio.greenbean.domain.Author">
@@ -28,6 +28,10 @@
 
     <select id="getRatingAndRatingCountByID" resultType="java.util.Map">
         select count(*) as ratingCount,avg(score) as rating from t_book_user where book_id = #{id} and score is not null
+    </select>
+    <!--XXX 上下这两个语句可合成一句 -->
+    <select id="getScoreAndRatingCountGroupByScore" resultType="java.util.Map">
+        select score,count(*) as ratingCount from t_book_user where book_id = #{id} and score is not null group by score
     </select>
 
     <!-- XXX 有没更好的写法 -->
@@ -43,7 +47,7 @@
 
     <insert id="insertBookBasicInfo">
         <selectKey keyProperty="id" order="AFTER" resultType="int">select last_insert_id()</selectKey>
-        insert into t_book (bookname, isbn, price, publisher, publish_year, publish_month, publish_day, subtitle, original_name, binding, page, content_intro, author_intro, directory) values(#{name},#{isbn},#{price},#{publisher},#{publishYear},#{publishMonth},#{publishDay},#{subtitle},#{originalName},#{binding},#{page},#{contentIntro},#{authorIntro},#{directory})
+        insert into t_book (name, isbn, price, publisher, publish_year, publish_month, publish_day, subtitle, original_name, binding, page, content_intro, author_intro, directory) values(#{name},#{isbn},#{price},#{publisher},#{publishYear},#{publishMonth},#{publishDay},#{subtitle},#{originalName},#{binding},#{page},#{contentIntro},#{authorIntro},#{directory})
     </insert>
 
     <insert id="insertBookAuthor">

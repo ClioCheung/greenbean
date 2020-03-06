@@ -17,6 +17,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -140,22 +141,29 @@ public class BookService {
         for (Map<String, Integer> idMap : searchBookItemsIDs) {
             Integer id = idMap.get("id");
             // TODO 拿到book信息
-            BookItemsDTO dto = new BookItemsDTO();
-            Book book = this.getBooksBaseInfoByID(id);
-            this.setBookIntoDTO(book, dto);
-        
-            List<Author> authorList = this.getAuthorByID(id);
-            this.setAuthorByID(authorList,dto);
-        
-            List<Translator> translatorList = this.getTranslatorByID(id);
-            this.setTranslatorByID(translatorList,dto);
-        
-            Map<String, Object>  ratings = this.getRatingAndRatingCountByID(id);
-            this.setRatingByID(ratings,dto);
-        
-            SearchBookDTOs.add(dto);
+            SearchBookDTOs.add(this.getBookItemsById(id));
         }
         return SearchBookDTOs;
+    }
+    
+    private BookItemsDTO getBookItemsById(Integer id){
+        BookItemsDTO dto = new BookItemsDTO();
+        Book book = this.getBooksBaseInfoByID(id);
+        this.setBookIntoDTO(book, dto);
+    
+        List<Author> authorList = this.getAuthorByID(id);
+        this.setAuthorByID(authorList,dto);
+    
+        List<Translator> translatorList = this.getTranslatorByID(id);
+        this.setTranslatorByID(translatorList,dto);
+    
+        Map<String, Object>  ratings = this.getRatingAndRatingCountByID(id);
+        this.setRatingByID(ratings,dto);
+        
+        List<Map<String, Object>> getScoreAndRatingCountGroupByScoreList = this.getScoreAndRatingCountGroupByScore(id);
+        this.setRatingPercentageList(getScoreAndRatingCountGroupByScoreList,dto);
+      
+        return dto;
     }
     
     private List<Map<String, Integer>> getSearchBooksIDInOnePage(String keyword, Integer offset){
@@ -178,7 +186,12 @@ public class BookService {
         return this.bookMapper.getRatingAndRatingCountByID(id);
     }
     
+    private List<Map<String, Object>> getScoreAndRatingCountGroupByScore(Integer id){
+        return this.bookMapper.getScoreAndRatingCountGroupByScore(id);
+    }
+    
     private BookItemsDTO setBookIntoDTO(Book book, BookItemsDTO dto){
+        dto.setId(String.valueOf(book.getId()));
         dto.setBookName(book.getName());
         dto.setPicture(book.getPicture());
         dto.setPublisher(book.getPublisher());
@@ -197,6 +210,13 @@ public class BookService {
         }
         dto.setPublishDate(publishDate.toString());
         dto.setPrice(String.valueOf(book.getPrice()));
+        dto.setSubtitle(book.getSubtitle());
+        dto.setOriginalName(book.getOriginalName());
+        dto.setBinding(String.valueOf(book.getBinding()));
+        dto.setIsbn((book.getIsbn()));
+        dto.setContentIntro(book.getContentIntro());
+        dto.setAuthorIntro(book.getAuthorIntro());
+        dto.setDirectory(book.getDirectory());
         return dto;
     }
     
@@ -230,7 +250,7 @@ public class BookService {
             BigDecimal ratingWithOneDecimal = rating.setScale(1, RoundingMode.HALF_UP);
             dto.setRating(String.valueOf(ratingWithOneDecimal));
 
-            DecimalFormat ratingFormat = new DecimalFormat("00");
+            DecimalFormat ratingFormat = new DecimalFormat("#.0");
             BigDecimal ratingWithTwoNum = rating.divide(new BigDecimal(2)).multiply(new BigDecimal(10));
             String starSuffix = ratingFormat.format(ratingWithTwoNum);
             String starRatingName = "star" + starSuffix;
@@ -241,8 +261,23 @@ public class BookService {
         }
     }
     
-    public BookItemsDTO getBookItemsById(Integer id) {
-        
-        return this.bookMapper.getBookItemsById(id);
+    private void setRatingPercentageList(List<Map<String, Object>> getScoreAndRatingCountGroupByScoreList, BookItemsDTO dto) {
+        Integer totalRatingCount = Integer.valueOf(dto.getRatingCount());
+        if(totalRatingCount != 0){
+            Map<String, String> ratingPercentageMap = new HashMap<>();
+            for(Map<String, Object> scoreAndRatingCountGroupByScoreMap :getScoreAndRatingCountGroupByScoreList){
+                BigDecimal ratingCountBigDecimal = new BigDecimal((Long)scoreAndRatingCountGroupByScoreMap.get("ratingCount"));
+                BigDecimal totalRatingCountBigDecimal = new BigDecimal(totalRatingCount);
+                DecimalFormat format = new DecimalFormat("#.0%");
+                String singleRatingCount = format.format(ratingCountBigDecimal.divide(totalRatingCountBigDecimal).setScale(3,RoundingMode.HALF_UP));
+                
+                ratingPercentageMap.put(String.valueOf(scoreAndRatingCountGroupByScoreMap.get("score")),singleRatingCount);
+            }
+            dto.setRatingPercentageList(ratingPercentageMap);
+        }
+    }
+    
+    public BookItemsDTO getBookPage(Integer id) {
+        return this.getBookItemsById(id);
     }
 }
