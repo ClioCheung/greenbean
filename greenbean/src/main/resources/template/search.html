@@ -24,7 +24,7 @@
                 <div class="row bookRowDiv" th:each="bookItem : ${searchBooks}">
                     <div class="col-sm-2">
                         <a th:href="@{/book/{id}(id=${bookItem.id})}">
-                            <!-- 可暂时忽略thymeleafde的报错提示 -->
+                            <!-- XXX IDEA语法错误的错误提示 -->
                             <img class="bookPictureImg" th:src="${bookItem.picture != null}? @{/static/picture/books/{bookPicture}(bookPicture=${bookItem.picture})} : @{/static/pic/bookDefault.gif}">
                         </a>
                     </div>

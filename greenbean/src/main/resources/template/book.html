@@ -15,7 +15,7 @@
     <div class="container" id="wrapper">
         <div class="row">
             <div class="col-sm-12" id="bookName">
-                <h1><span>苏菲的世界</span></h1>
+                <h1><span th:text="${bookPage.bookName}"></span></h1>
             </div>
         </div>
         <div class="row">
@@ -23,9 +23,10 @@
                 <div class="row">
                     <div class="col-sm-3">
                         <a>
-                            <img class="bookImg" th:src="@{/static/pic/bookDefault.gif}" title="bookName">
+                            <!-- XXX IDEA语法错误的错误提示 -->
+                            <img class="bookImg" th:src="${bookPage.picture != null}? @{/static/picture/books/{bookItemPicture}(bookItemPicture=${bookPage.picture})} : @{/static/pic/bookDefault.gif}" title="bookName">
                         </a>
-                        <p><a>Update Book's Information</a></p>
+                        <p><a>Update Information</a></p>
                     </div>
                     <div class="col-sm-6 px-sm-0" id="bookInfo">
                         <p>Author: <a href="#">[挪威] 乔斯坦·贾德</a></p>

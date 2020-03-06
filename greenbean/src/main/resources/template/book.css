@@ -35,7 +35,9 @@ h1 {
     padding-left : 15px;
 }
 a+p {
-    text-align : center;
+    color: #BBBBBB;
+    font-size: 12px;
+    text-align: center;
 }
 .ratingCountDiv {
     line-height : 2;
