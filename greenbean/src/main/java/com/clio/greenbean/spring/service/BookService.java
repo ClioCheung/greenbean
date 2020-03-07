@@ -17,7 +17,6 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -274,17 +273,28 @@ public class BookService {
     private void setRatingPercentageList(List<Map<String, Object>> getScoreAndRatingCountGroupByScoreList, BookItemsDTO dto) {
         Integer totalRatingCount = Integer.valueOf(dto.getRatingCount());
         if(totalRatingCount != 0){
-            Map<String, String> ratingPercentageMap = new HashMap<>();
+            List<String> ratingPercentageList = new ArrayList<>();
+            // 初始化 list
+            for(int i = 0;i < 5; i++){
+                String percentageStr = "0.0%";
+                ratingPercentageList.add(percentageStr);
+            }
             for(Map<String, Object> scoreAndRatingCountGroupByScoreMap :getScoreAndRatingCountGroupByScoreList){
                 BigDecimal ratingCountBigDecimal = new BigDecimal((Long)scoreAndRatingCountGroupByScoreMap.get("ratingCount"));
                 BigDecimal totalRatingCountBigDecimal = new BigDecimal(totalRatingCount);
                 DecimalFormat format = new DecimalFormat("#.0%");
                 String singleRatingCount = format.format(ratingCountBigDecimal.divide(totalRatingCountBigDecimal).setScale(3,RoundingMode.HALF_UP));
-                
-                ratingPercentageMap.put(String.valueOf(scoreAndRatingCountGroupByScoreMap.get("score")),singleRatingCount);
+                Integer score = (Integer)scoreAndRatingCountGroupByScoreMap.get("score");
+                /*
+                * 从数据库取出的 score 可分别为2，4，6，8，10，
+                * List 数组长度为5，index 为 0,1,2,3,4, 要得到1-5星，分别除于2，即 score / 2 - 1,
+                * 4 - (score / 2 - 1)  对list倒序进行添加元素
+                * */
+                ratingPercentageList.set(4 - (score / 2 - 1),singleRatingCount);
             }
-            dto.setRatingPercentageList(ratingPercentageMap);
+            dto.setRatingPercentageList(ratingPercentageList);
         }
+        
     }
     
     public BookItemsDTO getBookPage(Integer id) {

@@ -1,6 +1,6 @@
 package com.clio.greenbean.dto;
 
-import java.util.Map;
+import java.util.List;
 
 /**
  * created by 吾乃逆世之神也 on 2020/1/2
@@ -25,7 +25,7 @@ public class BookItemsDTO {
     private String contentIntro;
     private String authorIntro;
     private String directory;
-    private Map<String, String> ratingPercentageList;
+    private List<String> ratingPercentageList;
     
     public String getId() {
         return id;
@@ -179,11 +179,11 @@ public class BookItemsDTO {
         this.directory = directory;
     }
     
-    public Map<String, String> getRatingPercentageList() {
+    public List<String> getRatingPercentageList() {
         return ratingPercentageList;
     }
     
-    public void setRatingPercentageList(Map<String, String> ratingPercentageList) {
+    public void setRatingPercentageList(List<String> ratingPercentageList) {
         this.ratingPercentageList = ratingPercentageList;
     }
 }
