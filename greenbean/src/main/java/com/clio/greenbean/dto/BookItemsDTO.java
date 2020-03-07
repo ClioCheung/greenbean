@@ -26,6 +26,7 @@ public class BookItemsDTO {
     private String authorIntro;
     private String directory;
     private List<String> ratingPercentageList;
+    private List<String> ratingPowerPercentageList;
     
     public String getId() {
         return id;
@@ -185,5 +186,13 @@ public class BookItemsDTO {
     
     public void setRatingPercentageList(List<String> ratingPercentageList) {
         this.ratingPercentageList = ratingPercentageList;
+    }
+    
+    public List<String> getRatingPowerPercentageList() {
+        return ratingPowerPercentageList;
+    }
+    
+    public void setRatingPowerPercentageList(List<String> ratingPowerPercentageList) {
+        this.ratingPowerPercentageList = ratingPowerPercentageList;
     }
 }

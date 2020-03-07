@@ -52,13 +52,15 @@ a+p {
     color : #3377aa;
     font-family : Helvetica,Arial,sans-serif;
 }
-.starPower {
+.starPowerDiv {
     width : 64px;
+}
+.starPower {
     height : 10px;
-    float : left;
-    margin : 1px 4px;
+    margin : 3px 1px;
     background : #ffd596 none repeat scroll 0 0;
 }
+
 .power {
     padding-left : 15px;
     line-height : 14px;
@@ -66,10 +68,11 @@ a+p {
     color : #9b9b9b;
 }
 .starCount {
+    width : 36px;
     margin-right : 5px;
 }
 .powerPercentage {
-    margin-left : 5px;
+    margin-left : 10px;
 }
 #ratingSignRow {
     padding : 20px 0 3px;

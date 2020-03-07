@@ -31,7 +31,7 @@
                     <div class="col-sm-10">
                         <div class="row bookNameRow"><span><a th:href="@{book/{id}(id=${bookItem.id})}" th:text="${bookItem.bookName}"></a></span></div>
                         <div class="row bookRatingRow">
-                            <span class="allStars" th:classappend="${bookItem.starRatingName}"></span>
+                            <span class="allStars" th:classappend="'star' + ${bookItem.starRatingName}"></span>
                             <span class="rating_nums" th:text="${bookItem.rating}"></span>&nbsp;
                             <span th:if="${#conversions.convert(bookItem.ratingCount,'java.lang.Integer') > 0}">
                                 (&nbsp;<span th:text="${bookItem.ratingCount}"></span>&nbsp;人评价&nbsp;)

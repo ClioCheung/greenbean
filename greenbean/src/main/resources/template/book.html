@@ -48,16 +48,21 @@
                                 <span th:text="${bookPage.rating}"></span>
                             </div>
                             <div class="col-sm-8 starDiv">
-                                <div class="bigStarImg bigStar45"></div>
+                                <div class="bigStarImg" th:classappend="'bigStar' + ${bookPage.starRatingName}"></div>
                                 <div class="ratingDiv">
                                     <span th:text="${bookPage.ratingCount}"></span>&nbsp;Rating
                                 </div>
                             </div>
                         </div>
-                        <div class="row power" th:each="percentage,iterate : ${bookPage.ratingPercentageList}" >
+
+                        <div class="row power" th:each="percentage,iterate : ${bookPage.ratingPercentageList}">
                             <span class="starCount" th:text="${5 - iterate.index} + (${iterate.last}? ' Star' : ' Stars')">5 Stars</span>
-                            <div class="starPower"></div>
-                            <span class="powerPercentage" th:text="${percentage}"></span><br>
+                            <div class="starPowerDiv">
+                                <div class="starPower" th:styleappend="'width:' + ${bookPage.ratingPowerPercentageList[iterate.index]}"></div>
+                            </div>
+                            <div>
+                                <span class="powerPercentage" th:text="${percentage}"></span>
+                            </div>
                         </div>
                     </div>
                 </div>

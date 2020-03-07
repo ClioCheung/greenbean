@@ -93,6 +93,10 @@ public class BookService {
         return this.bookMapper.getTranslatorSuggestion(translatorSuggestion);
     }
     
+    public BookItemsDTO getBookPage(Integer id) {
+        return this.getBookItemsById(id);
+    }
+    
     private Book generatedBook(BookDTO bookDTO){
         Book book = new Book();
         //XXX 书的反射处理
@@ -161,6 +165,7 @@ public class BookService {
         
         List<Map<String, Object>> getScoreAndRatingCountGroupByScoreList = this.getScoreAndRatingCountGroupByScore(id);
         this.setRatingPercentageList(getScoreAndRatingCountGroupByScoreList,dto);
+        this.setRatingPowerPercentageList(getScoreAndRatingCountGroupByScoreList,dto);
       
         return dto;
     }
@@ -259,7 +264,7 @@ public class BookService {
             BigDecimal ratingWithOneDecimal = rating.setScale(1, RoundingMode.HALF_UP);
             dto.setRating(String.valueOf(ratingWithOneDecimal));
 
-            DecimalFormat ratingFormat = new DecimalFormat("#.0");
+            DecimalFormat ratingFormat = new DecimalFormat("#");
             BigDecimal ratingWithTwoNum = rating.divide(new BigDecimal(2)).multiply(new BigDecimal(10));
             String starSuffix = ratingFormat.format(ratingWithTwoNum);
             String starRatingName = starSuffix;
@@ -272,32 +277,42 @@ public class BookService {
     
     private void setRatingPercentageList(List<Map<String, Object>> getScoreAndRatingCountGroupByScoreList, BookItemsDTO dto) {
         Integer totalRatingCount = Integer.valueOf(dto.getRatingCount());
-        if(totalRatingCount != 0){
-            List<String> ratingPercentageList = new ArrayList<>();
-            // 初始化 list
-            for(int i = 0;i < 5; i++){
-                String percentageStr = "0.0%";
-                ratingPercentageList.add(percentageStr);
-            }
-            for(Map<String, Object> scoreAndRatingCountGroupByScoreMap :getScoreAndRatingCountGroupByScoreList){
-                BigDecimal ratingCountBigDecimal = new BigDecimal((Long)scoreAndRatingCountGroupByScoreMap.get("ratingCount"));
-                BigDecimal totalRatingCountBigDecimal = new BigDecimal(totalRatingCount);
-                DecimalFormat format = new DecimalFormat("#.0%");
-                String singleRatingCount = format.format(ratingCountBigDecimal.divide(totalRatingCountBigDecimal).setScale(3,RoundingMode.HALF_UP));
-                Integer score = (Integer)scoreAndRatingCountGroupByScoreMap.get("score");
-                /*
-                * 从数据库取出的 score 可分别为2，4，6，8，10，
-                * List 数组长度为5，index 为 0,1,2,3,4, 要得到1-5星，分别除于2，即 score / 2 - 1,
-                * 4 - (score / 2 - 1)  对list倒序进行添加元素
-                * */
-                ratingPercentageList.set(4 - (score / 2 - 1),singleRatingCount);
-            }
-            dto.setRatingPercentageList(ratingPercentageList);
-        }
-        
+        dto.setRatingPercentageList(this.createPercentage(getScoreAndRatingCountGroupByScoreList, totalRatingCount));
     }
     
-    public BookItemsDTO getBookPage(Integer id) {
-        return this.getBookItemsById(id);
+    private void setRatingPowerPercentageList(List<Map<String, Object>> getScoreAndRatingCountGroupByScoreList, BookItemsDTO dto) {
+        long maxPercentage = 0;
+        for(Map<String, Object> scoreAndRatingCountGroupByScoreMap : getScoreAndRatingCountGroupByScoreList){
+            long ratingCount = (long)scoreAndRatingCountGroupByScoreMap.get("ratingCount");
+           if(ratingCount > maxPercentage){
+               maxPercentage = ratingCount;
+           }
+        }
+        dto.setRatingPowerPercentageList(this.createPercentage(getScoreAndRatingCountGroupByScoreList,maxPercentage));
     }
+    
+    private List<String> createPercentage(List<Map<String, Object>> getScoreAndRatingCountGroupByScoreList, long divisor){
+        List<String> percentageList = new ArrayList<>();
+        if(divisor != 0) {
+            // 初始化 list
+            for (int i = 0; i < 5; i++) {
+                String percentageStr = "0.0%";
+                percentageList.add(percentageStr);
+            }
+            for (Map<String, Object> scoreAndRatingCountGroupByScoreMap : getScoreAndRatingCountGroupByScoreList) {
+                BigDecimal ratingCountBigDecimal = new BigDecimal((Long) scoreAndRatingCountGroupByScoreMap.get("ratingCount"));
+                BigDecimal totalRatingCountBigDecimal = new BigDecimal(divisor);
+                DecimalFormat format = new DecimalFormat("#.0%");
+                String singleRatingCount = format.format(ratingCountBigDecimal.divide(totalRatingCountBigDecimal, 3, RoundingMode.HALF_UP).doubleValue());
+                Integer score = (Integer) scoreAndRatingCountGroupByScoreMap.get("score");
+                /* index的算法
+                 * score / 2 - 1 ： 从数据库取出的 score 值可分别为2，4，6，8，10五种情况，List 数组长度为5，把这五种情况的值放在List的index为0到4的五个元素中
+                 * 4 - (score / 2 - 1) ： 倒序
+                 * */
+                percentageList.set(4 - (score / 2 - 1), singleRatingCount);
+            }
+        }
+        return percentageList;
+    }
+    
 }
