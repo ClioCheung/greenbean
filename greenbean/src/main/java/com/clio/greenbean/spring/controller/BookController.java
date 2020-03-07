@@ -44,7 +44,7 @@ public class BookController {
     }
     
     @PostMapping(value="/book")
-    //TODO 表单数据的验证
+    //TODO 表单数据的验证 并去掉字符串前后的空格
     public void addBook(BookDTO bookDTO, HttpServletResponse httpServletResponse) throws IOException {
         removeBlankNames(bookDTO.getAuthor());
         removeBlankNames(bookDTO.getTranslator());

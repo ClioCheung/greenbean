@@ -15,7 +15,7 @@
     </select>
 
     <select id="getBooksBaseInfoByID" resultType="com.clio.greenbean.domain.Book">
-        select id, name, isbn, picture, publisher,publish_year publishYear , publish_month publishMonth, publish_day publishDay, price, subtitle, original_name originalName, binding, page, content_intro contenIntro, author_intro authorIntro, directory from t_book where id = #{id};
+        select id, name, isbn, picture, publisher,publish_year publishYear , publish_month publishMonth, publish_day publishDay, price, subtitle, original_name originalName, binding, page, content_intro contentIntro, author_intro authorIntro, directory from t_book where id = #{id};
     </select>
 
     <select id="getAuthorByID" resultType="com.clio.greenbean.domain.Author">

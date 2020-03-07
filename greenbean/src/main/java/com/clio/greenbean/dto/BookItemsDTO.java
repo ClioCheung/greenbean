@@ -22,9 +22,9 @@ public class BookItemsDTO {
     private String originalName;
     private String binding;
     private String isbn;
-    private String contentIntro;
-    private String authorIntro;
-    private String directory;
+    private List<String> contentIntroList;
+    private List<String> authorIntroList;
+    private List<String> directoryList;
     private List<String> ratingPercentageList;
     private List<String> ratingPowerPercentageList;
     
@@ -156,28 +156,28 @@ public class BookItemsDTO {
         this.isbn = isbn;
     }
     
-    public String getContentIntro() {
-        return contentIntro;
+    public List<String> getContentIntroList() {
+        return contentIntroList;
     }
     
-    public void setContentIntro(String contentIntro) {
-        this.contentIntro = contentIntro;
+    public void setContentIntroList(List<String> contentIntroList) {
+        this.contentIntroList = contentIntroList;
     }
     
-    public String getAuthorIntro() {
-        return authorIntro;
+    public List<String> getAuthorIntroList() {
+        return authorIntroList;
     }
     
-    public void setAuthorIntro(String authorIntro) {
-        this.authorIntro = authorIntro;
+    public void setAuthorIntroList(List<String> authorIntroList) {
+        this.authorIntroList = authorIntroList;
     }
     
-    public String getDirectory() {
-        return directory;
+    public List<String> getDirectoryList() {
+        return directoryList;
     }
     
-    public void setDirectory(String directory) {
-        this.directory = directory;
+    public void setDirectoryList(List<String> directoryList) {
+        this.directoryList = directoryList;
     }
     
     public List<String> getRatingPercentageList() {

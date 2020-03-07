@@ -8,6 +8,7 @@ import com.clio.greenbean.dto.BookItemsDTO;
 import com.clio.greenbean.dto.SearchPageDTO;
 import com.clio.greenbean.mybatis.mapper.BookMapper;
 import com.clio.greenbean.vo.PaginationVo;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -50,6 +52,7 @@ public class BookService {
         Book book = this.generatedBook(bookDTO);
         this.insertBookBasicInfo(book);
         //XXX 待重构的代码
+        //XXX 作者和译者的重复代码
         List<String> authorNames = bookDTO.getAuthor();
         List<Integer> authorIds = new ArrayList<>();
         for(String name : authorNames){
@@ -143,7 +146,7 @@ public class BookService {
         List<BookItemsDTO> SearchBookDTOs = new ArrayList<>();
         for (Map<String, Integer> idMap : searchBookItemsIDs) {
             Integer id = idMap.get("id");
-            // TODO 拿到book信息
+            //TODO 拿到book信息
             SearchBookDTOs.add(this.getBookItemsById(id));
         }
         return SearchBookDTOs;
@@ -228,10 +231,19 @@ public class BookService {
             dto.setBinding(bindingStr);
         }
         dto.setIsbn((book.getIsbn()));
-        dto.setContentIntro(book.getContentIntro());
-        dto.setAuthorIntro(book.getAuthorIntro());
-        dto.setDirectory(book.getDirectory());
+        dto.setContentIntroList(this.separateParagraph(book.getContentIntro()));
+        dto.setAuthorIntroList(this.separateParagraph(book.getAuthorIntro()));
+        dto.setDirectoryList(this.separateParagraph(book.getDirectory()));
         return dto;
+    }
+    
+    private List<String> separateParagraph(String str){
+        List<String> list = null;
+        // 使用org.apache.commons.lang3.StringUtils
+        if(StringUtils.isNotBlank(str)){
+            list = Arrays.asList(str.split("\\n+"));
+        }
+        return list;
     }
     
     private void setAuthorByID(List<Author> authorList, BookItemsDTO dto){
@@ -263,14 +275,15 @@ public class BookService {
             BigDecimal rating = (BigDecimal) ratings.get("rating");
             BigDecimal ratingWithOneDecimal = rating.setScale(1, RoundingMode.HALF_UP);
             dto.setRating(String.valueOf(ratingWithOneDecimal));
-
+           
             DecimalFormat ratingFormat = new DecimalFormat("#");
             BigDecimal ratingWithTwoNum = rating.divide(new BigDecimal(2)).multiply(new BigDecimal(10));
             String starSuffix = ratingFormat.format(ratingWithTwoNum);
+            //XXX 使得starRatingName的值是5的倍数，如 ： 05，10，15，20，25，30，35，40，45，50
             String starRatingName = starSuffix;
             dto.setStarRatingName(starRatingName);
         } else {
-            // XXX 修改硬代码
+            //XXX 修改硬代码
             dto.setStarRatingName("00");
         }
     }
