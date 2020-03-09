@@ -81,7 +81,7 @@ a+p {
     margin-right : 10px;
     width : 66px;
 }
-.ratingClickStar {
+#ratingClickStar {
     position : relative;
     top : -3px;
     font-size : 0;

@@ -71,7 +71,7 @@
                         <button class="btn btn-outline-warning">Reading</button>
                         <button class="btn btn-outline-warning">Read</button>
                         <span>Rating:</span>
-                        <span class="ratingClickStar">
+                        <span id="ratingClickStar" th:attr="data-hollow=@{/static/pic/hollowStar.png},data-solid=@{/static/pic/solidStar.png}">
                             <a><img th:src="@{/static/pic/hollowStar.png}"></a>
                             <a><img th:src="@{/static/pic/hollowStar.png}"></a>
                             <a><img th:src="@{/static/pic/hollowStar.png}"></a>
@@ -113,5 +113,6 @@
     <script th:replace="fragments :: popperJS"></script>
     <script th:replace="fragments :: bootstrapJS"></script>
     <script th:replace="fragments :: headerJS"></script>
+    <script src="book.js" th:src="@{/static/template/book.js}"></script>
 </body>
 </html>
