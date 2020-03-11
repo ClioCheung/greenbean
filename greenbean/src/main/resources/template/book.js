@@ -2,15 +2,20 @@
     $(function () {
         const ratingClickStar = $('#ratingClickStar');
         ratingClickStar.on('mouseover',function (event) {
+            const target = event.target;
+            let star = 'solid';
             ratingClickStar.children().each(function (index, element) {
-                const target = event.target;
-                const solidStarAttr = ratingClickStar.attr('data-solid');
-               /* element.firstElementChild.setAttribute('src',solidStarAttr);*/
-                $(element.firstElementChild).attr('src',solidStarAttr);
+                $(element.firstElementChild).attr('src',ratingClickStar.attr('data-' + star));
                 if(element.firstElementChild === target){
-                    return false;
+                    star = 'hollow';
                 }
-            })
-        })
+            });
+        });
+    
+        ratingClickStar.on('mouseleave', function () {
+            ratingClickStar.children().each(function (index, element) {
+                $(element.firstElementChild).attr('src',ratingClickStar.attr('data-hollow'));
+            });
+        });
     });
 })();
