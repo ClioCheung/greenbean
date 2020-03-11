@@ -100,7 +100,12 @@ a+p {
     font-size : 13px;
 }
 #directory p {
-    text-indent: 0;
-    margin-bottom: 0rem;
+    text-indent : 0;
+    margin-bottom : 0rem;
 }
-
+#ratingStarIntro {
+    color : #666666;
+    padding-left : 5px;
+    font-size : 13px;
+    vertical-align : middle;
+}

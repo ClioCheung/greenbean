@@ -1,21 +1,27 @@
 (function () {
     $(function () {
         const ratingClickStar = $('#ratingClickStar');
+        const ratingStarIntro = $('#ratingStarIntro');
+        const ratingStarIntroText = ['Very bad', 'Bad', 'Average', 'Good', 'Very good'];
         ratingClickStar.on('mouseover',function (event) {
-            const target = event.target;
-            let star = 'solid';
+            const target = $(event.target);
+            const imgIndex = target.data('index');
             ratingClickStar.children().each(function (index, element) {
-                $(element.firstElementChild).attr('src',ratingClickStar.attr('data-' + star));
-                if(element.firstElementChild === target){
-                    star = 'hollow';
+                const img = $(element.firstElementChild);
+                if(index <= imgIndex){
+                    img.attr('src',ratingClickStar.attr('data-solid'));
+                } else {
+                    img.attr('src',ratingClickStar.attr('data-hollow'));
                 }
             });
+            ratingStarIntro.text(ratingStarIntroText[imgIndex]);
         });
     
         ratingClickStar.on('mouseleave', function () {
             ratingClickStar.children().each(function (index, element) {
                 $(element.firstElementChild).attr('src',ratingClickStar.attr('data-hollow'));
             });
+            ratingStarIntro.text('');
         });
     });
 })();

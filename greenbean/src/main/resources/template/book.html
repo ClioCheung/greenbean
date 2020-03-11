@@ -72,12 +72,11 @@
                         <button class="btn btn-outline-warning">Read</button>
                         <span>Rating:</span>
                         <span id="ratingClickStar" th:attr="data-hollow=@{/static/pic/hollowStar.png},data-solid=@{/static/pic/solidStar.png}">
-                            <a><img th:src="@{/static/pic/hollowStar.png}"></a>
-                            <a><img th:src="@{/static/pic/hollowStar.png}"></a>
-                            <a><img th:src="@{/static/pic/hollowStar.png}"></a>
-                            <a><img th:src="@{/static/pic/hollowStar.png}"></a>
-                            <a><img th:src="@{/static/pic/hollowStar.png}"></a>
+                            <a th:each="i : ${#numbers.sequence(0,4)}">
+                                <img th:src="@{/static/pic/hollowStar.png}" th:attr="data-index=${i}">
+                            </a>
                         </span>
+                        <span id="ratingStarIntro"></span>
                     </div>
                 </div>
                 <div class="row contentIntroDiv" th:if="${bookPage.contentIntroList}">
