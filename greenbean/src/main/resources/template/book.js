@@ -24,4 +24,11 @@
             ratingStarIntro.text('');
         });
     });
+    
+    $('#ratingDialog').on('show.bs.modal', function (event) {
+        const button = $(event.relatedTarget);
+        const recipient = button.data('status');
+        const modal = $(this);
+        modal.find('.modal-title>span').text(recipient);
+    });
 })();

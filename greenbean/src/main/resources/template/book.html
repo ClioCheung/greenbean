@@ -68,11 +68,11 @@
                 </div>
                 <div class="row" id="ratingSignRow">
                     <div class="col-sm-12">
-                        <button class="btn btn-outline-warning">Reading</button>
-                        <button class="btn btn-outline-warning">Read</button>
+                        <button class="btn btn-outline-warning" data-toggle="modal" data-target="#ratingDialog" data-status="am reading">Reading</button>
+                        <button class="btn btn-outline-warning" data-toggle="modal" data-target="#ratingDialog" data-status="have read">Read</button>
                         <span>Rating:</span>
                         <span id="ratingClickStar" th:attr="data-hollow=@{/static/pic/hollowStar.png},data-solid=@{/static/pic/solidStar.png}">
-                            <a th:each="i : ${#numbers.sequence(0,4)}">
+                            <a th:each="i : ${#numbers.sequence(0,4)}" data-toggle="modal" data-target="#ratingDialog" data-status="want to sign">
                                 <img th:src="@{/static/pic/hollowStar.png}" th:attr="data-index=${i}">
                             </a>
                         </span>
@@ -105,6 +105,34 @@
                 </div>
             </div>
             <div class="col-sm-4"></div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="ratingDialog" tabindex="-1" role="dialog" aria-labelledby="ratingDialogTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">I <span></span> this book.Add a rating.</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <span>Rating:</span>
+                        <span id="dialogRatingClickStar" th:attr="data-hollow=@{/static/pic/hollowStar.png},data-solid=@{/static/pic/solidStar.png}">
+                            <a th:each="i : ${#numbers.sequence(0,4)}">
+                                <img th:src="@{/static/pic/hollowStar.png}" th:attr="data-index=${i}">
+                            </a>
+                        </span>
+                        <span id="ratingStarIntro"></span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
         </div>
     </div>
 
