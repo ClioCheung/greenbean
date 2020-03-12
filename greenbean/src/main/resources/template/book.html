@@ -71,8 +71,8 @@
                         <button class="btn btn-outline-warning" data-toggle="modal" data-target="#ratingDialog" data-status="am reading">Reading</button>
                         <button class="btn btn-outline-warning" data-toggle="modal" data-target="#ratingDialog" data-status="have read">Read</button>
                         <span>Rating:</span>
-                        <span id="ratingClickStar" th:attr="data-hollow=@{/static/pic/hollowStar.png},data-solid=@{/static/pic/solidStar.png}">
-                            <a th:each="i : ${#numbers.sequence(0,4)}" data-toggle="modal" data-target="#ratingDialog" data-status="want to sign">
+                        <span id="ratingClickStar" th:attr="data-hollow=@{/static/pic/hollowStar.png},data-solid=@{/static/pic/solidStar.png}" data-rating="2">
+                            <a th:each="i : ${#numbers.sequence(1,5)}" data-toggle="modal" data-target="#ratingDialog" data-status="want to sign">
                                 <img th:src="@{/static/pic/hollowStar.png}" th:attr="data-index=${i}">
                             </a>
                         </span>
@@ -119,13 +119,13 @@
                 </div>
                 <div class="modal-body">
                     <div>
-                        <span>Rating:</span>
-                        <span id="dialogRatingClickStar" th:attr="data-hollow=@{/static/pic/hollowStar.png},data-solid=@{/static/pic/solidStar.png}">
-                            <a th:each="i : ${#numbers.sequence(0,4)}">
+                        <span>Rating(Opional):</span>
+                        <span id="dialogRatingClickStar" th:attr="data-hollow=@{/static/pic/hollowStar.png},data-solid=@{/static/pic/solidStar.png}" data-rating="2">
+                            <a th:each="i : ${#numbers.sequence(1,5)}">
                                 <img th:src="@{/static/pic/hollowStar.png}" th:attr="data-index=${i}">
                             </a>
                         </span>
-                        <span id="ratingStarIntro"></span>
+                        <span id="dialogRatingStarIntro"></span>
                     </div>
                 </div>
                 <div class="modal-footer">
