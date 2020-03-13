@@ -41,7 +41,7 @@
                     </div>
                     <div class="col-sm-3" id="greenbeanRatingDiv">
                         <div class="row greenbeanRatingRowDiv">
-                                <span>GreenbeanRating</span>
+                            <span>GreenbeanRating</span>
                         </div>
                         <div class="row">
                             <div class="col-sm-4 ratingCountDiv" th:if="${bookPage.rating}">
@@ -66,10 +66,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="row" id="ratingSignRow">
-                    <div class="col-sm-12">
-                        <button class="btn btn-outline-warning" data-toggle="modal" data-target="#ratingDialog" data-status="am reading">Reading</button>
-                        <button class="btn btn-outline-warning" data-toggle="modal" data-target="#ratingDialog" data-status="have read">Read</button>
+                <div class="row">
+                    <div class="col-sm-12" id="ratingSignRow">
+                        <button id="readingButton" class="btn btn-outline-warning" data-toggle="modal" data-target="#ratingDialog" data-status="am reading">Reading</button>
+                        <button id="readButton" class="btn btn-outline-warning" data-toggle="modal" data-target="#ratingDialog" data-status="have read">Read</button>
                         <span>Rating:</span>
                         <span id="ratingClickStar" th:attr="data-hollow=@{/static/pic/hollowStar.png},data-solid=@{/static/pic/solidStar.png}" data-rating="0">
                             <a th:each="i : ${#numbers.sequence(1,5)}" data-toggle="modal" data-target="#ratingDialog" data-status="want to sign">
@@ -108,6 +108,7 @@
         </div>
     </div>
 
+    <!-- FIXME header内容位置变化 与视图窗口宽度有关  -->
     <div class="modal fade" id="ratingDialog" tabindex="-1" role="dialog" aria-labelledby="ratingDialogTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -135,6 +136,12 @@
             </div>
         </div>
     </div>
+
+    <form class="d-none" method="post" th:action="@{/addBookRating}">
+        <input type="hidden" name="bookId" th:value="${bookPage.id}">
+        <input type="hidden" name="type">
+        <input type="hidden" name="score">
+    </form>
 
     <script th:replace="fragments :: jQueryJS"></script>
     <script th:replace="fragments :: popperJS"></script>

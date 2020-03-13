@@ -65,7 +65,7 @@ public class DispatcherServletConfig implements WebMvcConfigurer,ApplicationCont
     
     /**
      * 声明模板引擎
-     * @return SpringTemplateEngne 模板引擎
+     * @return SpringTemplateEngine 模板引擎
      */
     @Bean
     public ISpringTemplateEngine templateEngine(){

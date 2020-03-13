@@ -22,6 +22,13 @@
                 const dialogRatingClickStar = $('#dialogRatingClickStar');
                 dialogRatingClickStar.attr('data-rating',imgIndex);
                 dialogRatingClickStar.triggerHandler('mouseleave');
+                const ratingStar = ratingClickStar.attr('id');
+                if(ratingStar == 'ratingClickStar'){
+                    const inputType = $('form>input[name=type]');
+                    inputType.val(2);
+                }
+                const score = imgIndex*2;
+                $('form>input[name=score]').val(score);
             });
         }
     
@@ -38,11 +45,30 @@
             ratingStarIntro.text(ratingStarIntroText[targetIndex]);
         }
         
-        $('#ratingDialog').on('show.bs.modal', function (event) {
+        $('#ratingSignRow>button').on('click', function () {
+            const buttonId = $(this).attr('id');
+            const inputType = $('form>input[name=type]');
+            // XXX 硬编码
+            if(buttonId == 'readingButton'){
+                inputType.val(1);
+            }else if(buttonId == 'readButton'){
+                inputType.val(2);
+            }
+        });
+        
+        const ratingDialog = $('#ratingDialog');
+        ratingDialog.on('show.bs.modal', function (event) {
             const button = $(event.relatedTarget);
             const recipient = button.data('status');
             const modal = $(this);
             modal.find('.modal-title>span').text(recipient);
+        });
+        ratingDialog.on('hide.bs.modal', function () {
+            makeStarSolid(ratingClickStar, ratingStarIntro, 0);
+            dialogRatingClickStar.attr('data-rating',0);
+            dialogRatingClickStar.triggerHandler('mouseleave');
+            $('form input[name=type]').val('');
+            $('form input[name=score]').val('');
         });
     });
 })();
