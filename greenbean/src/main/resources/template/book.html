@@ -131,13 +131,13 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button id="saveButton" type="button" class="btn btn-primary">Save</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <form class="d-none" method="post" th:action="@{/addBookRating}">
+    <form class="d-none" method="post" th:action="@{/addUserRating}">
         <input type="hidden" name="bookId" th:value="${bookPage.id}">
         <input type="hidden" name="type">
         <input type="hidden" name="score">

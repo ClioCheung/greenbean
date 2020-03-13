@@ -70,5 +70,9 @@
             $('form input[name=type]').val('');
             $('form input[name=score]').val('');
         });
+        
+        $('#saveButton').on('click', function () {
+            $('form').trigger('submit');
+        });
     });
 })();

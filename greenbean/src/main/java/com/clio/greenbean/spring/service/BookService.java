@@ -6,6 +6,8 @@ import com.clio.greenbean.domain.Translator;
 import com.clio.greenbean.dto.BookDTO;
 import com.clio.greenbean.dto.BookItemsDTO;
 import com.clio.greenbean.dto.SearchPageDTO;
+import com.clio.greenbean.dto.UserRatingDto;
+import com.clio.greenbean.exception.UserRatingDuplicatedException;
 import com.clio.greenbean.mybatis.mapper.BookMapper;
 import com.clio.greenbean.vo.PaginationVo;
 import org.apache.commons.lang3.StringUtils;
@@ -328,4 +330,23 @@ public class BookService {
         return percentageList;
     }
     
+    public void insertTypeAndScore(UserRatingDto userRatingDto) {
+        Integer bookId = userRatingDto.getBookId();
+        Integer userId = userRatingDto.getBookId();
+        if(this.isUserRatingExisted(bookId, userId)){
+            String message = "user[id:" + userId + "] is associated with book[id:" + bookId + "] has existed!";
+            throw new UserRatingDuplicatedException(message);
+        } else {
+            this.bookMapper.insertTypeAndScore(userRatingDto);
+        }
+    }
+    
+    private boolean isUserRatingExisted(Integer bookId, Integer userId){
+        int count = this.bookMapper.isUserRatingExisted(bookId, userId);
+        if(count > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
