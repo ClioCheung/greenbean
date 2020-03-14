@@ -47,7 +47,7 @@ public interface BookMapper {
     
     void insertTranslatorByName(Translator name);
     
-    void insertTypeAndScore(UserRatingDto userRatingDto);
+    void insertUserRating(UserRatingDto userRatingDto);
     
-    int isUserRatingExisted(@Param("bookId") Integer bookId, @Param("userId") Integer userId);
+    int getUserRatingCount(@Param("bookId") Integer bookId, @Param("userId") Integer userId);
 }

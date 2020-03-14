@@ -337,12 +337,12 @@ public class BookService {
             String message = "user[id:" + userId + "] is associated with book[id:" + bookId + "] has existed!";
             throw new UserRatingDuplicatedException(message);
         } else {
-            this.bookMapper.insertTypeAndScore(userRatingDto);
+            this.bookMapper.insertUserRating(userRatingDto);
         }
     }
     
     private boolean isUserRatingExisted(Integer bookId, Integer userId){
-        int count = this.bookMapper.isUserRatingExisted(bookId, userId);
+        int count = this.bookMapper.getUserRatingCount(bookId, userId);
         if(count > 0) {
             return true;
         } else {

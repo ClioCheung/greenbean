@@ -8,6 +8,7 @@ public class UserRatingDto {
     private Integer type;
     private Integer score;
     private Integer userId;
+    private String time;
     
     public Integer getBookId() {
         return bookId;
@@ -39,5 +40,13 @@ public class UserRatingDto {
     
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+    
+    public String getTime() {
+        return time;
+    }
+    
+    public void setTime(String time) {
+        this.time = time;
     }
 }
