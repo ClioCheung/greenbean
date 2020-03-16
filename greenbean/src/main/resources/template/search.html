@@ -23,30 +23,30 @@
                 <!--/*@thymesVar id="searchBooks" type="java.util.List"*/-->
                 <div class="row bookRowDiv" th:each="bookItem : ${searchBooks}">
                     <div class="col-sm-2">
-                        <a th:href="@{/book/{id}(id=${bookItem.id})}">
+                        <a th:href="@{/book/{id}(id=${bookItem.bookBriefBasicInfo.id})}">
                             <!-- XXX IDEA语法错误的错误提示 -->
-                            <img class="bookPictureImg" th:src="${bookItem.picture != null}? @{/static/picture/books/{bookPicture}(bookPicture=${bookItem.picture})} : @{/static/pic/bookDefault.gif}">
+                            <img class="bookPictureImg" th:src="${bookItem.bookBriefBasicInfo.picture != null}? @{/static/picture/books/{bookPicture}(bookPicture=${bookItem.bookBriefBasicInfo.picture})} : @{/static/pic/bookDefault.gif}">
                         </a>
                     </div>
                     <div class="col-sm-10">
-                        <div class="row bookNameRow"><span><a th:href="@{book/{id}(id=${bookItem.id})}" th:text="${bookItem.bookName}"></a></span></div>
+                        <div class="row bookNameRow"><span><a th:href="@{book/{id}(id=${bookItem.bookBriefBasicInfo.id})}" th:text="${bookItem.bookBriefBasicInfo.bookName}"></a></span></div>
                         <div class="row bookRatingRow">
-                            <span class="allStars" th:classappend="'star' + ${bookItem.starRatingName}"></span>
-                            <span class="rating_nums" th:text="${bookItem.rating}"></span>&nbsp;
-                            <span th:if="${#conversions.convert(bookItem.ratingCount,'java.lang.Integer') > 0}">
-                                (&nbsp;<span th:text="${bookItem.ratingCount}"></span>&nbsp;人评价&nbsp;)
+                            <span class="allStars" th:classappend="'star' + ${bookItem.bookBriefStarRating.starRatingName}"></span>
+                            <span class="rating_nums" th:text="${bookItem.bookBriefStarRating.rating}"></span>&nbsp;
+                            <span th:if="${#conversions.convert(bookItem.bookBriefStarRating.ratingCount,'java.lang.Integer') > 0}">
+                                (&nbsp;<span th:text="${bookItem.bookBriefStarRating.ratingCount}"></span>&nbsp;人评价&nbsp;)
                             </span>
-                            <span th:if="${#conversions.convert(bookItem.ratingCount,'java.lang.Integer') == 0}">
+                            <span th:if="${#conversions.convert(bookItem.bookBriefStarRating.ratingCount,'java.lang.Integer') == 0}">
                                 (&nbsp;No rating temporarily&nbsp;)
                             </span>
                         </div>
                         <div class="row bookInfoRow">
                             <!-- TODO 当行内容多于一行时，使用省略号结尾-->
-                            <span th:text="${bookItem.authorName}">author</span>/
-                            <span th:if="${bookItem.translatorName != null}" th:text="${bookItem.translatorName}">translator</span><span  th:if="${bookItem.translatorName != null}" >/</span>
-                            <span th:text="${bookItem.publisher}">publisher</span>/
-                            <span th:text="${bookItem.publicationDate}">publicationDate</span>/
-                            <span th:text="${bookItem.price}">price</span>元
+                            <span th:text="${bookItem.bookBriefBasicInfo.authorName}">author</span>/
+                            <span th:if="${bookItem.bookBriefBasicInfo.translatorName != null}" th:text="${bookItem.bookBriefBasicInfo.translatorName}">translator</span><span  th:if="${bookItem.bookBriefBasicInfo.translatorName != null}" >/</span>
+                            <span th:text="${bookItem.bookBriefBasicInfo.publisher}">publisher</span>/
+                            <span th:text="${bookItem.bookBriefBasicInfo.publicationDate}">publicationDate</span>/
+                            <span th:text="${bookItem.bookBriefBasicInfo.price}">price</span>元
                         </div>
                     </div>
                 </div>
