@@ -3,7 +3,7 @@ package com.clio.greenbean.dto;
 /**
  * created by 吾乃逆世之神也 on 2020/3/13
  */
-public class UserRatingDto {
+public class UserRatingDTO {
     private Integer bookId;
     private Integer type;
     private Integer score;

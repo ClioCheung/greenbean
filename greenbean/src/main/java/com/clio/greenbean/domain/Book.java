@@ -1,5 +1,7 @@
 package com.clio.greenbean.domain;
 
+import java.util.List;
+
 /**
  * created by 吾乃逆世之神也 on 2020/1/3
  */
@@ -20,6 +22,8 @@ public class Book {
     private String contentIntro;
     private String authorIntro;
     private String directory;
+    private List<Author> authors;
+    private List<Translator> translators;
     
     public Integer getId() {
         return id;
@@ -147,5 +151,21 @@ public class Book {
     
     public void setDirectory(String directory) {
         this.directory = directory;
+    }
+    
+    public List<Author> getAuthors() {
+        return authors;
+    }
+    
+    public void setAuthors(List<Author> authors) {
+        this.authors = authors;
+    }
+    
+    public List<Translator> getTranslators() {
+        return translators;
+    }
+    
+    public void setTranslators(List<Translator> translators) {
+        this.translators = translators;
     }
 }

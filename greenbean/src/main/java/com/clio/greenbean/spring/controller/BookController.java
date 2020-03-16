@@ -1,14 +1,16 @@
 package com.clio.greenbean.spring.controller;
 
 import com.clio.greenbean.dto.BookDTO;
-import com.clio.greenbean.dto.BookItemsDTO;
 import com.clio.greenbean.dto.SearchPageDTO;
-import com.clio.greenbean.dto.UserRatingDto;
+import com.clio.greenbean.dto.UserRatingDTO;
 import com.clio.greenbean.spring.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.thymeleaf.util.StringUtils;
 
 import javax.servlet.http.HttpServletResponse;
@@ -83,18 +85,18 @@ public class BookController {
     
     //TODO 出错视图
     
-    @GetMapping(value="/book/{id}")
+/*    @GetMapping(value="/book/{id}")
     public String showBook(@PathVariable Integer id, Model model){
         BookItemsDTO bookItemsDTO = this.bookService.getBookPage(id);
         model.addAttribute("bookPage",bookItemsDTO);
         return "book";
-    }
+    }*/
     
     @PostMapping(value="/addUserRating")
-    public void addUserRating(UserRatingDto userRatingDto, HttpSession session, HttpServletResponse response) throws IOException {
+    public void addUserRating(UserRatingDTO userRatingDto, HttpSession session, HttpServletResponse response) throws IOException {
         // XXX 验证表单是否为空 如userId为null
         userRatingDto.setUserId((Integer)session.getAttribute("userId"));
-        this.bookService.insertTypeAndScore(userRatingDto);
+        this.bookService.insertUserRating(userRatingDto);
         response.sendRedirect("book/" + userRatingDto.getBookId());
     }
 }

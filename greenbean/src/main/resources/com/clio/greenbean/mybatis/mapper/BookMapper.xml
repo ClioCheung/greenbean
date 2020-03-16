@@ -14,8 +14,27 @@
             select distinct book_id as id from v_book_author where book_name like #{searchKeyword} or author_name like #{searchKeyword} or book_isbn = #{keyword}
     </select>
 
-    <select id="getBooksBaseInfoByID" resultType="com.clio.greenbean.domain.Book">
-        select id, name, isbn, picture, publisher,publish_year publishYear , publish_month publishMonth, publish_day publishDay, price, subtitle, original_name originalName, binding, page, content_intro contentIntro, author_intro authorIntro, directory from t_book where id = #{id};
+    <resultMap id="getAuthorsAndTranslators" type="com.clio.greenbean.domain.Book">
+        <id property="id" column="id"></id>
+        <result property="name" column="name"></result>
+        <collection property="authors" javaType="java.util.List" ofType="com.clio.greenbean.domain.Author">
+            <id property="id" column="author_id"></id>
+            <result property="name" column="authors"></result>
+        </collection>
+        <collection property="translators" javaType="java.util.List" ofType="com.clio.greenbean.domain.Translator">
+            <id property="id" column="translator_id"></id>
+            <result property="name" column="translators"></result>
+        </collection>
+    </resultMap>
+    
+    <select id="getBooksBaseInfoByID" resultMap="getAuthorsAndTranslators">
+        select t_author.id author_id, t_author.name authors, t_translator.id translator_id, t_translator.name translators, t_book.id, t_book.name, isbn, picture, publisher, publish_year publishYear, publish_month publishMonth, publish_day publishDay, price, subtitle, original_name originalName, binding, page, content_intro contentIntro, author_intro authorIntro, directory
+            from t_book
+            inner join t_book_author on t_book_author.book_id = t_book.id
+            inner join t_author on t_book_author.author_id = t_author.id
+            left join t_book_translator on t_book_translator.book_id = t_book.id
+            left join t_translator on t_book_translator.translator_id = t_translator.id
+            where t_book.id = #{id};
     </select>
 
     <select id="getAuthorByID" resultType="com.clio.greenbean.domain.Author">
