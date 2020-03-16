@@ -6,9 +6,7 @@ import com.clio.greenbean.domain.Translator;
 import com.clio.greenbean.dto.*;
 import com.clio.greenbean.exception.UserRatingDuplicatedException;
 import com.clio.greenbean.mybatis.mapper.BookMapper;
-import com.clio.greenbean.vo.BookBriefBasicInfo;
-import com.clio.greenbean.vo.BookBriefStarRating;
-import com.clio.greenbean.vo.PaginationVo;
+import com.clio.greenbean.vo.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -97,8 +95,8 @@ public class BookService {
         return this.bookMapper.getTranslatorSuggestion(translatorSuggestion);
     }
     
-    public BookItemsDTO getBookPage(Integer id) {
-        return this.getBookItemsById(id);
+    public BookPageDTO getBookPageDTO(Integer bookId, Integer userId) {
+        return this.getBookPage(bookId, userId);
     }
     
     private Book generatedBook(BookDTO bookDTO){
@@ -154,36 +152,32 @@ public class BookService {
     }
     
     private BookItemsDTO getBookItemsById(Integer id){
-        BookItemsDTO dto = new BookItemsDTO();
+        BookItemsDTO bookItemsDTO = new BookItemsDTO();
         Book book = this.getBooksBaseInfoByID(id);
-        this.setBookItemsIntoDTO(book, dto);
+        this.setBookBriefBasicIntoDTO(book, bookItemsDTO.getBookBriefBasicInfo());
     
         Map<String, Object>  ratings = this.getRatingAndRatingCountByID(id);
-        this.setRatingByID(ratings, dto.getBookBriefStarRating());
+        this.setBookBriefStarRatingByID(ratings, bookItemsDTO.getBookBriefStarRating());
         
-        return dto;
+        return bookItemsDTO;
     }
     
-  /*  private BookPageDTO getBookPage(){
-        BookPageDTO dto = new BookPageDTO();
-        Book book = this.getBooksBaseInfoByID(id);
-        this.setBookIntoDTO(book, dto);
+    private BookPageDTO getBookPage(Integer bookId, Integer userId){
+        BookPageDTO bookPageDTO = new BookPageDTO();
+        Book book = this.getBooksBaseInfoByID(bookId);
+        this.setBookBriefBasicIntoDTO(book, bookPageDTO.getBookBriefBasicInfo());
+        this.setBookDetailBasicIntoDTO(book, bookPageDTO.getBookDetailBasicInfo());
+        
+        Map<String, Object>  ratings = this.getRatingAndRatingCountByID(bookId);
+        this.setBookBriefStarRatingByID(ratings, bookPageDTO.getBookBriefStarRating());
+        
+        List<Map<String, Object>> getScoreAndRatingCountGroupByScoreList = this.getScoreAndRatingCountGroupByScore(bookId);
+        long totalRatingCount =  (long)ratings.get("ratingCount");
+        this.setRatingPercentageList(getScoreAndRatingCountGroupByScoreList, bookPageDTO.getBookDetailStarRating(), totalRatingCount);
+        this.setRatingPowerPercentageList(getScoreAndRatingCountGroupByScoreList,bookPageDTO.getBookDetailStarRating());
     
-        List<Author> authorList = this.getAuthorByID(id);
-        this.setAuthorByID(authorList,dto);
-    
-        List<Translator> translatorList = this.getTranslatorByID(id);
-        this.setTranslatorByID(translatorList,dto);
-    
-        Map<String, Object>  ratings = this.getRatingAndRatingCountByID(id);
-        this.setRatingByID(ratings,dto);
-    
-        List<Map<String, Object>> getScoreAndRatingCountGroupByScoreList = this.getScoreAndRatingCountGroupByScore(id);
-        this.setRatingPercentageList(getScoreAndRatingCountGroupByScoreList,dto);
-        this.setRatingPowerPercentageList(getScoreAndRatingCountGroupByScoreList,dto);
-    
-        return dto;
-    }*/
+        return bookPageDTO;
+    }
     
     
     private List<Map<String, Integer>> getSearchBooksIDInOnePage(String keyword, Integer offset){
@@ -194,14 +188,6 @@ public class BookService {
         return this.bookMapper.getBooksBaseInfoByID(id);
     }
     
-    private List<Author> getAuthorByID(Integer id) {
-        return this.bookMapper.getAuthorByID(id);
-    }
-    
-    private List<Translator> getTranslatorByID(Integer id) {
-        return this.bookMapper.getTranslatorByID(id);
-    }
-    
     private Map<String, Object> getRatingAndRatingCountByID(Integer id) {
         return this.bookMapper.getRatingAndRatingCountByID(id);
     }
@@ -210,9 +196,9 @@ public class BookService {
         return this.bookMapper.getScoreAndRatingCountGroupByScore(id);
     }
     
-    private BookItemsDTO setBookItemsIntoDTO(Book book, BookItemsDTO dto){
-        this.setBookBriefBasicInfo(book, dto.getBookBriefBasicInfo());
-        return dto;
+    private BookBriefBasicInfo setBookBriefBasicIntoDTO(Book book, BookBriefBasicInfo bookBriefBasicInfo){
+        this.setBookBriefBasicInfo(book, bookBriefBasicInfo);
+        return bookBriefBasicInfo;
     }
     
     private BookBriefBasicInfo setBookBriefBasicInfo(Book book, BookBriefBasicInfo bookBriefBasicInfo){
@@ -260,29 +246,10 @@ public class BookService {
         return bookBriefBasicInfo;
     }
     
-   /* private BookPageDTO setBookPageIntoDTO(Book book, BookPageDTO dto){
-        dto.setId(String.valueOf(book.getId()));
-        dto.setBookName(book.getName());
-        dto.setPicture(book.getPicture());
-        dto.setPublisher(book.getPublisher());
-        StringBuilder publishDate = new StringBuilder();
-        Integer year = book.getPublishYear();
-        publishDate.append(year);
-        Integer month = book.getPublishMonth();
-        if(month != null) {
-            publishDate.append("-");
-            publishDate.append(month);
-            Integer day = book.getPublishDay();
-            if(day != null) {
-                publishDate.append("-");
-                publishDate.append(day);
-            }
-        }
-        dto.setPublicationDate(publishDate.toString());
-        dto.setPage(String.valueOf(book.getPage()));
-        dto.setPrice(String.valueOf(book.getPrice()));
-        dto.setSubtitle(book.getSubtitle());
-        dto.setOriginalName(book.getOriginalName());
+    private BookDetailBasicInfo setBookDetailBasicIntoDTO(Book book, BookDetailBasicInfo bookDetailBasicInfo){
+        bookDetailBasicInfo.setPage(String.valueOf(book.getPage()));
+        bookDetailBasicInfo.setSubtitle(book.getSubtitle());
+        bookDetailBasicInfo.setOriginalName(book.getOriginalName());
         String bindingStr = null;
         Integer binding = book.getBinding();
         if(binding != null){
@@ -291,14 +258,14 @@ public class BookService {
             } else if(binding == 2){
                 bindingStr = "精装";
             }
-            dto.setBinding(bindingStr);
+            bookDetailBasicInfo.setBinding(bindingStr);
         }
-        dto.setIsbn((book.getIsbn()));
-        dto.setContentIntroList(this.separateParagraph(book.getContentIntro()));
-        dto.setAuthorIntroList(this.separateParagraph(book.getAuthorIntro()));
-        dto.setDirectoryList(this.separateParagraph(book.getDirectory()));
-        return dto;
-    }*/
+        bookDetailBasicInfo.setIsbn((book.getIsbn()));
+        bookDetailBasicInfo.setContentIntroList(this.separateParagraph(book.getContentIntro()));
+        bookDetailBasicInfo.setAuthorIntroList(this.separateParagraph(book.getAuthorIntro()));
+        bookDetailBasicInfo.setDirectoryList(this.separateParagraph(book.getDirectory()));
+        return bookDetailBasicInfo;
+    }
     
     private List<String> separateParagraph(String str){
         List<String> list = null;
@@ -309,7 +276,7 @@ public class BookService {
         return list;
     }
     
-    private void setRatingByID(Map<String, Object>  ratings, BookBriefStarRating bookBriefStarRating) {
+    private void setBookBriefStarRatingByID(Map<String, Object>  ratings, BookBriefStarRating bookBriefStarRating) {
         Long ratingCount = (Long)ratings.get("ratingCount");
         bookBriefStarRating.setRatingCount(String.valueOf(ratingCount));
         if(ratingCount > 0){
@@ -329,12 +296,11 @@ public class BookService {
         }
     }
     
-    /*private void setRatingPercentageList(List<Map<String, Object>> getScoreAndRatingCountGroupByScoreList, BookItemsDTO dto) {
-        Integer totalRatingCount = Integer.valueOf(dto.getRatingCount());
-        dto.setRatingPercentageList(this.createPercentage(getScoreAndRatingCountGroupByScoreList, totalRatingCount));
+    private void setRatingPercentageList(List<Map<String, Object>> getScoreAndRatingCountGroupByScoreList, BookDetailStarRating bookDetailStarRating, long ratingCount) {
+        bookDetailStarRating.setRatingPercentageList(this.createPercentage(getScoreAndRatingCountGroupByScoreList, ratingCount));
     }
     
-    private void setRatingPowerPercentageList(List<Map<String, Object>> getScoreAndRatingCountGroupByScoreList, BookItemsDTO dto) {
+    private void setRatingPowerPercentageList(List<Map<String, Object>> getScoreAndRatingCountGroupByScoreList, BookDetailStarRating bookDetailStarRating) {
         long maxPercentage = 0;
         for(Map<String, Object> scoreAndRatingCountGroupByScoreMap : getScoreAndRatingCountGroupByScoreList){
             long ratingCount = (long)scoreAndRatingCountGroupByScoreMap.get("ratingCount");
@@ -342,8 +308,8 @@ public class BookService {
                maxPercentage = ratingCount;
            }
         }
-        dto.setRatingPowerPercentageList(this.createPercentage(getScoreAndRatingCountGroupByScoreList,maxPercentage));
-    }*/
+        bookDetailStarRating.setRatingPowerPercentageList(this.createPercentage(getScoreAndRatingCountGroupByScoreList,maxPercentage));
+    }
     
     private List<String> createPercentage(List<Map<String, Object>> getScoreAndRatingCountGroupByScoreList, long divisor){
         List<String> percentageList = new ArrayList<>();
