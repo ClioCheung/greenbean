@@ -81,7 +81,10 @@ a+p {
     margin-right : 10px;
     width : 66px;
 }
-#ratingClickStar {
+.userRating {
+    margin-right : 10px;
+}
+.ratingClickStar {
     position : relative;
     top : -3px;
     font-size : 0;
@@ -103,9 +106,14 @@ a+p {
     text-indent : 0;
     margin-bottom : 0rem;
 }
-#ratingStarIntro {
+#ratingStarIntro #userRatingStarIntro #dialogRatingStarIntro{
     color : #666666;
     padding-left : 5px;
     font-size : 13px;
     vertical-align : middle;
+}
+
+a:hover {
+    background-color : #3377aa;
+    color: white;
 }

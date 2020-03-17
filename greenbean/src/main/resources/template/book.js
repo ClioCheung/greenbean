@@ -6,6 +6,9 @@
         const dialogRatingClickStar = $('#dialogRatingClickStar');
         const dialogRatingStarIntro = $('#dialogRatingStarIntro');
         initRating(dialogRatingClickStar, dialogRatingStarIntro);
+        const userRatingClickStar = $('#userRatingClickStar');
+        const userRatingStarIntro = $('#userRatingStarIntro');
+        initRating(userRatingClickStar, userRatingStarIntro);
         
         function initRating(ratingClickStar, ratingStarIntro){
             ratingClickStar.on('mouseover',function (event) {

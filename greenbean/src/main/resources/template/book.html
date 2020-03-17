@@ -71,7 +71,7 @@
                         <button id="readingButton" class="btn btn-outline-warning" data-toggle="modal" data-target="#ratingDialog" data-status="am reading">Reading</button>
                         <button id="readButton" class="btn btn-outline-warning" data-toggle="modal" data-target="#ratingDialog" data-status="have read">Read</button>
                         <span>Rating:</span>
-                        <span id="ratingClickStar" th:attr="data-hollow=@{/static/pic/hollowStar.png},data-solid=@{/static/pic/solidStar.png}" data-rating="0">
+                        <span id="ratingClickStar" class="ratingClickStar" th:attr="data-hollow=@{/static/pic/hollowStar.png},data-solid=@{/static/pic/solidStar.png}" data-rating="0">
                             <a th:each="i : ${#numbers.sequence(1,5)}" data-toggle="modal" data-target="#ratingDialog" data-status="want to sign">
                                 <img th:src="@{/static/pic/hollowStar.png}" th:attr="data-index=${i}">
                             </a>
@@ -79,7 +79,21 @@
                         <span id="ratingStarIntro"></span>
                     </div>
                     <div class="col-sm-12 ratingSignRow" th:if="${bookPage.bookUserRatingInfo.type}">
-                        <span>XXX</span>
+                        <div>
+                            <span class="userRating">I <span th:text="${bookPage.bookUserRatingInfo.type} == 1? 'am reading' : 'have read'"></span> this book.</span>
+                            <span class="userRating" th:text="${bookPage.bookUserRatingInfo.time}"></span>
+                            <a class="userRating" href="#">Update</a>
+                            <a class="userRating" href="#">Remove</a>
+                        </div>
+                        <div>
+                            <span class="userRating">My Rating:</span>
+                            <span id="userRatingClickStar" class="ratingClickStar" th:attr="data-hollow=@{/static/pic/hollowStar.png},data-solid=@{/static/pic/solidStar.png},  data-rating=${bookPage.bookUserRatingInfo.star}">
+                            <a th:each="i : ${#numbers.sequence(1,5)}">
+                                <img th:src="@{/static/pic/hollowStar.png}" th:attr="data-index=${i}">
+                            </a>
+                        </span>
+                            <span id="userRatingStarIntro"></span>
+                        </div>
                     </div>
                 </div>
                 <div class="row contentIntroDiv" th:if="${bookPage.bookDetailBasicInfo.contentIntroList}">
