@@ -37,8 +37,8 @@
                 </button>
                 <div aria-labelledby="dropdownMenuButton" class="dropdown-menu dropdown-menu-right">
                     <!--FIXME URL不相对当前页面-->
-                    <a class="dropdown-item" href="home">Home</a>
-                    <a class="dropdown-item" href="setting">Account Setting</a>
+                    <a class="dropdown-item" th:href="@{/home}">Home</a>
+                    <a class="dropdown-item" th:href="@{/setting}">Account Setting</a>
                     <a class="dropdown-item" href="javascript:void(0)" id="signOutLink">Sign Out</a>
                 </div>
             </div>
