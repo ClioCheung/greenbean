@@ -44,4 +44,6 @@ public interface BookMapper {
     void insertUserRating(UserRatingDTO userRatingDto);
     
     int getUserRatingCount(@Param("bookId") Integer bookId, @Param("userId") Integer userId);
+    
+    Map<String, Object> getBookUserRatingsByBookIdAndUserId(@Param("bookId") Integer bookId, @Param("userId") Integer userId);
 }

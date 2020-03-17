@@ -15,7 +15,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -176,9 +178,26 @@ public class BookService {
         this.setRatingPercentageList(getScoreAndRatingCountGroupByScoreList, bookPageDTO.getBookDetailStarRating(), totalRatingCount);
         this.setRatingPowerPercentageList(getScoreAndRatingCountGroupByScoreList,bookPageDTO.getBookDetailStarRating());
     
+        Map<String, Object> userRatings = this.getBookUserRatingsByBookIdAndUserId(bookId, userId);
+        this.setBookRatingInfo(bookPageDTO.getBookUserRatingInfo(), userRatings);
         return bookPageDTO;
     }
     
+    private Map<String, Object> getBookUserRatingsByBookIdAndUserId(Integer bookId, Integer userId) {
+        return this.bookMapper.getBookUserRatingsByBookIdAndUserId(bookId, userId);
+    }
+    
+    private void setBookRatingInfo(BookUserRatingInfo bookUserRatingInfo, Map<String, Object> userRatings) {
+        Integer type = (Integer) userRatings.get("type");
+        bookUserRatingInfo.setType(type);
+        Integer score = (Integer) userRatings.get("score");
+        if(score != null) {
+            bookUserRatingInfo.setStar(score / 2);
+        }
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String time = dateFormat.format(userRatings.get("time"));
+        bookUserRatingInfo.setTime(time);
+    }
     
     private List<Map<String, Integer>> getSearchBooksIDInOnePage(String keyword, Integer offset){
         return bookMapper.getSearchBooksWithPagination(keyword, offset, paginationSize);

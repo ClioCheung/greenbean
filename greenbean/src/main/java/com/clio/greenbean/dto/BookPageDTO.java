@@ -1,9 +1,6 @@
 package com.clio.greenbean.dto;
 
-import com.clio.greenbean.vo.BookBriefBasicInfo;
-import com.clio.greenbean.vo.BookBriefStarRating;
-import com.clio.greenbean.vo.BookDetailBasicInfo;
-import com.clio.greenbean.vo.BookDetailStarRating;
+import com.clio.greenbean.vo.*;
 
 /**
  * created by 吾乃逆世之神也 on 2020/3/15
@@ -13,6 +10,7 @@ public class BookPageDTO {
     private BookBriefStarRating bookBriefStarRating = new BookBriefStarRating();
     private BookDetailBasicInfo bookDetailBasicInfo = new BookDetailBasicInfo();
     private BookDetailStarRating bookDetailStarRating = new BookDetailStarRating();
+    private BookUserRatingInfo bookUserRatingInfo = new BookUserRatingInfo();
     
     public BookBriefBasicInfo getBookBriefBasicInfo() {
         return bookBriefBasicInfo;
@@ -44,5 +42,13 @@ public class BookPageDTO {
     
     public void setBookDetailStarRating(BookDetailStarRating bookDetailStarRating) {
         this.bookDetailStarRating = bookDetailStarRating;
+    }
+    
+    public BookUserRatingInfo getBookUserRatingInfo() {
+        return bookUserRatingInfo;
+    }
+    
+    public void setBookUserRatingInfo(BookUserRatingInfo bookUserRatingInfo) {
+        this.bookUserRatingInfo = bookUserRatingInfo;
     }
 }
