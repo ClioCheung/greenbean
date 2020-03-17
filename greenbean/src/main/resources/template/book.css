@@ -35,9 +35,9 @@ h1 {
     padding-left : 15px;
 }
 a+p {
-    color: #BBBBBB;
-    font-size: 12px;
-    text-align: center;
+    color : #BBBBBB;
+    font-size : 12px;
+    text-align : center;
 }
 .ratingCountDiv {
     line-height : 2;
@@ -86,10 +86,11 @@ a+p {
 }
 .ratingClickStar {
     position : relative;
-    top : -3px;
+    top : -4px;
     font-size : 0;
+    padding-right : 5px;
 }
-.contentIntroDiv h4{
+.contentIntroDiv h4 {
     font-size : 16px;
     color : #007722;
     line-height : 150%;
@@ -106,14 +107,12 @@ a+p {
     text-indent : 0;
     margin-bottom : 0rem;
 }
-#ratingStarIntro #userRatingStarIntro #dialogRatingStarIntro{
+#ratingStarIntro #userRatingStarIntro #dialogRatingStarIntro {
     color : #666666;
     padding-left : 5px;
     font-size : 13px;
     vertical-align : middle;
 }
-
-a:hover {
-    background-color : #3377aa;
-    color: white;
+#userRatingForm {
+    display : inline-block;
 }
