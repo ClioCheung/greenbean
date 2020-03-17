@@ -67,7 +67,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-12" id="ratingSignRow">
+                    <div class="col-sm-12 ratingSignRow" th:unless="${bookPage.bookUserRatingInfo.type}">
                         <button id="readingButton" class="btn btn-outline-warning" data-toggle="modal" data-target="#ratingDialog" data-status="am reading">Reading</button>
                         <button id="readButton" class="btn btn-outline-warning" data-toggle="modal" data-target="#ratingDialog" data-status="have read">Read</button>
                         <span>Rating:</span>
@@ -77,6 +77,9 @@
                             </a>
                         </span>
                         <span id="ratingStarIntro"></span>
+                    </div>
+                    <div class="col-sm-12 ratingSignRow" th:if="${bookPage.bookUserRatingInfo.type}">
+                        <span>XXX</span>
                     </div>
                 </div>
                 <div class="row contentIntroDiv" th:if="${bookPage.bookDetailBasicInfo.contentIntroList}">

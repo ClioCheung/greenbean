@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -188,15 +189,17 @@ public class BookService {
     }
     
     private void setBookRatingInfo(BookUserRatingInfo bookUserRatingInfo, Map<String, Object> userRatings) {
-        Integer type = (Integer) userRatings.get("type");
-        bookUserRatingInfo.setType(type);
-        Integer score = (Integer) userRatings.get("score");
-        if(score != null) {
-            bookUserRatingInfo.setStar(score / 2);
+        if(userRatings != null && !userRatings.isEmpty()){
+            Integer type = (Integer) userRatings.get("type");
+            bookUserRatingInfo.setType(type);
+            Integer score = (Integer) userRatings.get("score");
+            if(score != null) {
+                bookUserRatingInfo.setStar(score / 2);
+            }
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String time = dateFormat.format((Timestamp)userRatings.get("time"));
+            bookUserRatingInfo.setTime(time);
         }
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String time = dateFormat.format(userRatings.get("time"));
-        bookUserRatingInfo.setTime(time);
     }
     
     private List<Map<String, Integer>> getSearchBooksIDInOnePage(String keyword, Integer offset){

@@ -45,7 +45,7 @@
             ratingStarIntro.text(ratingStarIntroText[targetIndex]);
         }
         
-        $('#ratingSignRow>button').on('click', function () {
+        $('.ratingSignRow>button').on('click', function () {
             const buttonId = $(this).attr('id');
             const inputType = $('form>input[name=type]');
             // XXX 硬编码

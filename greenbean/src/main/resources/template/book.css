@@ -74,10 +74,10 @@ a+p {
 .powerPercentage {
     margin-left : 10px;
 }
-#ratingSignRow {
+.ratingSignRow {
     padding : 20px 0 3px 15px;
 }
-#ratingSignRow button {
+.ratingSignRow button {
     margin-right : 10px;
     width : 66px;
 }
