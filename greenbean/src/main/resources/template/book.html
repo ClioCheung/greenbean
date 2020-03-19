@@ -66,7 +66,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row" id="ratingSignDiv" th:attr="data-rating=${bookPage.bookUserRatingInfo.star}? ${bookPage.bookUserRatingInfo.star} : '', data-type=${bookPage.bookUserRatingInfo.type}? ${bookPage.bookUserRatingInfo.type} : ''">
                     <div class="col-sm-12 ratingSignRow" th:unless="${bookPage.bookUserRatingInfo.type}">
                         <button id="readingButton" class="btn btn-outline-warning" data-toggle="modal" data-target="#ratingDialog" data-status="I am reading this book. Add a Rating.">Reading</button>
                         <button id="readButton" class="btn btn-outline-warning" data-toggle="modal" data-target="#ratingDialog" data-status="I have read this book. Add a Rating.">Read</button>
@@ -88,10 +88,10 @@
                         <div>
                             <span class="userRating">My Rating:</span>
                             <span id="userRatingClickStar" class="ratingClickStar" th:attr="data-hollow=@{/static/pic/hollowStar.png}, data-solid=@{/static/pic/solidStar.png}, data-rating=${bookPage.bookUserRatingInfo.star}">
-                            <a th:each="i : ${#numbers.sequence(1,5)}">
-                                <img th:src="@{/static/pic/hollowStar.png}" th:attr="data-index=${i}">
-                            </a>
-                        </span>
+                                <a th:each="i : ${#numbers.sequence(1,5)}">
+                                    <img th:src="@{/static/pic/hollowStar.png}" th:attr="data-index=${i}">
+                                </a>
+                            </span>
                             <span id="userRatingStarIntro"></span>
                         </div>
                     </div>
@@ -154,7 +154,7 @@
                             </div>
                         </form>
                         <span>Rating(Opional): </span>
-                        <span id="dialogRatingClickStar" class="ratingClickStar" th:attr="data-hollow=@{/static/pic/hollowStar.png},data-solid=@{/static/pic/solidStar.png}" data-rating="${bookPage.bookUserRatingInfo.star}">
+                        <span id="dialogRatingClickStar" class="ratingClickStar" th:attr="data-hollow=@{/static/pic/hollowStar.png},data-solid=@{/static/pic/solidStar.png}, data-rating=${bookPage.bookUserRatingInfo.star}">
                             <a th:each="i : ${#numbers.sequence(1,5)}">
                                 <img th:src="@{/static/pic/hollowStar.png}" th:attr="data-index=${i}">
                             </a>

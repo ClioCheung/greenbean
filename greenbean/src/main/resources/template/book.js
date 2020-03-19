@@ -12,7 +12,7 @@
         
         function initRating(ratingClickStar, ratingStarIntro){
             ratingClickStar.on('mouseover',function (event) {
-                const imgIndex = $(event.target).data('index');
+                const imgIndex = $(event.target).attr('data-index');
                 makeStarSolid(ratingClickStar, ratingStarIntro, imgIndex);
             });
             ratingClickStar.on('mouseleave', function () {
@@ -67,11 +67,24 @@
             modal.find('.modal-title>span').text(recipient);
         });
         ratingDialog.on('hide.bs.modal', function () {
-            makeStarSolid(ratingClickStar, ratingStarIntro, 0);
-            dialogRatingClickStar.attr('data-rating',0);
+            const ratingSign = $('#ratingSignDiv');
+            const originalRating =  ratingSign.attr('data-rating');
+            const originalType =  ratingSign.attr('data-type');
+            let starCount = '';
+            let score = '';
+            if(originalRating !== undefined){
+                starCount = originalRating;
+                score = originalRating * 2;
+            }
+            if(originalType !== undefined){
+                $('#userRatingForm input[name=type][value='+ originalType +']').prop('checked',true);
+            } else {
+                $('#userRatingForm>input[name=type][type=hidden]').val('');
+            }
+            makeStarSolid(ratingClickStar, ratingStarIntro, starCount);
+            dialogRatingClickStar.attr('data-rating',starCount);
             dialogRatingClickStar.triggerHandler('mouseleave');
-            $('form input[name=type]').val('');
-            $('form input[name=score]').val('');
+            $('#userRatingForm input[name=score]').val(score);
         });
         
         $('#saveButton').on('click', function () {
