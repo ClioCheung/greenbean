@@ -30,7 +30,7 @@
                     const inputType = $('form>input[name=type]');
                     inputType.val(2);
                 }
-                const score = imgIndex*2;
+                const score = imgIndex * 2;
                 $('form>input[name=score]').val(score);
             });
         }
@@ -45,6 +45,7 @@
                     img.attr('src', ratingClickStar.attr('data-hollow'));
                 }
             });
+            // targetIndex必须为数字，不能为空串''。
             ratingStarIntro.text(ratingStarIntroText[targetIndex]);
         }
         
@@ -70,7 +71,8 @@
             const ratingSign = $('#ratingSignDiv');
             const originalRating =  ratingSign.attr('data-rating');
             const originalType =  ratingSign.attr('data-type');
-            let starCount = '';
+            // TODO 查清楚这的0与''的区别
+            let starCount = 0;
             let score = '';
             if(originalRating !== undefined){
                 starCount = originalRating;
