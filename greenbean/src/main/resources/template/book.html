@@ -137,9 +137,9 @@
                 </div>
                 <div class="modal-body">
                     <div>
-                        <form id="userRatingForm" method="post" th:action="@{/addUserRating}">
+                        <form id="userRatingForm" method="post" th:action="@{/saveOrUpdateUserRating}">
                             <input type="hidden" name="bookId" th:value="${bookPage.bookBriefBasicInfo.id}">
-                            <input type="hidden" name="score">
+                            <input type="hidden" name="score" th:value="${bookPage.bookUserRatingInfo.star}? ${bookPage.bookUserRatingInfo.star} * 2 : ''">
                             <input th:unless="${bookPage.bookUserRatingInfo.type}" type="hidden" name="type">
                             <!-- XXX 优化CSS 高度保持一致-->
                             <div th:if="${bookPage.bookUserRatingInfo.type}">

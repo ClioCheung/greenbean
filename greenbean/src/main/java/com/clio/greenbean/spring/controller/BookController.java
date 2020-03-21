@@ -91,11 +91,11 @@ public class BookController {
         return "book";
     }
     
-    @PostMapping(value="/addUserRating")
-    public void addUserRating(UserRatingDTO userRatingDto, HttpSession session, HttpServletResponse response) throws IOException {
+    @PostMapping(value="/saveOrUpdateUserRating")
+    public void saveOrUpdateUserRating(UserRatingDTO userRatingDto, HttpSession session, HttpServletResponse response) throws IOException {
         // XXX 验证表单是否为空 如userId为null
         userRatingDto.setUserId((Integer)session.getAttribute("userId"));
-        this.bookService.insertUserRating(userRatingDto);
+        this.bookService.saveOrUpdateUserRating(userRatingDto);
         response.sendRedirect("book/" + userRatingDto.getBookId());
     }
 }
