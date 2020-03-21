@@ -5,7 +5,7 @@
         const ratingStarIntro = $('#ratingStarIntro');
         initRating(ratingClickStar, ratingStarIntro);
         ratingClickStar.on('click',function () {
-            const inputType = $('form>input[name=type]');
+            const inputType = $('#userRatingForm>input[name=type]');
             inputType.val(2);
         });
         
@@ -17,7 +17,7 @@
         const userRatingStarIntro = $('#userRatingStarIntro');
         initRating(userRatingClickStar, userRatingStarIntro);
         userRatingClickStar.on('click', function () {
-            $('form').trigger('submit');
+            $('#userRatingForm').trigger('submit');
         });
         
         function initRating(ratingClickStar, ratingStarIntro){
@@ -37,7 +37,7 @@
                 dialogRatingClickStar.triggerHandler('mouseleave');
                 
                 const score = imgIndex * 2;
-                $('form>input[name=score]').val(score);
+                $('#userRatingForm>input[name=score]').val(score);
             });
         }
     
@@ -56,7 +56,7 @@
         
         $('.ratingSignRow>button').on('click', function () {
             const buttonId = $(this).attr('id');
-            const inputType = $('form>input[name=type]');
+            const inputType = $('#userRatingForm>input[name=type]');
             // XXX 硬编码
             if(buttonId == 'readingButton'){
                 inputType.val(1);
@@ -95,7 +95,7 @@
         });
         
         $('#saveButton').on('click', function () {
-            $('form').trigger('submit');
+            $('#userRatingForm').trigger('submit');
         });
     });
 })();

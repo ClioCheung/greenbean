@@ -82,8 +82,8 @@
                         <div>
                             <span class="userRating">I <span th:text="${bookPage.bookUserRatingInfo.type} == 1? 'am reading' : 'have read'"></span> this book.</span>
                             <span class="userRating" th:text="${bookPage.bookUserRatingInfo.time}"></span>
-                            <a class="userRating" href="#" data-toggle="modal" data-target="#ratingDialog" data-status="Update : ">Update</a>
-                            <a class="userRating" href="#">Remove</a>
+                            <a class="userRating" href="#" data-toggle="modal" data-target="#ratingDialog" data-status="Update this book.">Update</a>
+                            <a class="userRating" href="#" data-toggle="modal" data-target="#removeDialog">Remove</a>
                         </div>
                         <div>
                             <span class="userRating">My Rating:</span>
@@ -163,13 +163,32 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     <button id="saveButton" type="button" class="btn btn-primary">Save</button>
                 </div>
             </div>
         </div>
     </div>
 
+    <div class="modal fade" id="removeDialog" tabindex="-1" role="dialog" aria-labelledby="removeDialogTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Remove this book.</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <span>Do you really want to remove this book?</span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button id="removeButton" type="button" class="btn btn-primary">Remove</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script th:replace="fragments :: jQueryJS"></script>
     <script th:replace="fragments :: popperJS"></script>
     <script th:replace="fragments :: bootstrapJS"></script>
