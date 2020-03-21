@@ -35,8 +35,8 @@
             <!-- FIXME  img alt 提示语-->
             <!-- TODO 图片拖拽尺寸-->
             <div class="col-sm bookPlace" th:each="i : ${#numbers.sequence(0, 4)}">
-                <img alt="reading" th:if="${readingCount &gt; i and readingBookPictures[i] ne null}" th:src="@{/static/picture/books/{readingBookPicture}(readingBookPicture=${readingBookPictures[i]})}">
-                <img alt="reading" th:if="${readingCount &gt; i and readingBookPictures[i] eq null}" th:src="@{static/pic/bookDefault.gif}">
+                <img alt="reading" th:if="${readingCount &gt; i and readingBookPictures[i] != null}" th:src="@{/static/picture/books/{readingBookPicture}(readingBookPicture=${readingBookPictures[i]})}">
+                <img alt="reading" th:if="${readingCount &gt; i and readingBookPictures[i] == null}" th:src="@{static/pic/bookDefault.gif}">
             </div>
         </div>
         <div class="row bookRow">
@@ -44,7 +44,8 @@
                 read
             </div>
             <div class="col-sm bookPlace" th:each="i : ${#numbers.sequence(0, 4)}">
-                <img alt="read" th:src="${readCount &gt; i and readBookPictures[i] ne null}? @{/static/picture/books/{readBookPicture}(readBookPicture=${readBookPictures[i]})} : @{static/pic/bookDefault.gif}">
+                <img alt="read" th:if="${readCount &gt; i and readBookPictures[i] ne null}"th:src="@{/static/picture/books/{readBookPicture}(readBookPicture=${readBookPictures[i]})}">
+                <img alt="read" th:if="${readCount &gt; i and readBookPictures[i] == null}"th:src="@{static/pic/bookDefault.gif}">
             </div>
         </div>
     </div>

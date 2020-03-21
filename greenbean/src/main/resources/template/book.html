@@ -50,7 +50,7 @@
                             <div class="col-sm-8 starDiv">
                                 <div class="bigStarImg" th:classappend="'bigStar' + ${bookPage.bookBriefStarRating.starRatingName}"></div>
                                 <div class="ratingDiv">
-                                    <span th:text="${bookPage.bookBriefStarRating.ratingCount}"></span>&nbsp;Rating
+                                    <span th:text="${bookPage.bookBriefStarRating.ratingCount}"></span>&nbsp;<span th:text="${bookPage.bookBriefStarRating.ratingCount} &gt; 1? 'Ratings' : 'Rating'"></span>
                                 </div>
                             </div>
                         </div>

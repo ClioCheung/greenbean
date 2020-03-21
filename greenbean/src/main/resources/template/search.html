@@ -33,8 +33,8 @@
                         <div class="row bookRatingRow">
                             <span class="allStars" th:classappend="'star' + ${bookItem.bookBriefStarRating.starRatingName}"></span>
                             <span class="rating_nums" th:text="${bookItem.bookBriefStarRating.rating}"></span>&nbsp;
-                            <span th:if="${#conversions.convert(bookItem.bookBriefStarRating.ratingCount,'java.lang.Integer') > 0}">
-                                (&nbsp;<span th:text="${bookItem.bookBriefStarRating.ratingCount}"></span>&nbsp;人评价&nbsp;)
+                            <span th:if="${#conversions.convert(bookItem.bookBriefStarRating.ratingCount,'java.lang.Integer')} gt 0">
+                                (&nbsp;<span th:text="${bookItem.bookBriefStarRating.ratingCount}"></span>&nbsp;<span th:text="${#conversions.convert(bookItem.bookBriefStarRating.ratingCount,'java.lang.Integer')} &gt; 1? 'Ratings' : 'Rating'"></span>&nbsp;)
                             </span>
                             <span th:if="${#conversions.convert(bookItem.bookBriefStarRating.ratingCount,'java.lang.Integer') == 0}">
                                 (&nbsp;No rating temporarily&nbsp;)
