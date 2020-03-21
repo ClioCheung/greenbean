@@ -374,4 +374,9 @@ public class BookService {
             return false;
         }
     }
+    
+    public void removeUserRating(Integer bookId, Integer userId) {
+        // TODO 业务层验证“评论”是否存在 存在则删除
+        this.bookMapper.removeUserRating(bookId, userId);
+    }
 }

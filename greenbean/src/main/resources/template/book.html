@@ -137,7 +137,7 @@
                 </div>
                 <div class="modal-body">
                     <div>
-                        <form id="userRatingForm" method="post" th:action="@{/saveOrUpdateUserRating}">
+                        <form id="saveOrUpdateUserRatingForm" method="post" th:action="@{/saveOrUpdateUserRating}">
                             <input type="hidden" name="bookId" th:value="${bookPage.bookBriefBasicInfo.id}">
                             <input type="hidden" name="score" th:value="${bookPage.bookUserRatingInfo.star}? ${bookPage.bookUserRatingInfo.star} * 2 : ''">
                             <input th:unless="${bookPage.bookUserRatingInfo.type}" type="hidden" name="type">
@@ -184,10 +184,13 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button id="removeButton" type="button" class="btn btn-primary">Remove</button>
+                    <button id="removeButton" type="button" class="btn btn-outline-danger">Remove</button>
                 </div>
             </div>
         </div>
+        <form id="removeUserRatingForm" method="post" th:action="@{/removeUserRating}">
+            <input type="hidden" name="bookId" th:value="${bookPage.bookBriefBasicInfo.id}">
+        </form>
     </div>
     <script th:replace="fragments :: jQueryJS"></script>
     <script th:replace="fragments :: popperJS"></script>

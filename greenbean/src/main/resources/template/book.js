@@ -5,7 +5,7 @@
         const ratingStarIntro = $('#ratingStarIntro');
         initRating(ratingClickStar, ratingStarIntro);
         ratingClickStar.on('click',function () {
-            const inputType = $('#userRatingForm>input[name=type]');
+            const inputType = $('#saveOrUpdateUserRatingForm>input[name=type]');
             inputType.val(2);
         });
         
@@ -17,7 +17,7 @@
         const userRatingStarIntro = $('#userRatingStarIntro');
         initRating(userRatingClickStar, userRatingStarIntro);
         userRatingClickStar.on('click', function () {
-            $('#userRatingForm').trigger('submit');
+            $('#saveOrUpdateUserRatingForm').trigger('submit');
         });
         
         function initRating(ratingClickStar, ratingStarIntro){
@@ -37,7 +37,7 @@
                 dialogRatingClickStar.triggerHandler('mouseleave');
                 
                 const score = imgIndex * 2;
-                $('#userRatingForm>input[name=score]').val(score);
+                $('#saveOrUpdateUserRatingForm>input[name=score]').val(score);
             });
         }
     
@@ -56,7 +56,7 @@
         
         $('.ratingSignRow>button').on('click', function () {
             const buttonId = $(this).attr('id');
-            const inputType = $('#userRatingForm>input[name=type]');
+            const inputType = $('#saveOrUpdateUserRatingForm>input[name=type]');
             // XXX 硬编码
             if(buttonId == 'readingButton'){
                 inputType.val(1);
@@ -84,18 +84,22 @@
                 score = originalRating * 2;
             }
             if(originalType !== undefined){
-                $('#userRatingForm input[name=type][value='+ originalType +']').prop('checked',true);
+                $('#saveOrUpdateUserRatingForm input[name=type][value='+ originalType +']').prop('checked',true);
             } else {
-                $('#userRatingForm>input[name=type][type=hidden]').val('');
+                $('#saveOrUpdateUserRatingForm>input[name=type][type=hidden]').val('');
             }
             makeStarSolid(ratingClickStar, ratingStarIntro, starCount);
             dialogRatingClickStar.attr('data-rating',starCount);
             dialogRatingClickStar.triggerHandler('mouseleave');
-            $('#userRatingForm input[name=score]').val(score);
+            $('#saveOrUpdateUserRatingForm input[name=score]').val(score);
         });
         
         $('#saveButton').on('click', function () {
-            $('#userRatingForm').trigger('submit');
+            $('#saveOrUpdateUserRatingForm').trigger('submit');
+        });
+        
+        $('#removeButton').on('click', function () {
+            $('#removeUserRatingForm').trigger('submit');
         });
     });
 })();

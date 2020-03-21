@@ -93,10 +93,18 @@ public class BookController {
     
     @PostMapping(value="/saveOrUpdateUserRating")
     public void saveOrUpdateUserRating(UserRatingDTO userRatingDto, HttpSession session, HttpServletResponse response) throws IOException {
-        // XXX 验证表单是否为空 如userId为null
+        // TODO 验证表单是否为空 如userId为null
         userRatingDto.setUserId((Integer)session.getAttribute("userId"));
         this.bookService.saveOrUpdateUserRating(userRatingDto);
         response.sendRedirect("book/" + userRatingDto.getBookId());
+    }
+    
+    @PostMapping(value = "/removeUserRating")
+    public void removeUserRating(Integer bookId, HttpSession session, HttpServletResponse response) throws IOException {
+        // TODO 验证表单格式等
+        Integer userId = (Integer) session.getAttribute("userId");
+        this.bookService.removeUserRating(bookId, userId);
+        response.sendRedirect("book/" + bookId);
     }
 }
 

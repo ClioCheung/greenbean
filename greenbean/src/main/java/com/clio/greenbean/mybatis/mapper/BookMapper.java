@@ -48,4 +48,6 @@ public interface BookMapper {
     Map<String, Object> getBookUserRatingsByBookIdAndUserId(@Param("bookId") Integer bookId, @Param("userId") Integer userId);
     
     void updateUserRating(UserRatingDTO userRatingDto);
+    
+    void removeUserRating(@Param("bookId") Integer bookId, @Param("userId") Integer userId);
 }
