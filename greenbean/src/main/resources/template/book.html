@@ -142,24 +142,30 @@
                             <input type="hidden" name="score" th:value="${bookPage.bookUserRatingInfo.star}? ${bookPage.bookUserRatingInfo.star} * 2 : ''">
                             <input th:unless="${bookPage.bookUserRatingInfo.type}" type="hidden" name="type">
                             <!-- XXX 优化CSS 高度保持一致-->
-                            <div th:if="${bookPage.bookUserRatingInfo.type}">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="type" value="1" th:checked="${bookPage.bookUserRatingInfo.type == 1}? 'true' : 'false'">
-                                    <label class="form-check-label">Reading</label>
+                            <div class="form-group">
+                                <div th:if="${bookPage.bookUserRatingInfo.type}" class="d-inline-block">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="type" value="1" th:checked="${bookPage.bookUserRatingInfo.type == 1}? 'true' : 'false'">
+                                        <label class="form-check-label">Reading</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="type" value="2" th:checked="${bookPage.bookUserRatingInfo.type == 2}? 'true' : 'false'">
+                                        <label class="form-check-label">Read</label>
+                                    </div>
                                 </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="type" value="2" th:checked="${bookPage.bookUserRatingInfo.type == 2}? 'true' : 'false'">
-                                    <label class="form-check-label">Read</label>
-                                </div>
+                                <span>Rating(Opional): </span>
+                                <span id="dialogRatingClickStar" class="ratingClickStar" th:attr="data-hollow=@{/static/pic/hollowStar.png},data-solid=@{/static/pic/solidStar.png}, data-rating=${bookPage.bookUserRatingInfo.star}">
+                                    <a th:each="i : ${#numbers.sequence(1,5)}">
+                                        <img th:src="@{/static/pic/hollowStar.png}" th:attr="data-index=${i}">
+                                    </a>
+                                </span>
+                                <span id="dialogRatingStarIntro"></span>
+                            </div>
+                            <div>
+                                <label for="comment">Short Comment : </label>
+                                <textarea class="form-control" id="comment" rows="2"></textarea>
                             </div>
                         </form>
-                        <span>Rating(Opional): </span>
-                        <span id="dialogRatingClickStar" class="ratingClickStar" th:attr="data-hollow=@{/static/pic/hollowStar.png},data-solid=@{/static/pic/solidStar.png}, data-rating=${bookPage.bookUserRatingInfo.star}">
-                            <a th:each="i : ${#numbers.sequence(1,5)}">
-                                <img th:src="@{/static/pic/hollowStar.png}" th:attr="data-index=${i}">
-                            </a>
-                        </span>
-                        <span id="dialogRatingStarIntro"></span>
                     </div>
                 </div>
                 <div class="modal-footer">
