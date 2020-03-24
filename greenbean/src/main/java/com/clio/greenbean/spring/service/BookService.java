@@ -198,6 +198,7 @@ public class BookService {
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String time = dateFormat.format((Timestamp)userRatings.get("time"));
             bookUserRatingInfo.setTime(time);
+            bookUserRatingInfo.setComment((String)userRatings.get("comment"));
         }
     }
     

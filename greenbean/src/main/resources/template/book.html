@@ -94,6 +94,8 @@
                             </span>
                             <span id="userRatingStarIntro"></span>
                         </div>
+                        <div th:if="${bookPage.bookUserRatingInfo.comment} != null and ${bookPage.bookUserRatingInfo.comment} != ''" th:text="${bookPage.bookUserRatingInfo.comment}">
+                        </div>
                     </div>
                 </div>
                 <div class="row contentIntroDiv" th:if="${bookPage.bookDetailBasicInfo.contentIntroList}">
@@ -163,7 +165,7 @@
                             </div>
                             <div>
                                 <label for="comment">Short Comment : </label>
-                                <textarea class="form-control" id="comment" rows="2"></textarea>
+                                <textarea class="form-control" id="comment" rows="2" name="comment" th:text="${bookPage.bookUserRatingInfo.comment}"></textarea>
                             </div>
                         </form>
                     </div>

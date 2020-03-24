@@ -9,6 +9,7 @@ public class UserRatingDTO {
     private Integer score;
     private Integer userId;
     private String time;
+    private String comment;
     
     public Integer getBookId() {
         return bookId;
@@ -48,5 +49,13 @@ public class UserRatingDTO {
     
     public void setTime(String time) {
         this.time = time;
+    }
+    
+    public String getComment() {
+        return comment;
+    }
+    
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 }
