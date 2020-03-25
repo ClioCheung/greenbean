@@ -32,12 +32,6 @@
 #addNewBook {
     font-size : 16px;
 }
-.allStars {
-    width : 55px;
-    height : 11px;
-    margin : 6px 3px 0 0;
-    background-image : url("../pic/star.png");
-}
 .rating_nums {
     color: #e09015;
     padding: 0 3px;
