@@ -6,7 +6,7 @@ package com.clio.greenbean.vo;
 public class BookUserBasicCommentInfo {
     private String nickname;
     private String starSuffix;
-    private String CommentTime;
+    private String commentTime;
     private String comment;
     
     public String getNickname() {
@@ -26,11 +26,11 @@ public class BookUserBasicCommentInfo {
     }
     
     public String getCommentTime() {
-        return CommentTime;
+        return commentTime;
     }
     
     public void setCommentTime(String commentTime) {
-        CommentTime = commentTime;
+        this.commentTime = commentTime;
     }
     
     public String getComment() {

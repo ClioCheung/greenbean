@@ -126,37 +126,16 @@
                     <div class="col-sm-12">
                         <h4>Comments······
                             <a href="#" id="showShortComment" >我来说两句</a>
-                            <span>（<a href="#">全部<span>666</span>条评论</a>）</span>
+                            <span th:if="${bookPage.bookUserCommentInfo.commentCount} ne null">（<a href="#">Show all <span th:text="${bookPage.bookUserCommentInfo.commentCount}"></span><span th:text="${bookPage.bookUserCommentInfo.commentCount} > 1? ' comments' : ' comment'"></span></a>）</span>
                         </h4>
-                        <div class="introduction noneIndent comments">
-                            <a href="#">UserNickname</a>
-                            <span class="allStars" th:classappend="'star' + ${bookPage.bookBriefStarRating.starRatingName}"></span>
-                            <span th:text="${bookPage.bookUserRatingInfo.time}"></span>
-                            <p>一个被读者誉为很适合写IT技术书的家伙。《大话设计模式》作者。此书07年末出版至今已经简体版印刷9次、繁体版印刷6次，取得了较好的成绩，开创了一种适合国人阅读的趣味讲解IT知识的风格模式。其本人参与过政府、证券、游戏、交通等多种行业的软件开发及项目管理工作，也曾做过软件培训的教师。因曾有过两年半高中数学教学的独特经历，使得其书作当中处处以初学者视角考虑和分析问题，他成为了当前很受欢迎的IT技术图书作者之一。</p>
+                        <div class="introduction noneIndent comments" th:if="${bookPage.bookUserCommentInfo.commentCount} ne null" th:each="commentInfo : ${bookPage.bookUserCommentInfo.bookUserBasicCommentInfoList}">
+                            <a href="#" th:text="${commentInfo.nickname}">UserNickname</a>
+                            <span class="allStars" th:classappend="'star' + ${commentInfo.starSuffix}" th:if="${commentInfo.starSuffix} ne null"></span>
+                            <span th:text="${commentInfo.commentTime}"></span>
+                            <p th:text="${commentInfo.comment}"></p>
                         </div>
-                        <div class="introduction noneIndent comments">
-                            <a href="#">UserNickname</a>
-                            <span class="allStars" th:classappend="'star' + ${bookPage.bookBriefStarRating.starRatingName}"></span>
-                            <span th:text="${bookPage.bookUserRatingInfo.time}"></span>
-                            <p>一个被读者誉为很适合写IT技术书的家伙。《大话设计模式》作者。此书07年末出版至今已经简体版印刷9次、繁体版印刷6次，取得了较好的成绩，开创了一种适合国人阅读的趣味讲解IT知识的风格模式。其本人参与过政府、证券、游戏、交通等多种行业的软件开发及项目管理工作，也曾做过软件培训的教师。因曾有过两年半高中数学教学的独特经历，使得其书作当中处处以初学者视角考虑和分析问题，他成为了当前很受欢迎的IT技术图书作者之一。</p>
-                        </div>
-                        <div class="introduction noneIndent comments">
-                            <a href="#">UserNickname</a>
-                            <span class="allStars" th:classappend="'star' + ${bookPage.bookBriefStarRating.starRatingName}"></span>
-                            <span th:text="${bookPage.bookUserRatingInfo.time}"></span>
-                            <p>一个被读者誉为很适合写IT技术书的家伙。《大话设计模式》作者。此书07年末出版至今已经简体版印刷9次、繁体版印刷6次，取得了较好的成绩，开创了一种适合国人阅读的趣味讲解IT知识的风格模式。其本人参与过政府、证券、游戏、交通等多种行业的软件开发及项目管理工作，也曾做过软件培训的教师。因曾有过两年半高中数学教学的独特经历，使得其书作当中处处以初学者视角考虑和分析问题，他成为了当前很受欢迎的IT技术图书作者之一。</p>
-                        </div>
-                        <div class="introduction noneIndent comments">
-                            <a href="#">UserNickname</a>
-                            <span class="allStars" th:classappend="'star' + ${bookPage.bookBriefStarRating.starRatingName}"></span>
-                            <span th:text="${bookPage.bookUserRatingInfo.time}"></span>
-                            <p>一个被读者誉为很适合写IT技术书的家伙。《大话设计模式》作者。此书07年末出版至今已经简体版印刷9次、繁体版印刷6次，取得了较好的成绩，开创了一种适合国人阅读的趣味讲解IT知识的风格模式。其本人参与过政府、证券、游戏、交通等多种行业的软件开发及项目管理工作，也曾做过软件培训的教师。因曾有过两年半高中数学教学的独特经历，使得其书作当中处处以初学者视角考虑和分析问题，他成为了当前很受欢迎的IT技术图书作者之一。</p>
-                        </div>
-                        <div class="introduction noneIndent comments">
-                            <a href="#">UserNickname</a>
-                            <span class="allStars" th:classappend="'star' + ${bookPage.bookBriefStarRating.starRatingName}"></span>
-                            <span th:text="${bookPage.bookUserRatingInfo.time}"></span>
-                            <p>一个被读者誉为很适合写IT技术书的家伙。《大话设计模式》作者。此书07年末出版至今已经简体版印刷9次、繁体版印刷6次，取得了较好的成绩，开创了一种适合国人阅读的趣味讲解IT知识的风格模式。其本人参与过政府、证券、游戏、交通等多种行业的软件开发及项目管理工作，也曾做过软件培训的教师。因曾有过两年半高中数学教学的独特经历，使得其书作当中处处以初学者视角考虑和分析问题，他成为了当前很受欢迎的IT技术图书作者之一。</p>
+                        <div class="introduction noneIndent comments" th:unless="${bookPage.bookUserCommentInfo.commentCount} ne null">
+                            No comments temporarily
                         </div>
                     </div>
                 </div>
