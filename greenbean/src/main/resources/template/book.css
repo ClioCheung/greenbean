@@ -128,4 +128,34 @@ a+p {
 .comments>p{
     color : #666;
 }
-
+.rightGrid {
+    padding-left : 80px;
+}
+.rightGrid h4 {
+    margin : 0 0 12px 0;
+    line-height : 150%;
+    font : 16px Arial, Helvetica, sans-serif;
+    color : #007722;
+}
+.friendsInfoRow {
+    border-bottom : 1px dashed #DDDDDD;
+    margin-bottom : 12px;
+    padding-bottom : 20px;
+}
+.friendsImg {
+    padding-left : 0;
+}
+.friendsInfoRow img {
+    width : 100%;
+    max-height : 63px;
+    object-fit : contain;
+}
+.friendsInfo>span {
+    padding-right : 6px;
+}
+.friendsInfoRow a {
+    line-height : 2;
+}
+.readersState>p:first-child {
+    margin-bottom : 0;
+}
