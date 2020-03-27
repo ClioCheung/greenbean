@@ -50,4 +50,8 @@ public interface BookMapper {
     void updateUserRating(UserRatingDTO userRatingDto);
     
     void removeUserRating(@Param("bookId") Integer bookId, @Param("userId") Integer userId);
+    
+    Integer getBookUserCommentCount(Integer bookId);
+    
+    List<Map<String, Object>> getBookUserCommentInfo(@Param("bookId") Integer bookId, @Param("start") Integer start, @Param("size") Integer size);
 }

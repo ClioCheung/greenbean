@@ -180,7 +180,52 @@ public class BookService {
     
         Map<String, Object> userRatings = this.getBookUserRatingsByBookIdAndUserId(bookId, userId);
         this.setBookRatingInfo(bookPageDTO.getBookUserRatingInfo(), userRatings);
+       
+        Integer commentCount = this.getBookUserCommentCount(bookId);
+        List<Map<String,Object>> bookUserCommentInfo = this.getBookUserCommentInfo(bookId, 0, 5);
+        if(commentCount > 0) {
+            this.setBookUserCommentInfo(bookUserCommentInfo, bookPageDTO.getBookUserCommentInfo(), commentCount);
+        } else {
+            this.setBookUserCommentInfo(bookUserCommentInfo, bookPageDTO.getBookUserCommentInfo());
+        }
         return bookPageDTO;
+    }
+    
+    private void setBookUserCommentInfo(List<Map<String,Object>> rawBookUserCommentInfo, BookUserCommentInfo bookUserCommentInfo, Integer commentCount){
+        bookUserCommentInfo.setCommentCount(commentCount);
+        if(rawBookUserCommentInfo != null){
+            List<BookUserBasicCommentInfo> bookUserBasicCommentInfoList = new ArrayList<>();
+            for(Map<String,Object> singleComment : rawBookUserCommentInfo){
+                BookUserBasicCommentInfo bookUserBasicCommentInfo = new BookUserBasicCommentInfo();
+                bookUserBasicCommentInfo.setNickname((String) singleComment.get("nickname"));
+                bookUserBasicCommentInfo.setComment((String) singleComment.get("comment"));
+    
+                Object scoreObject = singleComment.get("score");
+                if(scoreObject != null) {
+                    Integer score = (Integer) scoreObject;
+                    String starSuffix = this.setDecimalFormatToString(new BigDecimal(score));
+                    bookUserBasicCommentInfo.setStarSuffix(starSuffix);
+                }
+        
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String time = dateFormat.format((Timestamp)singleComment.get("time"));
+                bookUserBasicCommentInfo.setCommentTime(time);
+                bookUserBasicCommentInfoList.add(bookUserBasicCommentInfo);
+            }
+            bookUserCommentInfo.setBookUserBasicCommentInfoList(bookUserBasicCommentInfoList);
+        }
+    }
+    
+    private void setBookUserCommentInfo(List<Map<String,Object>> rawBookUserCommentInfo, BookUserCommentInfo bookUserCommentInfo){
+        this.setBookUserCommentInfo(rawBookUserCommentInfo, bookUserCommentInfo, null);
+    }
+    
+    private Integer getBookUserCommentCount(Integer bookId) {
+        return this.bookMapper.getBookUserCommentCount(bookId);
+    }
+    
+    private List<Map<String,Object>> getBookUserCommentInfo(Integer bookId, Integer start, Integer size){
+        return this.bookMapper.getBookUserCommentInfo(bookId, start, size);
     }
     
     private Map<String, Object> getBookUserRatingsByBookIdAndUserId(Integer bookId, Integer userId) {
@@ -305,17 +350,20 @@ public class BookService {
             BigDecimal rating = (BigDecimal) ratings.get("rating");
             BigDecimal ratingWithOneDecimal = rating.setScale(1, RoundingMode.HALF_UP);
             bookBriefStarRating.setRating(String.valueOf(ratingWithOneDecimal));
-           
-            DecimalFormat ratingFormat = new DecimalFormat("#");
-            BigDecimal ratingWithTwoNum = rating.divide(new BigDecimal(2)).multiply(new BigDecimal(10));
-            String starSuffix = ratingFormat.format(ratingWithTwoNum);
+          
             //XXX 使得starRatingName的值是5的倍数，如 ： 05，10，15，20，25，30，35，40，45，50
-            String starRatingName = starSuffix;
-            bookBriefStarRating.setStarRatingName(starRatingName);
+            bookBriefStarRating.setStarRatingName(this.setDecimalFormatToString(rating));
         } else {
             //XXX 修改硬代码
             bookBriefStarRating.setStarRatingName("00");
         }
+    }
+    
+    private String setDecimalFormatToString(BigDecimal score){
+        DecimalFormat ratingFormat = new DecimalFormat("#");
+        BigDecimal ratingWithTwoNum = score.divide(new BigDecimal(2)).multiply(new BigDecimal(10));
+        String starSuffix = ratingFormat.format(ratingWithTwoNum);
+        return starSuffix;
     }
     
     private void setRatingPercentageList(List<Map<String, Object>> getScoreAndRatingCountGroupByScoreList, BookDetailStarRating bookDetailStarRating, long ratingCount) {
