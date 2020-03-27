@@ -141,6 +141,7 @@ a+p {
     border-bottom : 1px dashed #DDDDDD;
     margin-bottom : 12px;
     padding-bottom : 20px;
+    color: #666666;
 }
 .friendsImg {
     padding-left : 0;
@@ -154,7 +155,7 @@ a+p {
     padding-right : 6px;
 }
 .friendsInfoRow a {
-    line-height : 2;
+    line-height : 1.5;
 }
 .readersState>p:first-child {
     margin-bottom : 0;

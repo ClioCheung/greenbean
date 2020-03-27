@@ -12,6 +12,7 @@ public class BookPageDTO {
     private BookDetailStarRating bookDetailStarRating = new BookDetailStarRating();
     private BookUserRatingInfo bookUserRatingInfo = new BookUserRatingInfo();
     private BookUserCommentInfo bookUserCommentInfo = new BookUserCommentInfo();
+    private BookUserStarboardInfo bookUserStarboardInfo = new BookUserStarboardInfo();
     
     public BookBriefBasicInfo getBookBriefBasicInfo() {
         return bookBriefBasicInfo;
@@ -59,5 +60,13 @@ public class BookPageDTO {
     
     public void setBookUserCommentInfo(BookUserCommentInfo bookUserCommentInfo) {
         this.bookUserCommentInfo = bookUserCommentInfo;
+    }
+    
+    public BookUserStarboardInfo getBookUserStarboardInfo() {
+        return bookUserStarboardInfo;
+    }
+    
+    public void setBookUserStarboardInfo(BookUserStarboardInfo bookUserStarboardInfo) {
+        this.bookUserStarboardInfo = bookUserStarboardInfo;
     }
 }

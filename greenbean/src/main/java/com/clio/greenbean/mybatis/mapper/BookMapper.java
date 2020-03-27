@@ -54,4 +54,8 @@ public interface BookMapper {
     Integer getBookUserCommentCount(Integer bookId);
     
     List<Map<String, Object>> getBookUserCommentInfo(@Param("bookId") Integer bookId, @Param("start") Integer start, @Param("size") Integer size);
+    
+    List<Map<String, Object>> getBookUserStarboardInfo(@Param("bookId") Integer bookId, @Param("start") Integer start, @Param("size") Integer size);
+    
+    Integer getBookTypeCount(@Param("bookId") Integer bookId, @Param("type") Integer type);
 }

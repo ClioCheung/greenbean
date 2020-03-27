@@ -144,4 +144,12 @@
         select * from v_book_user_comment where book_id = #{bookId} order by time desc limit #{start},#{size}
     </select>
     
+    <select id="getBookUserStarboardInfo" resultType="java.util.Map">
+        select * from v_book_user_starboard where book_id = #{bookId} order by time desc  limit #{start},#{size}
+    </select>
+    
+    <select id="getBookTypeCount" resultType="java.lang.Integer">
+        select count(*) from t_book_user where book_id = #{bookId} and type = #{type}
+    </select>
+    
 </mapper>

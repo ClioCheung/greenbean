@@ -182,13 +182,57 @@ public class BookService {
         this.setBookRatingInfo(bookPageDTO.getBookUserRatingInfo(), userRatings);
        
         Integer commentCount = this.getBookUserCommentCount(bookId);
+        // XXX 硬编码
         List<Map<String,Object>> bookUserCommentInfo = this.getBookUserCommentInfo(bookId, 0, 5);
         if(commentCount > 0) {
             this.setBookUserCommentInfo(bookUserCommentInfo, bookPageDTO.getBookUserCommentInfo(), commentCount);
         } else {
             this.setBookUserCommentInfo(bookUserCommentInfo, bookPageDTO.getBookUserCommentInfo());
         }
+        
+        Integer readingCount = this.getBookTypeCount(bookId, 1);
+        bookPageDTO.getBookUserStarboardInfo().setReadingCount(readingCount);
+        Integer readCount = this.getBookTypeCount(bookId, 2);
+        bookPageDTO.getBookUserStarboardInfo().setReadCount(readCount);
+        if(readCount > 0 || readingCount > 0) {
+            // XXX 硬编码
+            List<Map<String, Object>> bookUserStarboardInfoList = this.getBookUserStarboardInfo(bookId ,0, 4);
+            this.setBookUserStarboardInfo(bookUserStarboardInfoList, bookPageDTO.getBookUserStarboardInfo());
+        }
+        
         return bookPageDTO;
+    }
+    
+    private void setBookUserStarboardInfo(List<Map<String, Object>> rawBookUserStarboardInfo, BookUserStarboardInfo bookUserStarboardInfo) {
+        List<StarboardInfo> starboardInfoList = new ArrayList<>();
+        for(Map<String, Object> singleBookUserStarboard : rawBookUserStarboardInfo){
+            StarboardInfo starboardInfo = new StarboardInfo();
+            starboardInfo.setAvatar((String) singleBookUserStarboard.get("avatar"));
+            starboardInfo.setNickname((String) singleBookUserStarboard.get("nickname"));
+            starboardInfo.setType((Integer)singleBookUserStarboard.get("type"));
+    
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String time = dateFormat.format((Timestamp)singleBookUserStarboard.get("time"));
+            starboardInfo.setStarboardDate(time);
+    
+            
+            Integer score = (Integer)singleBookUserStarboard.get("score");
+            if(score != null) {
+                String starSuffix = this.setDecimalFormatToString(new BigDecimal(score));
+                starboardInfo.setStarSuffix(starSuffix);
+            }
+            starboardInfoList.add(starboardInfo);
+        }
+        bookUserStarboardInfo.setStarboardInfoList(starboardInfoList);
+    
+    }
+    
+    private Integer getBookTypeCount(Integer bookId, Integer type){
+        return this.bookMapper.getBookTypeCount(bookId, type);
+    }
+    
+    private List<Map<String,Object>> getBookUserStarboardInfo(Integer bookId, Integer start, Integer size){
+        return this.bookMapper.getBookUserStarboardInfo(bookId, start, size);
     }
     
     private void setBookUserCommentInfo(List<Map<String,Object>> rawBookUserCommentInfo, BookUserCommentInfo bookUserCommentInfo, Integer commentCount){
