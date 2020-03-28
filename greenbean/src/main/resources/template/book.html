@@ -26,7 +26,7 @@
                             <!-- XXX IDEA语法错误的错误提示 -->
                             <img class="bookImg" th:src="${bookPage.bookBriefBasicInfo.picture != null}? @{/static/picture/books/{bookItemPicture}(bookItemPicture=${bookPage.bookBriefBasicInfo.picture})} : @{/static/pic/bookDefault.gif}" title="bookName">
                         </a>
-                        <p><a>Update Information</a></p>
+                        <p><a class="updateAnchor" th:href="@{/book/{id}/edit(id=${bookPage.bookBriefBasicInfo.id})}">Update Information</a></p>
                     </div>
                     <div class="col-sm-6 px-sm-0" id="bookInfo">
                         <p th:if="${bookPage.bookBriefBasicInfo.authorName}">Author: <span th:text="${bookPage.bookBriefBasicInfo.authorName}"></span></p>

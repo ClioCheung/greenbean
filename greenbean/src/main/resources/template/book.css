@@ -28,9 +28,11 @@ h1 {
     padding-left : 15px;
 }
 a+p {
-    color : #BBBBBB;
     font-size : 12px;
     text-align : center;
+}
+.updateAnchor {
+    color : #BBBBBB;
 }
 .ratingCountDiv {
     line-height : 2;

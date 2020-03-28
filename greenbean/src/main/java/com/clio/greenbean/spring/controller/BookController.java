@@ -91,6 +91,14 @@ public class BookController {
         return "book";
     }
     
+    @GetMapping(value="/book/{id}/edit")
+    public String editBook(@PathVariable Integer id, HttpSession session, Model model){
+        Integer userId = (Integer) session.getAttribute("userId");
+        BookPageDTO bookPageDTO = this.bookService.getBookPageDTO(id, userId);
+        model.addAttribute("bookPage",bookPageDTO);
+        return "editBook";
+    }
+    
     @PostMapping(value="/saveOrUpdateUserRating")
     public void saveOrUpdateUserRating(UserRatingDTO userRatingDto, HttpSession session, HttpServletResponse response) throws IOException {
         // TODO 验证表单是否为空 如userId为null
