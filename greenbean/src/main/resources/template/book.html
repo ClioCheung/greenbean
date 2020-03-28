@@ -147,7 +147,8 @@
                 <div class="row friendsInfoRow" th:each="singleStarboard : ${bookPage.bookUserStarboardInfo.starboardInfoList}">
                     <div class="col-sm-2 friendsImg">
                         <a href="#">
-                            <img alt="avatar" th:src="@{/static/picture/avatars/{avatar}(avatar=${singleStarboard.avatar})}">
+                            <img alt="avatar" th:if="${singleStarboard.avatar}" th:src="@{/static/picture/avatars/{avatar}(avatar=${singleStarboard.avatar})}">
+                            <img alt="defaultAvatar" th:unless="${singleStarboard.avatar}" th:src="@{/static/pic/userDefault.png}">
                         </a>
                     </div>
                     <div class="col-sm-10">
