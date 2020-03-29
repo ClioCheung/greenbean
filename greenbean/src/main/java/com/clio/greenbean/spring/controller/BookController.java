@@ -92,10 +92,9 @@ public class BookController {
     }
     
     @GetMapping(value="/book/{id}/edit")
-    public String editBook(@PathVariable Integer id, HttpSession session, Model model){
-        Integer userId = (Integer) session.getAttribute("userId");
-        BookPageDTO bookPageDTO = this.bookService.getBookPageDTO(id, userId);
-        model.addAttribute("bookPage",bookPageDTO);
+    public String editBook(@PathVariable Integer id, Model model){
+        BookDTO editBookPage = this.bookService.getEditBookPage(id);
+        model.addAttribute("editBookPage",editBookPage);
         return "editBook";
     }
     

@@ -152,4 +152,8 @@
         select count(*) from t_book_user where book_id = #{bookId} and type = #{type}
     </select>
     
+    <select id="getBookById" resultType="com.clio.greenbean.domain.Book">
+        select name, isbn, publisher, publish_year publishYear, publish_month publishMonth, publish_day publishDay, price, subtitle, original_name originalName, binding, page, content_intro contentIntro, author_intro authorIntro, directory from t_book where id = #{bookId}
+    </select>
+    
 </mapper>

@@ -101,6 +101,38 @@ public class BookService {
         return this.getBookPage(bookId, userId);
     }
     
+    public BookDTO getEditBookPage(Integer bookId){
+        BookDTO bookDTO = new BookDTO();
+        Book book = this.getBookById(bookId);
+        if(book != null){
+            this.transformBookToBookDTO(book, bookDTO);
+        }
+        return bookDTO;
+    }
+    
+    private void transformBookToBookDTO(Book book, BookDTO bookDTO) {
+        bookDTO.setName(book.getName());
+        bookDTO.setIsbn(book.getIsbn());
+        bookDTO.setSubtitle(book.getSubtitle());
+        bookDTO.setOriginalName(book.getOriginalName());
+        bookDTO.setPrice(book.getPrice());
+        bookDTO.setPage(book.getPage());
+        bookDTO.setBinding(book.getBinding());
+        bookDTO.setPublisher(book.getPublisher());
+        
+        bookDTO.setPublicationYear(book.getPublishYear());
+        bookDTO.setPublicationMonth(book.getPublishMonth());
+        bookDTO.setPublicationDay(book.getPublishDay());
+        
+        bookDTO.setAuthorIntro(book.getAuthorIntro());
+        bookDTO.setContentIntro(book.getContentIntro());
+        bookDTO.setDirectory(book.getDirectory());
+    }
+    
+    private Book getBookById(Integer bookId){
+        return this.bookMapper.getBookById(bookId);
+    }
+    
     private Book generatedBook(BookDTO bookDTO){
         Book book = new Book();
         //XXX 书的反射处理
