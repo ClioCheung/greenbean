@@ -1,5 +1,10 @@
 package com.clio.greenbean.dto;
 
+import com.clio.greenbean.domain.Author;
+import com.clio.greenbean.domain.Book;
+import com.clio.greenbean.domain.Translator;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,6 +27,35 @@ public class BookDTO {
     private String contentIntro;
     private String authorIntro;
     private String directory;
+    
+    public BookDTO() {
+    }
+    
+    public BookDTO(Book book) {
+        this.name = book.getName();
+        this.isbn = book.getIsbn();
+        this.publisher = book.getPublisher();
+        this.publicationYear = book.getPublishYear();
+        this.publicationMonth = book.getPublishMonth();
+        this.publicationDay = book.getPublishDay();
+        this.price = book.getPrice();
+        this.subtitle = book.getSubtitle();
+        this.originalName = book.getOriginalName();
+        this.binding = book.getBinding();
+        this.page = book.getPage();
+        this.contentIntro = book.getContentIntro();
+        this.authorIntro = book.getAuthorIntro();
+        this.directory = book.getDirectory();
+        
+        author = new ArrayList<>();
+        for(Author authorFromBook : book.getAuthors()) {
+            author.add(authorFromBook.getName());
+        }
+        translator = new ArrayList<>();
+        for(Translator translatorFormBook : book.getTranslators()) {
+            translator.add(translatorFormBook.getName());
+        }
+    }
     
     public String getName() {
         return name;

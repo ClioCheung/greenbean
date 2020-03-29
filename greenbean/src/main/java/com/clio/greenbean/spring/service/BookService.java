@@ -102,35 +102,8 @@ public class BookService {
     }
     
     public BookDTO getEditBookPage(Integer bookId){
-        BookDTO bookDTO = new BookDTO();
-        Book book = this.getBookById(bookId);
-        if(book != null){
-            this.transformBookToBookDTO(book, bookDTO);
-        }
-        return bookDTO;
-    }
-    
-    private void transformBookToBookDTO(Book book, BookDTO bookDTO) {
-        bookDTO.setName(book.getName());
-        bookDTO.setIsbn(book.getIsbn());
-        bookDTO.setSubtitle(book.getSubtitle());
-        bookDTO.setOriginalName(book.getOriginalName());
-        bookDTO.setPrice(book.getPrice());
-        bookDTO.setPage(book.getPage());
-        bookDTO.setBinding(book.getBinding());
-        bookDTO.setPublisher(book.getPublisher());
-        
-        bookDTO.setPublicationYear(book.getPublishYear());
-        bookDTO.setPublicationMonth(book.getPublishMonth());
-        bookDTO.setPublicationDay(book.getPublishDay());
-        
-        bookDTO.setAuthorIntro(book.getAuthorIntro());
-        bookDTO.setContentIntro(book.getContentIntro());
-        bookDTO.setDirectory(book.getDirectory());
-    }
-    
-    private Book getBookById(Integer bookId){
-        return this.bookMapper.getBookById(bookId);
+        Book book = this.getBooksBaseInfoById(bookId);
+        return new BookDTO(book);
     }
     
     private Book generatedBook(BookDTO bookDTO){
@@ -187,7 +160,7 @@ public class BookService {
     
     private BookItemsDTO getBookItemsById(Integer id){
         BookItemsDTO bookItemsDTO = new BookItemsDTO();
-        Book book = this.getBooksBaseInfoByID(id);
+        Book book = this.getBooksBaseInfoById(id);
         this.setBookBriefBasicIntoDTO(book, bookItemsDTO.getBookBriefBasicInfo());
     
         Map<String, Object>  ratings = this.getRatingAndRatingCountByID(id);
@@ -198,7 +171,7 @@ public class BookService {
     
     private BookPageDTO getBookPage(Integer bookId, Integer userId){
         BookPageDTO bookPageDTO = new BookPageDTO();
-        Book book = this.getBooksBaseInfoByID(bookId);
+        Book book = this.getBooksBaseInfoById(bookId);
         this.setBookBriefBasicIntoDTO(book, bookPageDTO.getBookBriefBasicInfo());
         this.setBookDetailBasicIntoDTO(book, bookPageDTO.getBookDetailBasicInfo());
         
@@ -327,8 +300,8 @@ public class BookService {
         return bookMapper.getSearchBooksWithPagination(keyword, offset, paginationSize);
     }
     
-    private Book getBooksBaseInfoByID (Integer id) {
-        return this.bookMapper.getBooksBaseInfoByID(id);
+    private Book getBooksBaseInfoById(Integer id) {
+        return this.bookMapper.getBooksBaseInfoById(id);
     }
     
     private Map<String, Object> getRatingAndRatingCountByID(Integer id) {
