@@ -28,6 +28,7 @@
     
     //XXX 在后台进行 type 的区分
     function initAutoComplete(selector,url){
+        // 使用jquery ui 的autocomplete
         selector.autocomplete({
             minLength : 1,
             source : function (request,response) {

@@ -32,6 +32,7 @@ public class BookDTO {
     }
     
     public BookDTO(Book book) {
+        // XXX 反射 apache commons
         this.name = book.getName();
         this.isbn = book.getIsbn();
         this.publisher = book.getPublisher();
@@ -47,13 +48,13 @@ public class BookDTO {
         this.authorIntro = book.getAuthorIntro();
         this.directory = book.getDirectory();
         
-        author = new ArrayList<>();
+        this.author = new ArrayList<>();
         for(Author authorFromBook : book.getAuthors()) {
-            author.add(authorFromBook.getName());
+            this.author.add(authorFromBook.getName());
         }
-        translator = new ArrayList<>();
+        this.translator = new ArrayList<>();
         for(Translator translatorFormBook : book.getTranslators()) {
-            translator.add(translatorFormBook.getName());
+            this.translator.add(translatorFormBook.getName());
         }
     }
     
