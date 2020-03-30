@@ -4,6 +4,7 @@
         initAutoComplete($('input[name="author"]'),'getAuthorSuggestion');
         initAutoComplete($('input[name="translator"]'),'getTranslatorSuggestion');
         bindDateChangeEvent();
+        setAddButtonPlace($('.addButton'));
     });
     
     function bindDateChangeEvent(){
@@ -51,27 +52,31 @@
         const addButton = $('.addButton');
         addButton.on('click',function(event){
             const addButton = $(event.currentTarget);
-            const dataNumber = parseInt(addButton.attr("data-number"));
             const row = addButton.parent().prev().children(":last-child");
             const cloneRow = row.clone();
-            
             const cloneRowInput = cloneRow.find("input");
+    
             cloneRowInput.val("");
             const inputName = cloneRowInput.attr("name");
             let url = "get" + inputName.substr(0,1).toUpperCase()+ inputName.substr(1) + "Suggestion";
+            // XXX update information : url --> book/{id}/url
             initAutoComplete(cloneRowInput,url);
             
             row.after(cloneRow);
+            const dataNumber = parseInt(addButton.attr("data-number"));
             cloneRow.find("span:first").text(dataNumber+1);
             addButton.attr("data-number",dataNumber+1);
-            // TODO 修正此处硬代码，有没更好的方法
-            const lineHeight = 32;
-            addButton.css("top",dataNumber * lineHeight + "px");
+            setAddButtonPlace(addButton);
         });
     }
     
-    $("#authorSuggestion").on("keyPress",function () {
-    
-    });
+    function setAddButtonPlace(addButton){
+        const lineHeight = 32;
+        addButton.each(function () {
+            // TODO 修正此处硬代码，有没更好的方法
+            const dataNumber = $(this).attr("data-number");
+            $(this).css("top",(dataNumber-1) * lineHeight + "px");
+        })
+    }
     
 })();
