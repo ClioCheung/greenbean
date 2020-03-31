@@ -477,4 +477,8 @@ public class BookService {
         // TODO 业务层验证“评论”是否存在 存在则删除
         this.bookMapper.removeUserRating(bookId, userId);
     }
+    
+    public void updateBookById(Integer bookId, BookDTO bookDTO){
+        this.bookMapper.updateBookById(bookId, bookDTO);
+    }
 }

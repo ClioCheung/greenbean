@@ -152,4 +152,7 @@
         select count(*) from t_book_user where book_id = #{bookId} and type = #{type}
     </select>
     
+    <update id="updateBookById">
+        update t_book set name = #{bookDTO.name}, publisher=#{bookDTO.publisher}, publish_year=#{bookDTO.publicationYear}, publish_month=#{bookDTO.publicationMonth}, publish_day=#{bookDTO.publicationDay}, price=#{bookDTO.price}, subtitle=#{bookDTO.subtitle}, original_name=#{bookDTO.originalName},  binding=#{bookDTO.binding},  page=#{bookDTO.page},  content_intro=#{bookDTO.contentIntro},  author_intro=#{bookDTO.authorIntro},  directory=#{bookDTO.directory} where id = #{bookId}
+    </update>
 </mapper>

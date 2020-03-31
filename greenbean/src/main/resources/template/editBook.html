@@ -16,53 +16,53 @@
     <div class="container" id="addBookBoxDiv">
         <div class="row">
             <div  class="col-sm-12" id="title">
-                <h1>Update information about <span th:text="${editBookPage.name}"></span></h1>
+                <h1>Update information about <span th:text="${bookDTO.name}"></span></h1>
             </div>
         </div>
         <!-- XXX 待重构此action的地址  -->
-        <form method="post" th:action="@{/book}">
+        <form method="post" th:action="@{/book/{id}/updateBook(id=${bookId})}">
             <div class="row">
                 <div class="col-sm-8">
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="name">Name</label>
                         <div class="col-sm-6 marginLeft">
-                            <input class="form-control" id="name" th:value="${editBookPage.name}" name="name" type="text">
+                            <input class="form-control" id="name" th:value="${bookDTO.name}" name="name" type="text">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="subtitle">Subtitle</label>
                         <div class="col-sm-6 marginLeft">
-                            <input class="form-control" id="subtitle" name="subtitle" type="text" th:value="${editBookPage.subtitle}">
+                            <input class="form-control" id="subtitle" name="subtitle" type="text" th:value="${bookDTO.subtitle}">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="originalName">Original Name</label>
                         <div class="col-sm-6 marginLeft">
-                            <input class="form-control" id="originalName" name="originalName" type="text" th:value="${editBookPage.originalName}">
+                            <input class="form-control" id="originalName" name="originalName" type="text" th:value="${bookDTO.originalName}">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="isbn">ISBN</label>
                         <div class="col-sm-6 marginLeft">
-                            <input class="form-control" id="isbn" name="isbn" type="text" th:value="${editBookPage.isbn}">
+                            <input class="form-control" id="isbn" name="isbn" type="text" th:value="${bookDTO.isbn}" readonly>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Author</label>
                         <div class="col-sm-6">
-                            <div class="row preFixNumber" th:each="author,i : ${editBookPage.author}">
+                            <div class="row preFixNumber" th:each="author,i : ${bookDTO.author}">
                                 <span class="col-sm-1" th:text="${i.count}"></span>
                                 <!-- XXX 需加大上下间距-->
                                 <input autocomplete="off" class="form-control col-sm-11" name="author" type="text" th:value="${author}">
                             </div>
-                            <div th:if="${editBookPage.author.size()} == 0" class="row preFixNumber">
+                            <div th:if="${bookDTO.author.size()} == 0" class="row preFixNumber">
                                 <span class="col-sm-1" th:text="1">1</span>
                                 <!-- XXX 需加大上下间距-->
                                 <input autocomplete="off" class="form-control col-sm-11" name="author" type="text">
                             </div>
                         </div>
                         <div>
-                            <button class="btn addButton" th:attr="data-number=${editBookPage.author.size() > 0}? ${editBookPage.author.size()} : 1" type="button">
+                            <button class="btn addButton" th:attr="data-number=${bookDTO.author.size() > 0}? ${bookDTO.author.size()} : 1" type="button">
                                 <i aria-hidden="true" class="fa fa-plus"></i>
                             </button>
                         </div>
@@ -70,18 +70,18 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Translator</label>
                         <div class="col-sm-6">
-                            <div class="row preFixNumber" th:each="translator,i : ${editBookPage.translator}">
+                            <div class="row preFixNumber" th:each="translator,i : ${bookDTO.translator}">
                                 <span class="col-sm-1" th:text="${i.count}"></span>
                                 <input autocomplete="off" class="form-control col-sm-11" name="translator" type="text" th:value="${translator}">
                             </div>
-                            <div th:if="${editBookPage.translator.size()} == 0" class="row preFixNumber">
+                            <div th:if="${bookDTO.translator.size()} == 0" class="row preFixNumber">
                                 <span class="col-sm-1" th:text="1">1</span>
                                 <!-- XXX 需加大上下间距-->
                                 <input autocomplete="off" class="form-control col-sm-11" name="translator" type="text">
                             </div>
                         </div>
                         <div>
-                            <button class="btn addButton" th:attr="data-number=${editBookPage.translator.size() > 0}? ${editBookPage.translator.size()} : 1" type="button">
+                            <button class="btn addButton" th:attr="data-number=${bookDTO.translator.size() > 0}? ${bookDTO.translator.size()} : 1" type="button">
                                 <i aria-hidden="true" class="fa fa-plus"></i>
                             </button>
                         </div>
@@ -89,32 +89,32 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="price">Price</label>
                         <div class="col-sm-6 marginLeft">
-                            <input class="form-control" id="price" name="price" type="text" th:value="${editBookPage.price}">
+                            <input class="form-control" id="price" name="price" type="text" th:value="${bookDTO.price}">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="publisher">Publisher</label>
                         <div class="col-sm-6 marginLeft">
-                            <input class="form-control" id="publisher" name="publisher" type="text" th:value="${editBookPage.publisher}">
+                            <input class="form-control" id="publisher" name="publisher" type="text" th:value="${bookDTO.publisher}">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="publicationYear">Date</label>
                         <div class="col-sm-2 marginLeft">
                             <select class="custom-select mr-sm-2" id="publicationYear" name="publicationYear">
-                                <option th:each="i : ${#numbers.sequence(#calendars.year(#calendars.createToday()) + 3,1980)}" th:selected="${i == editBookPage.publicationYear}? 'true':'false'" th:text="${i}" th:value="${i}"></option>
+                                <option th:each="i : ${#numbers.sequence(#calendars.year(#calendars.createToday()) + 3,1980)}" th:selected="${i == bookDTO.publicationYear}? 'true':'false'" th:text="${i}" th:value="${i}"></option>
                             </select>
                         </div>
                         <div class="col-sm-2">
                             <select class="custom-select mr-sm-2" id="publicationMonth" name="publicationMonth">
                                 <option selected value="0">N/A</option>
-                                <option th:each="i : ${#numbers.sequence(1,12)}" th:selected="${i == editBookPage.publicationMonth}? 'true':'false'" th:text="${i}" th:value="${i}"></option>
+                                <option th:each="i : ${#numbers.sequence(1,12)}" th:selected="${i == bookDTO.publicationMonth}? 'true':'false'" th:text="${i}" th:value="${i}"></option>
                             </select>
                         </div>
                         <div class="col-sm-2">
                             <select class="custom-select mr-sm-2" id="publicationDay" name="publicationDay">
                                 <option selected value="0">N/A</option>
-                                <option th:each="i : ${#numbers.sequence(1,31)}" th:selected="${i == editBookPage.publicationDay}? 'true':'false'" th:text="${i}" th:value="${i}"></option>
+                                <option th:each="i : ${#numbers.sequence(1,31)}" th:selected="${i == bookDTO.publicationDay}? 'true':'false'" th:text="${i}" th:value="${i}"></option>
                             </select>
                         </div>
                     </div>
@@ -122,11 +122,11 @@
                         <label class="col-sm-2 col-form-label">Binding</label>
                         <div class="col-sm-6 marginLeft lineHeightDiv">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" id="binding_1" name="binding" type="radio" value="1" th:checked="${editBookPage.binding} eq 1 ">
+                                <input class="form-check-input" id="binding_1" name="binding" type="radio" value="1" th:checked="${bookDTO.binding} eq 1 ">
                                 <label class="form-check-label" for="binding_1">paperback</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" id="binding_2" name="binding" type="radio" value="2" th:checked="${editBookPage.binding} eq 2">
+                                <input class="form-check-input" id="binding_2" name="binding" type="radio" value="2" th:checked="${bookDTO.binding} eq 2">
                                 <label class="form-check-label" for="binding_2">hardback</label>
                             </div>
                         </div>
@@ -134,26 +134,26 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="page">Page</label>
                         <div class="col-sm-6 marginLeft">
-                            <input class="form-control" id="page" name="page" type="text" th:value="${editBookPage.page}">
+                            <input class="form-control" id="page" name="page" type="text" th:value="${bookDTO.page}">
                         </div>
                         <div class="lineHeightDiv"><span>pages</span></div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="contentIntro">ContentIntro</label>
                         <div class="col-sm-6 marginLeft">
-                            <textarea class="form-control" id="contentIntro" name="contentIntro" th:text="${editBookPage.contentIntro}" required rows="10"></textarea>
+                            <textarea class="form-control" id="contentIntro" name="contentIntro" th:text="${bookDTO.contentIntro}" required rows="10"></textarea>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="authorIntro">AuthorIntro</label>
                         <div class="col-sm-6 marginLeft">
-                            <textarea class="form-control" id="authorIntro" name="authorIntro" th:text="${editBookPage.authorIntro}" required rows="10"></textarea>
+                            <textarea class="form-control" id="authorIntro" name="authorIntro" th:text="${bookDTO.authorIntro}" required rows="10"></textarea>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="directory">Directory</label>
                         <div class="col-sm-6 marginLeft">
-                            <textarea class="form-control" id="directory" name="directory" th:text="${editBookPage.directory}" required rows="10"></textarea>
+                            <textarea class="form-control" id="directory" name="directory" th:text="${bookDTO.directory}" required rows="10"></textarea>
                         </div>
                     </div>
 

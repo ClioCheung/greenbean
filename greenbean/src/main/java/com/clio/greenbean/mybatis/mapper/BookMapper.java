@@ -3,6 +3,7 @@ package com.clio.greenbean.mybatis.mapper;
 import com.clio.greenbean.domain.Author;
 import com.clio.greenbean.domain.Book;
 import com.clio.greenbean.domain.Translator;
+import com.clio.greenbean.dto.BookDTO;
 import com.clio.greenbean.dto.UserRatingDTO;
 import org.apache.ibatis.annotations.Param;
 
@@ -58,4 +59,6 @@ public interface BookMapper {
     List<Map<String, Object>> getBookUserStarboardInfo(@Param("bookId") Integer bookId, @Param("start") Integer start, @Param("size") Integer size);
     
     Integer getBookTypeCount(@Param("bookId") Integer bookId, @Param("type") Integer type);
+    
+    void updateBookById(@Param("bookId") Integer bookId, @Param("bookDTO") BookDTO bookDTO);
 }

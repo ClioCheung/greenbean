@@ -93,9 +93,16 @@ public class BookController {
     
     @GetMapping(value="/book/{id}/edit")
     public String editBook(@PathVariable Integer id, Model model){
-        BookDTO editBookPage = this.bookService.getEditBookPage(id);
-        model.addAttribute("editBookPage",editBookPage);
+        BookDTO bookDTO = this.bookService.getEditBookPage(id);
+        model.addAttribute("bookDTO",bookDTO);
+        model.addAttribute("bookId",id);
         return "editBook";
+    }
+    
+    @PostMapping(value="/book/{id}/updateBook")
+    public String updateBook(@PathVariable Integer id, BookDTO bookDTO){
+        this.bookService.updateBookById(id, bookDTO);
+        return "updateBookSuccess";
     }
     
     @PostMapping(value="/saveOrUpdateUserRating")
