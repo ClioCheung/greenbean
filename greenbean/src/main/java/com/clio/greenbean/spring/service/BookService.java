@@ -89,6 +89,13 @@ public class BookService {
         }
     }
     
+    @Transactional
+    public void updateBookById(BookDTO bookDTO){
+        Book book = this.generatedBook(bookDTO);
+        // TODO 更新作者/译者
+        this.bookMapper.updateBookById(book);
+    }
+    
     public List<String> getAuthorSuggestion(String authorSuggestion){
         return this.bookMapper.getAuthorSuggestion(authorSuggestion);
     }
@@ -109,6 +116,7 @@ public class BookService {
     private Book generatedBook(BookDTO bookDTO){
         Book book = new Book();
         //XXX 书的反射处理
+        book.setId(bookDTO.getId());
         book.setName(bookDTO.getName());
         book.setIsbn(bookDTO.getIsbn());
         book.setPrice(bookDTO.getPrice());
@@ -476,9 +484,5 @@ public class BookService {
     public void removeUserRating(Integer bookId, Integer userId) {
         // TODO 业务层验证“评论”是否存在 存在则删除
         this.bookMapper.removeUserRating(bookId, userId);
-    }
-    
-    public void updateBookById(Integer bookId, BookDTO bookDTO){
-        this.bookMapper.updateBookById(bookId, bookDTO);
     }
 }

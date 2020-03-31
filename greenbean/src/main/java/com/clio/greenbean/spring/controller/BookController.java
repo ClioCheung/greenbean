@@ -54,6 +54,13 @@ public class BookController {
         httpServletResponse.sendRedirect("addBookSuccess");
     }
     
+    @PutMapping(value="/book")
+    public void updateBook(BookDTO bookDTO, HttpServletResponse response) throws IOException {
+        // XXX 如果字段为空串，则设为null
+        this.bookService.updateBookById(bookDTO);
+        response.sendRedirect("book/" + bookDTO.getId());
+    }
+    
     @GetMapping(value="/addBookSuccess")
     public String addBookSuccess(){
         return "addBookSuccess";
@@ -95,16 +102,9 @@ public class BookController {
     public String editBook(@PathVariable Integer id, Model model){
         BookDTO bookDTO = this.bookService.getEditBookPage(id);
         model.addAttribute("bookDTO",bookDTO);
-        model.addAttribute("bookId",id);
         return "editBook";
     }
-    
-    @PostMapping(value="/book/{id}/updateBook")
-    public String updateBook(@PathVariable Integer id, BookDTO bookDTO){
-        this.bookService.updateBookById(id, bookDTO);
-        return "updateBookSuccess";
-    }
-    
+
     @PostMapping(value="/saveOrUpdateUserRating")
     public void saveOrUpdateUserRating(UserRatingDTO userRatingDto, HttpSession session, HttpServletResponse response) throws IOException {
         // TODO 验证表单是否为空 如userId为null

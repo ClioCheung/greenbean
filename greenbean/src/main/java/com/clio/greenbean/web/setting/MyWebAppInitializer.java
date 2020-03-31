@@ -2,8 +2,10 @@ package com.clio.greenbean.web.setting;
 
 import com.clio.greenbean.spring.configuration.DispatcherServletConfig;
 import com.clio.greenbean.spring.configuration.RootConfig;
+import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+import javax.servlet.Filter;
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletRegistration;
 
@@ -31,5 +33,12 @@ public class MyWebAppInitializer extends AbstractAnnotationConfigDispatcherServl
     protected void customizeRegistration(ServletRegistration.Dynamic registration) {
         // TODO 处理路径配置
         registration.setMultipartConfig(new MultipartConfigElement("/tmp"));
+    }
+    
+    @Override
+    protected Filter[] getServletFilters() {
+        return new Filter[] {
+            new HiddenHttpMethodFilter()
+        };
     }
 }

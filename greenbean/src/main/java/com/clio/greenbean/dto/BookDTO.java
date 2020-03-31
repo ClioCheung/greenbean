@@ -11,6 +11,7 @@ import java.util.List;
  * created by 吾乃逆世之神也 on 2020/2/12
  */
 public class BookDTO {
+    private Integer id;
     private String name;
     private String isbn;
     private List<String> author;
@@ -33,6 +34,7 @@ public class BookDTO {
     
     public BookDTO(Book book) {
         // XXX 反射 apache commons
+        this.id = book.getId();
         this.name = book.getName();
         this.isbn = book.getIsbn();
         this.publisher = book.getPublisher();
@@ -56,6 +58,14 @@ public class BookDTO {
         for(Translator translatorFormBook : book.getTranslators()) {
             this.translator.add(translatorFormBook.getName());
         }
+    }
+    
+    public Integer getId() {
+        return id;
+    }
+    
+    public void setId(Integer id) {
+        this.id = id;
     }
     
     public String getName() {

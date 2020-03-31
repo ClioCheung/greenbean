@@ -19,8 +19,8 @@
                 <h1>Update information about <span th:text="${bookDTO.name}"></span></h1>
             </div>
         </div>
-        <!-- XXX 待重构此action的地址  -->
-        <form method="post" th:action="@{/book/{id}/updateBook(id=${bookId})}">
+
+        <form method="post" th:action="@{/book}">
             <div class="row">
                 <div class="col-sm-8">
                     <div class="form-group row">
@@ -169,6 +169,9 @@
                     <div id="addBookQuestion">Tank you for helping Greenbean</div>
                 </div>
             </div>
+            <input type="hidden" name="id" th:value="${bookDTO.id}">
+            <!-- 后台设置添加一个Spring的过滤器HiddenHttpMethodFilter，对DispatcherServlet进行预处理提交方式为“put” -->
+            <input type="hidden" name="_method" value="put">
         </form>
     </div>
 

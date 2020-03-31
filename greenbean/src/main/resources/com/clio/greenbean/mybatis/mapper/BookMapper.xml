@@ -153,6 +153,6 @@
     </select>
     
     <update id="updateBookById">
-        update t_book set name = #{bookDTO.name}, publisher=#{bookDTO.publisher}, publish_year=#{bookDTO.publicationYear}, publish_month=#{bookDTO.publicationMonth}, publish_day=#{bookDTO.publicationDay}, price=#{bookDTO.price}, subtitle=#{bookDTO.subtitle}, original_name=#{bookDTO.originalName},  binding=#{bookDTO.binding},  page=#{bookDTO.page},  content_intro=#{bookDTO.contentIntro},  author_intro=#{bookDTO.authorIntro},  directory=#{bookDTO.directory} where id = #{bookId}
+        update t_book set name = #{name}, publisher=#{publisher}, publish_year=#{publishYear}, publish_month=#{publishMonth}, publish_day=#{publishDay}, price=#{price}, subtitle=#{subtitle}, original_name=#{originalName},  binding=#{binding},  page=#{page},  content_intro=#{contentIntro},  author_intro=#{authorIntro},  directory=#{directory} where id = #{id}
     </update>
 </mapper>
