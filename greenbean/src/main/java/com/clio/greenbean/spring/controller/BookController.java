@@ -14,6 +14,8 @@ import org.thymeleaf.util.StringUtils;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Iterator;
 import java.util.List;
 
@@ -55,10 +57,30 @@ public class BookController {
     }
     
     @PutMapping(value="/book")
-    public void updateBook(BookDTO bookDTO, HttpServletResponse response) throws IOException {
-        // XXX 如果字段为空串，则设为null
+    public void updateBook(BookDTO bookDTO, HttpServletResponse response) throws IOException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
+        removeBlankNames(bookDTO.getAuthor());
+        removeBlankNames(bookDTO.getTranslator());
+        this.setNullForBlankString(bookDTO);
+        
         this.bookService.updateBookById(bookDTO);
         response.sendRedirect("book/" + bookDTO.getId());
+    }
+    
+    private void setNullForBlankString(Object object) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+        Class<?> objectClass = object.getClass();
+        Method[] methods = objectClass.getDeclaredMethods();
+        for(Method method : methods){
+            String methodName = method.getName();
+            Class<?> returnType = method.getReturnType();
+            if(methodName.startsWith("get") && returnType.equals(String.class)){
+                String returnValue = (String)method.invoke(object);
+                if(returnValue != null && StringUtils.isEmptyOrWhitespace(returnValue)){
+                    String setter = "set" + methodName.substring(3);
+                    Method setterMethod = objectClass.getMethod(setter, String.class);
+                    setterMethod.invoke(object, new Object[]{null});
+                }
+            }
+        }
     }
     
     @GetMapping(value="/addBookSuccess")

@@ -92,8 +92,9 @@ public class BookService {
     @Transactional
     public void updateBookById(BookDTO bookDTO){
         Book book = this.generatedBook(bookDTO);
+        // XXX 没有修改过的字段不需要更新
         // TODO 更新作者/译者
-        this.bookMapper.updateBookById(book);
+        this.bookMapper.updateBookBasicInfoById(book);
     }
     
     public List<String> getAuthorSuggestion(String authorSuggestion){
