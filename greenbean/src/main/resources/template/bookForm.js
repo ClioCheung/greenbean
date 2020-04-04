@@ -1,8 +1,9 @@
 (function () {
     $(function(){
         bindAddButtonClickEvent();
-        initAutoComplete($('input[name="author"]'),'getAuthorSuggestion');
-        initAutoComplete($('input[name="translator"]'),'getTranslatorSuggestion');
+        //XXX url硬编码
+        initAutoComplete($('input[name="author"]'),'/greenbean/getAuthorSuggestion');
+        initAutoComplete($('input[name="translator"]'),'/greenbean/getTranslatorSuggestion');
         bindDateChangeEvent();
         setAddButtonPlace($('.addButton'));
     });
@@ -58,7 +59,9 @@
     
             cloneRowInput.val("");
             const inputName = cloneRowInput.attr("name");
-            let url = "get" + inputName.substr(0,1).toUpperCase()+ inputName.substr(1) + "Suggestion";
+            
+            //XXX url硬编码
+            let url = "/greenbean/get" + inputName.substr(0,1).toUpperCase()+ inputName.substr(1) + "Suggestion";
             // XXX update information : url --> book/{id}/url
             initAutoComplete(cloneRowInput,url);
             

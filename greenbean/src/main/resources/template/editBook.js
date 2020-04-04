@@ -6,7 +6,7 @@
     function bindCancelButtonClickEvent() {
         const cancelButton = $('#cancelButton');
         cancelButton.on('click',function () {
-            window.location.href="book/{id}";
+            window.history.back();
         });
     }
 })();

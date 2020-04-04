@@ -52,51 +52,26 @@ public class BookService {
     public void saveBook(BookDTO bookDTO){
         Book book = this.generatedBook(bookDTO);
         this.insertBookBasicInfo(book);
-        //XXX 待重构的代码
-        //XXX 作者和译者的重复代码
-        List<String> authorNames = bookDTO.getAuthor();
-        List<Integer> authorIds = new ArrayList<>();
-        for(String name : authorNames){
-            List<Integer> id = this.bookMapper.getAuthorIdByName(name);
-            if (id.size() >= 1) {
-                authorIds.add(id.get(0));
-            } else {
-                Author author = new Author();
-                author.setName(name);
-                this.bookMapper.insertAuthorByName(author);
-                authorIds.add(author.getId());
-            }
-        }
-        if(authorIds.size() > 0){
-            this.insertBookAuthor(book.getId(),authorIds);
-        }
-    
-        List<String> translatorNames = bookDTO.getTranslator();
-        List<Integer> translatorIds = new ArrayList<>();
-        for(String name : translatorNames){
-            List<Integer> id = this.bookMapper.getTranslatorIdByName(name);
-            if (id.size() >= 1) {
-                translatorIds.add(id.get(0));
-            } else {
-                Translator translator = new Translator();
-                translator.setName(name);
-                this.bookMapper.insertTranslatorByName(translator);
-                translatorIds.add(translator.getId());
-            }
-        }
-        if(translatorIds.size() > 0){
-            this.insertBookTranslator(book.getId(),translatorIds);
-        }
+        
+        Integer bookId = bookDTO.getId();
+        this.insertBookAuthor(bookDTO.getAuthor(), bookId);
+        this.insertBookTranslator(bookDTO.getTranslator(), bookId);
     }
     
     @Transactional
     public void updateBookById(BookDTO bookDTO){
         Book book = this.generatedBook(bookDTO);
         // XXX 没有修改过的字段不需要更新
-        // TODO 更新作者/译者
         this.bookMapper.updateBookBasicInfoById(book);
+        
+        Integer bookId = bookDTO.getId();
+        this.bookMapper.removeBookAuthorByBookId(bookId);
+        this.insertBookAuthor(bookDTO.getAuthor(), bookId);
+        
+        this.bookMapper.removeBookTranslatorByBookId(bookId);
+        this.insertBookTranslator(bookDTO.getTranslator(),bookId);
     }
-    
+   
     public List<String> getAuthorSuggestion(String authorSuggestion){
         return this.bookMapper.getAuthorSuggestion(authorSuggestion);
     }
@@ -112,6 +87,59 @@ public class BookService {
     public BookDTO getEditBookPage(Integer bookId){
         Book book = this.getBooksBaseInfoById(bookId);
         return new BookDTO(book);
+    }
+    
+    public void saveOrUpdateUserRating(UserRatingDTO userRatingDto) {
+        Integer bookId = userRatingDto.getBookId();
+        Integer userId = userRatingDto.getUserId();
+        if(this.isUserRatingExisted(bookId, userId)){
+            this.bookMapper.updateUserRating(userRatingDto);
+        } else {
+            this.bookMapper.insertUserRating(userRatingDto);
+        }
+    }
+    
+    public void removeUserRating(Integer bookId, Integer userId) {
+        // TODO 业务层验证“评论”是否存在 存在则删除
+        this.bookMapper.removeUserRating(bookId, userId);
+    }
+    
+    //XXX 待重构的代码
+    //XXX 抽取作者和译者的重复代码
+    private void insertBookAuthor(List<String> authorNames, Integer bookId){
+        List<Integer> authorIds = new ArrayList<>();
+        for(String name : authorNames){
+            List<Integer> id = this.bookMapper.getAuthorIdByName(name);
+            if (id.size() >= 1) {
+                authorIds.add(id.get(0));
+            } else {
+                Author author = new Author();
+                author.setName(name);
+                this.bookMapper.insertAuthorByName(author);
+                authorIds.add(author.getId());
+            }
+        }
+        if(authorIds.size() > 0){
+            this.insertBookAuthor(bookId, authorIds);
+        }
+    }
+    
+    private void insertBookTranslator(List<String> translatorNames, Integer bookId){
+        List<Integer> translatorIds = new ArrayList<>();
+        for(String name : translatorNames){
+            List<Integer> id = this.bookMapper.getTranslatorIdByName(name);
+            if (id.size() >= 1) {
+                translatorIds.add(id.get(0));
+            } else {
+                Translator translator = new Translator();
+                translator.setName(name);
+                this.bookMapper.insertTranslatorByName(translator);
+                translatorIds.add(translator.getId());
+            }
+        }
+        if(translatorIds.size() > 0){
+            this.insertBookTranslator(bookId, translatorIds);
+        }
     }
     
     private Book generatedBook(BookDTO bookDTO){
@@ -463,16 +491,6 @@ public class BookService {
         return percentageList;
     }
     
-    public void saveOrUpdateUserRating(UserRatingDTO userRatingDto) {
-        Integer bookId = userRatingDto.getBookId();
-        Integer userId = userRatingDto.getUserId();
-        if(this.isUserRatingExisted(bookId, userId)){
-           this.bookMapper.updateUserRating(userRatingDto);
-        } else {
-            this.bookMapper.insertUserRating(userRatingDto);
-        }
-    }
-    
     private boolean isUserRatingExisted(Integer bookId, Integer userId){
         int count = this.bookMapper.getUserRatingCount(bookId, userId);
         if(count > 0) {
@@ -481,9 +499,5 @@ public class BookService {
             return false;
         }
     }
-    
-    public void removeUserRating(Integer bookId, Integer userId) {
-        // TODO 业务层验证“评论”是否存在 存在则删除
-        this.bookMapper.removeUserRating(bookId, userId);
-    }
+ 
 }

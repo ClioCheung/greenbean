@@ -166,7 +166,9 @@
                     </div>
                 </div>
                 <div class="col-sm-4">
-                    <div id="addBookQuestion">Tank you for helping Greenbean</div>
+                    <div id="addBookQuestion">Tank you for helping Greenbean</div><br>
+                    <div><a th:href="@{/book/{id}(id=${bookDTO.id})}">&gt; Go to the details page of <span th:text="${bookDTO.name}"></span></a></div>
+                    <div><a href="#">&gt; Update this book's cover <span></span></a></div>
                 </div>
             </div>
             <input type="hidden" name="id" th:value="${bookDTO.id}">

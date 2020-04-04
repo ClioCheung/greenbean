@@ -60,4 +60,8 @@ public interface BookMapper {
     Integer getBookTypeCount(@Param("bookId") Integer bookId, @Param("type") Integer type);
     
     void updateBookBasicInfoById(Book book);
+    
+    void removeBookAuthorByBookId(Integer bookId);
+    
+    void removeBookTranslatorByBookId(Integer bookId);
 }
