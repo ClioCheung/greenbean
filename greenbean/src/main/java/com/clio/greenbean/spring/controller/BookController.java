@@ -127,6 +127,18 @@ public class BookController {
         return "editBook";
     }
 
+    @GetMapping(value="/book/{id}/updateBookPicture")
+    public String updateBookPicture(@PathVariable Integer id, Model model){
+        BookDTO bookDTO = this.bookService.getEditBookPage(id);
+        model.addAttribute("bookDTO",bookDTO);
+        return "updateBookPicture";
+    }
+    
+    @PostMapping(value = "/updateBookPicture")
+    public void updateBookPicture(){
+    
+    }
+    
     @PostMapping(value="/saveOrUpdateUserRating")
     public void saveOrUpdateUserRating(UserRatingDTO userRatingDto, HttpSession session, HttpServletResponse response) throws IOException {
         // TODO 验证表单是否为空 如userId为null

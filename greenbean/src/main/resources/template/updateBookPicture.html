@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Book Picture</title>
+    <link th:replace="fragments :: boostrapCSS">
+    <link th:replace="fragments :: fontAwesomeCSS">
+    <link th:replace="fragments :: headerCSS">
+    <link th:replace="fragments :: jqueryUICSS">
+    <link rel="stylesheet" th:href="@{/static/template/updateBookPicture.css}">
+</head>
+<body>
+    <header th:include="fragments :: header"></header>
+
+    <div class="container" id="updateBookPictureDiv">
+        <div class="row">
+            <div class="col-sm-12" id="updateBookPictureTitle">
+                <h1>Update Book Picture about <span th:text="${bookDTO.name}"></span></h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-8">
+                <form enctype="multipart/form-data" method="post" th:action="@{/updateBookPicture}">
+                    <div class="form-group">
+                        <label for="pictureInput">picture</label>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <img class="picture" th:if="${bookDTO.picture}" th:src="@{/static/picture/books/{picture}(picture=${bookDTO.picture})}">
+                                    <img class="picture" th:unless="${bookDTO.picture}" th:src="@{/static/pic/bookDefault.gif}">
+                                </div>
+                                <div class="col-sm-3">
+                                    <img class="picture" th:if="${bookDTO.picture}" th:src="@{/static/picture/books/{picture}(picture=${bookDTO.picture})}">
+                                    <img class="picture" th:unless="${bookDTO.picture}" th:src="@{/static/pic/bookDefault.gif}">
+                                </div>
+                                <div class="col-sm-7">
+                                    <input aria-describedby="picture" class="form-control-file" id="pictureInput" type="file">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" id="updateSettingsButton" type="submit">Update picture</button>
+                </form>
+            </div>
+            <div class="col-sm-4">
+                <div>Tank you for helping Greenbean</div><br>
+                <div><a th:href="@{/book/{id}(id=${bookDTO.id})}">&gt; Go to the details page of <span th:text="${bookDTO.name}"></span></a></div>
+                <div><a th:href="@{/book/{id}/edit(id=${bookDTO.id})}">&gt; Go back to this book's basic information<span></span></a></div>
+            </div>
+        </div>
+    </div>
+
+    <script th:replace="fragments :: jQueryJS"></script>
+    <script th:replace="fragments :: popperJS"></script>
+    <script th:replace="fragments :: bootstrapJS"></script>
+    <script th:replace="fragments :: headerJS"></script>
+    <script th:replace="fragments :: jqueryUIJS"></script>
+</body>
+</html>

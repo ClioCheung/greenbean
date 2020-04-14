@@ -21,6 +21,7 @@ public class BookDTO {
     private Integer publicationMonth;
     private Integer publicationDay;
     private float price;
+    private String picture;
     private String subtitle;
     private String originalName;
     private Integer binding;
@@ -42,6 +43,7 @@ public class BookDTO {
         this.publicationMonth = book.getPublishMonth();
         this.publicationDay = book.getPublishDay();
         this.price = book.getPrice();
+        this.picture = book.getPicture();
         this.subtitle = book.getSubtitle();
         this.originalName = book.getOriginalName();
         this.binding = book.getBinding();
@@ -106,6 +108,14 @@ public class BookDTO {
     
     public void setPrice(float price) {
         this.price = price;
+    }
+    
+    public String getPicture() {
+        return picture;
+    }
+    
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
     
     public String getPublisher() {
