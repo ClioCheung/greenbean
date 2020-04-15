@@ -11,17 +11,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * created by 吾乃逆世之神也 on 2020/1/2
@@ -29,7 +29,10 @@ import java.util.Map;
 @Service
 public class BookService {
     private BookMapper bookMapper;
-
+    
+    @Value("${picturesPath}")
+    private String picturePath;
+    
     @Autowired
     public BookService(BookMapper bookMapper) {
         this.bookMapper = bookMapper;
@@ -499,5 +502,22 @@ public class BookService {
             return false;
         }
     }
- 
+    
+    public void updateBookPicture(Integer bookId, MultipartFile picture) throws IOException {
+        String pictureOriginalName = picture.getOriginalFilename();
+        String randomUUID = UUID.randomUUID().toString();
+        String pictureExtensionName = pictureOriginalName.substring(pictureOriginalName.lastIndexOf("."));
+        String pictureName = randomUUID + pictureExtensionName;
+    
+        String homePath = System.getProperty("user.home").replaceAll("\\\\", "/");
+        String path = homePath + this.picturePath;
+        File pictureFolder = new File(path + "books/");
+        if(!pictureFolder.exists()){
+            pictureFolder.mkdir();
+        }
+        File pictureFileName = new File(pictureFolder, pictureName);
+        picture.transferTo(pictureFileName.toPath());
+    
+        this.bookMapper.updateBookPicture(bookId, pictureName);
+    }
 }

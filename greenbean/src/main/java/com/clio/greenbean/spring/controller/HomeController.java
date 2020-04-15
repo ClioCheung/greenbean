@@ -34,13 +34,10 @@ public class HomeController {
         this.myBookService = myBookService;
         this.userService = userService;
     }
-    
-    // XXX 解决与DispatcherServletConfig重复
-    @Value("${picturesPath}")
-    private String picturesPath;
-    
+  
     @RequestMapping(value="home")
     public String home(Model model, Principal principal){
+        //XXX 直接从session拿username即可，检查所有controller获取username或userId的方法
         String username = principal.getName();
         User user = userService.getUserByUsername(username);
         Integer userId = user.getId();
@@ -73,27 +70,9 @@ public class HomeController {
         String username = principal.getName();
         userService.updateUserNickname(username, nickname);
         session.setAttribute("userNickname", nickname);
-        String avatarFilename = null;
-        if(avatar != null) {
-            // 使用UUID替换原上传头像的名称,并保留原后缀名
-            String avatarOriginalFilename = avatar.getOriginalFilename();
-            String avatarExtensionName = avatarOriginalFilename.substring(avatarOriginalFilename.lastIndexOf('.'));
-            String uuid = UUID.randomUUID().toString();
-            avatarFilename = uuid + avatarExtensionName;
-            
-            String homePath = System.getProperty("user.home").replaceAll("\\\\", "/");
-            String path = homePath + picturesPath;
-            File avatarFolder = new File(path + "avatars/");
-            if(!avatarFolder.exists()){
-                avatarFolder.mkdir();
-            }
-            File avatarFile = new File(avatarFolder, avatarFilename);
-            // TODO delete old avatar
-            avatar.transferTo(avatarFile.toPath());
-            
-            userService.updateAvatar(username, avatarFilename);
-            session.setAttribute("userAvatar",avatarFilename);
-        }
+        //XXX 把上传图片抽取成公共方法或工具类
+        String avatarFilename = userService.updateAvatar(username, avatar);
+        session.setAttribute("userAvatar",avatarFilename);
         return avatarFilename;
     }
 }

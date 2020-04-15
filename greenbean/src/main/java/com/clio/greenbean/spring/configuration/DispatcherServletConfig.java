@@ -99,7 +99,7 @@ public class DispatcherServletConfig implements WebMvcConfigurer,ApplicationCont
         registry.addResourceHandler("/static/template/**").addResourceLocations("classpath:/template/");
         registry.addResourceHandler("/static/pic/**").addResourceLocations("classpath:/pic/");
         String homePath = System.getProperty("user.home").replace("\\", "/");
-        String path = "file:" + homePath + picturesPath;
+        String path = "file:" + homePath + this.picturesPath;
         registry.addResourceHandler("/static/picture/**").addResourceLocations(path);
     }
     

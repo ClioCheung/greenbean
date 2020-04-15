@@ -7,14 +7,14 @@
     <link th:replace="fragments :: fontAwesomeCSS">
     <link th:replace="fragments :: headerCSS">
     <link th:replace="fragments :: jqueryUICSS">
-    <link rel="stylesheet" th:href="@{/static/template/updateBookPicture.css}">
+    <link rel="stylesheet" th:href="@{/static/template/editBookPicture.css}">
 </head>
 <body>
     <header th:include="fragments :: header"></header>
 
-    <div class="container" id="updateBookPictureDiv">
+    <div class="container" id="editBookPictureDiv">
         <div class="row">
-            <div class="col-sm-12" id="updateBookPictureTitle">
+            <div class="col-sm-12" id="editBookPictureTitle">
                 <h1>Update Book Picture about <span th:text="${bookDTO.name}"></span></h1>
             </div>
         </div>
@@ -34,11 +34,13 @@
                                     <img class="picture" th:unless="${bookDTO.picture}" th:src="@{/static/pic/bookDefault.gif}">
                                 </div>
                                 <div class="col-sm-7">
-                                    <input aria-describedby="picture" class="form-control-file" id="pictureInput" type="file">
+                                    <input aria-describedby="picture" class="form-control-file" id="pictureInput" name="picture" type="file">
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <input type="hidden" name="id" th:value="${bookDTO.id}">
+                    <!-- XXX 优化按钮的位置 -->
                     <button class="btn btn-primary" id="updateSettingsButton" type="submit">Update picture</button>
                 </form>
             </div>

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.thymeleaf.util.StringUtils;
 
 import javax.servlet.http.HttpServletResponse;
@@ -127,16 +128,17 @@ public class BookController {
         return "editBook";
     }
 
-    @GetMapping(value="/book/{id}/updateBookPicture")
-    public String updateBookPicture(@PathVariable Integer id, Model model){
+    @GetMapping(value="/book/{id}/editBookPicture")
+    public String editBookPicture(@PathVariable Integer id, Model model){
         BookDTO bookDTO = this.bookService.getEditBookPage(id);
         model.addAttribute("bookDTO",bookDTO);
-        return "updateBookPicture";
+        return "editBookPicture";
     }
     
     @PostMapping(value = "/updateBookPicture")
-    public void updateBookPicture(){
-    
+    public void updateBookPicture(@RequestParam(value = "id")Integer id, @RequestParam(value = "picture") MultipartFile picture, HttpServletResponse response) throws IOException {
+        this.bookService.updateBookPicture(id, picture);
+        response.sendRedirect("book/" + id);
     }
     
     @PostMapping(value="/saveOrUpdateUserRating")

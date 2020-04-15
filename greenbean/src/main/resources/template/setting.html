@@ -18,7 +18,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-2 avatarWrapperDiv">
-                            <img alt="${session.userAvatar}" class="avatar" th:if="${session.userAvatar}" th:src="@{/static/picture/avatars/{userAvatar}(userAvatar=${session.userAvatar})}">
+                            <img class="avatar" th:if="${session.userAvatar}" th:src="@{/static/picture/avatars/{userAvatar}(userAvatar=${session.userAvatar})}">
                             <img alt="defaultAvatar" class="avatar" th:unless="${session.userAvatar}" th:src="@{/static/pic/userDefault.png}">
                         </div>
                         <div class="col-sm-3 avatarWrapperDiv">

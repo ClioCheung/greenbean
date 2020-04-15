@@ -163,4 +163,8 @@
     <delete id="removeBookTranslatorByBookId">
         delete from t_book_translator where book_id = #{bookId}
     </delete>
+    
+    <update id="updateBookPicture">
+        update t_book set picture = #{pictureName} where id = #{bookId}
+    </update>
 </mapper>

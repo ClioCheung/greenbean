@@ -1,0 +1,9 @@
+#editBookPictureDiv {
+    margin-top : 85px;
+}
+#editBookPictureTitle {
+    margin : 30px 0;
+}
+.picture {
+    max-width : 100%;
+}
